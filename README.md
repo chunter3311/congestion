@@ -32,4 +32,4 @@
 3. CD into `starter_app` and push your `Dockerfile` to heroku (this will build the Flask Dockerfile, and push): `$ heroku container:push web -a {NAME_OF_HEROKU_APP}`
 5. Release your docker container to heroku: `$ heroku container:release web -a {NAME_OF_HEROKU_APP}`
 6. Set up your database: `heroku run -a {NAME_OF_HEROKU_APP} {your_migration_script_here}`
-7. Profit.
+7. Profit
