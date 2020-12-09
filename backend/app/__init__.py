@@ -2,18 +2,27 @@ import os
 from flask import Flask, render_template, request, session
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf
+from app.auth import login_manager
 from flask_migrate import Migrate
 
 from .models import db, User
 from .api.user_routes import user_routes
+from .api.session import session
+# from .api.notes import notes
+# from .api.notebooks import notebooks
 
 from .config import Config
 
 app = Flask(__name__)
+
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
+app.register_blueprint(session, url_prefix='/api/session')
+# app.register_blueprint(notes, url_prefix='/api/notes')
+# app.register_blueprint(notebooks, url_prefix='/api/notebooks')
 db.init_app(app)
-Migrate(app, db)
+login_manager.init_app(app)
+migrate = Migrate(app, db)
 
 ## Application Security
 CORS(app)
@@ -32,7 +41,5 @@ def inject_csrf_token(response):
 def react_root(path):
     print("path", path)
     if path == 'favicon.ico':
-        print("favicon route_____")
         return app.send_static_file('favicon.ico')
-    print("index route_____")
     return app.send_static_file('index.html')

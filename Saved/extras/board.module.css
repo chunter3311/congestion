@@ -1,0 +1,107 @@
+
+
+.board_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://images.designtrends.com/wp-content/uploads/2015/12/15124822/Metal-Scratch-background.jpg") !important;
+    background-size: cover;
+    height: 100%;
+}
+
+.board {
+    background-image: url("https://textures.world/wp-content/uploads/2018/10/Aluminum-Brushed-Metal-Seamless-Background-Textures-1-copy-1.jpg") !important;
+    background-size: cover;
+    height: 804px;
+    width: 804px;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    height: 134px;
+    /* border: black solid 2px; */
+}
+
+.square {
+    /* background-color: blue; */
+    width: 100%;
+    border: rgb(129, 129, 129) solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+.square:hover {
+    background-color: black;
+}
+
+.block {
+    background-image: url("https://3.bp.blogspot.com/-hpwaqjUe6bo/Vhre_mbJdxI/AAAAAAAAIVo/U4ZeNT1Dwn4/s1600/Metal+floor+plate+dirty+texture+4770x3178.jpg") !important;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.exit {
+    background-image: url("https://images.onlinelabels.com/images/clip-art/jwalden/jwalden_Purple_arrow_shape.png") !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 30px;
+    position: relative;
+    bottom: 55px;
+    right: 10px;
+}
+
+.top_wrapper, .right_wrapper, .bottom_wrapper, .left_wrapper {
+    /* border: rgb(0, 0, 0) solid 1px; */
+    /* padding: 30px; */
+    width: 100%;
+    /* position: relative; */
+}
+
+.top {
+    background-color: white;
+    /* background-image: url("https://i.imgur.com/CKnPynY.png") !important;
+    background-size: contain;
+    background-repeat: no-repeat; */
+    padding: 15px;
+}
+
+.right {
+    background-color: white;
+    /* background-image: url("https://i.imgur.com/w3meg9j.png") !important;
+    background-size: contain;
+    background-repeat: no-repeat; */
+    padding: 15px;
+}
+
+.bottom {
+    background-color: white;
+    /* background-image: url("https://i.imgur.com/A7HbjeO.png") !important;
+    background-size: contain;
+    background-repeat: no-repeat; */
+    padding: 15px;
+}
+
+.left {
+    background-color: white;
+    /* background-image: url("https://i.imgur.com/N8kHUpj.png") !important;
+    background-size: contain;
+    background-repeat: no-repeat; */
+    padding: 15px;
+}
+
+.center {
+    display: flex;
+    width: 100%;
+    /* justify-content: center; */
+    /* height: 50%; */
+}
+
+.hide div {
+    visibility: hidden;
+}
