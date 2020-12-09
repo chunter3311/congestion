@@ -1,0 +1,221 @@
+.navbar_container {
+    background-color: #1a1a1a;
+    width: 230px;
+    padding: 10px 0;
+}
+
+.navbar_content {
+
+}
+
+/* ICONS */
+.note_button_icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 3px;
+    color: white;
+}
+
+.navlist_icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 3px;
+    color: #ccc;
+}
+
+.expanded_list_icon {
+    width: 15px;
+    height: 15px;
+    color: #ccc;
+    margin-right: 6px;
+}
+
+.username_icon {
+    width: 34px;
+    height: 28px;
+    /* margin-right: 3px; */
+    background-image: url('https://i.imgur.com/3rTCRGT.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navlist_icon_notebook {
+    width: 24px;
+    height: 24px;
+    color: #ccc;
+    position: relative;
+    left: -4px;
+}
+
+.toggle_icon {
+    width: 24px;
+    height: 24px;
+    color: #ccc;
+}
+
+.toggle_button {
+    position: relative;
+    margin-bottom: -4px;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.top_section {
+    
+}
+
+/* USER NAME */
+.username_content {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 34px;
+    margin: 0 0 20px 0;
+    padding: 14px;
+    text-overflow: ellipsis !important;
+    /* overflow: hidden;  */
+    white-space: nowrap !important;
+}
+
+.username_icon_wrapper {
+    margin-left: -1px;
+    margin-right: 4px;
+    border-radius: 50%;
+    padding: 4px 0;
+    background: rgb(214,62,125);
+    background: linear-gradient(180deg, rgba(214,62,125,1) 50%, rgba(41,113,175,1) 100%);
+}
+
+.user_toggle_icon {
+    font-size: 8px;
+    color: #ccc;
+    font-weight: 100;
+}
+
+.username_text {
+    font-size: 14px;
+    color: #ccc;
+    font-weight: 100;
+    margin: 0 10px 0 3px;
+    cursor: default;
+    text-overflow: ellipsis !important;
+    /* overflow: hidden !important;  */
+    white-space: nowrap !important;
+}
+
+/* .username_text:hover {
+    color: white;
+} */
+
+
+/* NOTE BUTTON */
+.note_button_content {
+    /* position: relative;
+    top: -55px;
+    z-index: 999999; */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 20px 13px 20px 13px;
+    padding: 11px;
+    background-color: #00a82d;
+    border-radius: 20px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.note_button_content:hover {
+    background-color: #008f26;
+}
+
+.new_note_button, 
+.navlinks button {
+    background: none;
+    outline: none;
+}
+
+.new_note_button {
+    line-height: 1.3em;
+    font-size: 14px;
+    color: white;
+    font-weight: normal;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+.new_note_button:hover {
+    color: white;
+}
+
+.navlinks {
+    cursor: pointer;
+    color: #ccc;
+    height: 100%;
+}
+
+
+.navlinks a {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.3em;
+    padding: 6px 4px;
+    cursor: pointer;
+}
+
+.navlinks a:hover,
+.expanded_list_items a:hover {
+    background-color: #333;
+}
+
+.extra_navlinks a:hover {
+    color: white;
+    background: none !important;
+}
+
+.expanded_list_items a {
+    padding: 5px 4px 5px 44px !important;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+    color: #ccc;
+    line-height: 1.3em;
+}
+
+.active {
+    background-color: #404040 !important;
+    color: white !important;
+}
+
+.active_extra {
+    /* background-color: none !important; */
+    color: white !important;
+}
+
+.push_right {
+    margin-left: 20px;
+}
+
+.navlink_text {
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    white-space: nowrap;
+}
+
+.extra_navlinks {
+    position: fixed;
+    bottom: 10px;
+}
+
+.extra_navlist_icon {
+    margin-right: 5px;
+}
+
+.extra_navlinks a {
+    
+}

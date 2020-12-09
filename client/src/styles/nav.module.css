@@ -1,0 +1,27 @@
+.nav_link {
+    color: black;
+    
+}
+
+a {
+    font-size: 22px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.selected, a:hover {
+    color: white;
+}
+
+.nav_wrapper {
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.separator {
+    
+}
