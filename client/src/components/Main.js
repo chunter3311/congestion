@@ -1,15 +1,20 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import styles from '../styles/main.module.css';
 
 
 
 const Main = () => {
+    const user = useSelector(state => state.entities.users[state.session.user_id]);
     return (
-        <>
-        {/* <NavLink to="/">Home</NavLink>
-        <NavLink to="/my-puzzles">my puzzles</NavLink> */}
-        <h1>Main</h1>
-        </>
+        <div className={`${styles.background}`}>
+            <div className={`${styles.wrapper}`}>
+                <div className={`${styles.user_name}`}>
+                    {user ? `welcome, ${user.username}` : ""}
+                </div>
+            </div>
+        </div >
     );
 }
 export default Main;

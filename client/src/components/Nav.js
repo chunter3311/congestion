@@ -17,23 +17,22 @@ const Nav = ({ history, user_id, path, component }) => {
         e.preventDefault();
         const res = await dispatch(logout());
         if (res.ok) {
-            history.replace("/log-in")
+            history.replace("/")
         }
         return;
     }
 
     return (
-        <div className={styles.nav_wrapper}>
-            {/* {user ? user.username : ""} */}
-            <NavLink className={styles.nav_link} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
-            <NavLink className={styles.nav_link} to="/my-puzzles" activeClassName={styles.selected}>my puzzles</NavLink>
+        <div className={`${styles.background} ${styles.nav_wrapper}`}>
+            <NavLink className={styles.nav_link_large} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
+            {user ? <NavLink className={styles.nav_link} to="/my-puzzles" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
             <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink>
+            <NavLink className={styles.nav_link} to="/test" activeClassName={styles.selected}>test</NavLink>
             <div className={styles.separator}></div>
             <NavLink className={styles.nav_link} to="/how-to-play" activeClassName={styles.selected}>how to play</NavLink>
-            <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink>
-            <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink>
+            {!user ? <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink> : ""}
+            {!user ? <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink> : ""}
             {user ? <a onClick={handleLogout}><div className={styles.navlink_text}>log out</div></a> : ""}
-            
         </div>
     )
 }

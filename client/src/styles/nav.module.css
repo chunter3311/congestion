@@ -1,24 +1,38 @@
 .nav_link {
-    color: black;
     
 }
 
+.background {
+    background-image: url("https://i.imgur.com/O4K5QdJ.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.nav_link_large {
+    font-size: 100px;
+}
+
 a {
-    font-size: 22px;
+    color: black;
+    font-size: 55px;
+    font-weight: bold;
     text-decoration: none;
     cursor: pointer;
 }
 
 .selected, a:hover {
     color: white;
+    text-shadow: 5px 5px 15px black;
 }
 
 .nav_wrapper {
     background-color: yellow;
     display: flex;
     flex-direction: column;
-    width: 20%;
-    justify-content: space-evenly;
+    width: 70%;
+    padding: 150px 0px;
+    line-height: 0;
+    justify-content: space-around;
     align-items: center;
 }
 

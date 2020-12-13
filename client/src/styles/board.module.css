@@ -1,0 +1,74 @@
+.board_wrapper {
+    background-image: url("https://images.designtrends.com/wp-content/uploads/2015/12/15124822/Metal-Scratch-background.jpg") !important;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.column_one, .column_three {
+    width: 20%;
+}
+
+.column_two {
+    width: 60%;
+}
+
+.board_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-image: url("https://images.designtrends.com/wp-content/uploads/2015/12/15124822/Metal-Scratch-background.jpg") !important;
+    background-size: cover;
+    height: 100vh; */
+}
+
+.board {
+    background-image: url("https://textures.world/wp-content/uploads/2018/10/Aluminum-Brushed-Metal-Seamless-Background-Textures-1-copy-1.jpg") !important;
+    background-size: cover;
+    height: 804px;
+    width: 804px;
+    display: flex;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    height: 134px;
+    /* border: black solid 2px; */
+}
+
+.square {
+    /* background-color: blue; */
+    width: 100%;
+    border: rgb(129, 129, 129) solid 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* flex-wrap: wrap; */
+}
+
+.square:hover {
+    background-color: black;
+}
+
+.block {
+    background-image: url("https://3.bp.blogspot.com/-hpwaqjUe6bo/Vhre_mbJdxI/AAAAAAAAIVo/U4ZeNT1Dwn4/s1600/Metal+floor+plate+dirty+texture+4770x3178.jpg") !important;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.hide div {
+    visibility: hidden;
+}
+
+.padding {
+    padding: 200px;
+}
+
+p {
+    font-size: 50px;
+}

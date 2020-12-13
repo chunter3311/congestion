@@ -9,11 +9,11 @@ import Main from './Main';
 // import About from './About';
 
 function MainContent({ match }) {
-    const user = useSelector(state => state.entities.users[state.session.user_id]);
+    // const user = useSelector(state => state.entities.users[state.session.user_id]);
     return (
         <div className={styles.full_width}>
             {/* <h1>Main Content</h1> */}
-            {user ? user.username : ""}
+            {/* {user ? user.username : ""} */}
             <Route path={match.url + "my-puzzles"} exact component={MyPuzzles} />
             <Route path={match.url} exact component={Main} />
             {/* <Route path={match.url + "notebooks"} exact component={Notebooks} />
