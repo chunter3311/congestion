@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
-import styles from '../styles/shared.module.css';
+import styles from '../styles/global.module.css';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import MyPuzzles from './MyPuzzles';
 import Main from './Main';
@@ -8,7 +8,7 @@ import Main from './Main';
 // import Notes from './Notes';
 // import About from './About';
 
-function MainContent({ match }) {
+function LoggedInPageContent({ match }) {
     // const user = useSelector(state => state.entities.users[state.session.user_id]);
     return (
         <div className={styles.full_width}>
@@ -23,4 +23,4 @@ function MainContent({ match }) {
         </div>
     );
 }
-export default withRouter(MainContent);
+export default withRouter(LoggedInPageContent);

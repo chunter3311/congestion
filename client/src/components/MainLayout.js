@@ -1,15 +1,16 @@
 import React from 'react';
+
+import SplashPage from './SplashPage';
+
 import { useSelector } from 'react-redux';
 
-
-const Shared = () => {
+const MainLayout = () => {
     const user = useSelector(state => state.entities.users[state.session.user_id]);
-    console.log(user);
     return (
         <>
-            <h1>Shared</h1>
             {user ? `welcome, ${user.username}` : "welcome"}
+            <SplashPage />
         </>
     );
 }
-export default Shared;
+export default MainLayout;

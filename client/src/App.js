@@ -1,19 +1,18 @@
+// import {setSelectedNotebook, setActiveNote, loadSession} from './store/session';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// import {setSelectedNotebook, setActiveNote, loadSession} from './store/session';
 import { loadSession } from './store/session';
-// import UserList from './components/UsersList';
 import SignUpForm from './components/SignUpForm'
 import LoginForm from './components/LoginForm';
 import AuthRoute from './components/AuthRoute';
-import Home from './components/Home';
-import Play from './components/Play';
+import MainLayout from './components/MainLayout-old';
+import QuickPlay from './components/QuickPlay';
 import Shared from './components/Shared';
 import HowToPlay from './components/HowToPlay';
-import UsersList from './extras/UsersList';
-import Nav from './components/Nav';
-import styles from './styles/home.module.css';
+import SplashPage from './components/SplashPage';
+import LoggedOutLayout from './components/LoggedOutLayout';
+import LoggedInLayout from './components/LoggedInLayout';
 
 
 function App() {
@@ -45,29 +44,28 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
+                <Route exact path="/">
+                    <LoggedOutLayout />
+                </Route>
                 <Route exact path="/quick-play">
-                    <Play />
+                    <LoggedOutLayout />
                 </Route>
                 <Route exact path="/shared">
-                    <Shared />
+                    <LoggedOutLayout />
                 </Route>
                 <Route exact path="/how-to-play">
-                    <HowToPlay />
+                    <LoggedOutLayout />
                 </Route>
                 <Route exact path="/log-in">
-                    <div className={styles.special_wrapper}>
-                        <LoginForm />
-                        <Nav />
-                    </div>
+                    <LoginForm />
+                    {/* <LoggedOutLayout /> */}
                 </Route>
                 <Route exact path="/join">
-                    <div className={styles.special_wrapper}>
-                        <SignUpForm />
-                        <Nav />
-                    </div>
+                    <LoggedOutLayout />
                 </Route>
-                <AuthRoute path="/" component={Home} />
+                <AuthRoute path="/" component={LoggedInLayout} />
             </Switch>
+
         </BrowserRouter>
     );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Board from './Board';
+import styles from '../styles/global.module.css';
 // import Block from '../classes/Block';
 // import Game from '../classes/Block';
 // import CreateBlocks from '../classes/Block';
@@ -8,6 +9,7 @@ import Board from './Board';
 // import {Block, Game, CreateBlocks} from '../classes/Block';
 
 import {CreateBlocks, Game} from '../classes/Block';
+import Nav from './Nav';
 
 const layout = [[
     [1,1,1,2,3,4],
@@ -23,11 +25,12 @@ CreateBlocks(layout, game);
 
 console.log(game.blocks);
 
-const Play = () => {
+const QuickPlay = () => {
     return (
         <>
             <Board />
+            <Nav />
         </>
     );
 }
-export default Play;
+export default QuickPlay;

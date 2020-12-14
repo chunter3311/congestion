@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import MainContent from './MainContent';
+import LoggedInPageContent from './LoggedInPageContent';
 import styles from '../styles/home.module.css';
 // import MoveNoteModal from './MoveNoteModal';
 // import EmptyTrashModal from './EmptyTrashModal';
@@ -13,7 +13,7 @@ import { setUserInfo } from '../store/users';
 import Nav from './Nav';
 
 // function Home({ userId, selectedNotebookId, notes, notebooks, defaultNotebookId }) {
-function Home({ userId }) {
+function MainLayout({ userId }) {
     const dispatch = useDispatch();
     
     // const { editorFullscreen: { isFullscreen: editorFullscreen } } = useSelector(state => state.ui);
@@ -50,8 +50,7 @@ function Home({ userId }) {
                 {/* {noteMoveModal ? <MoveNoteModal /> : <></>}
                 {emptyTrashModal ? <EmptyTrashModal /> : <></>}
                 {editorFullscreen ? <></> : <Navbar />} */}
-                <MainContent />
-                {/* <Navbar /> */}
+                <LoggedInPageContent />
                 <Nav />
             </div>
         </>
@@ -67,4 +66,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(MainLayout);
