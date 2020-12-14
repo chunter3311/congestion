@@ -9,7 +9,7 @@ function Board() {
     return (
         <div className={styles.board_wrapper}>
             <div className={styles.column_one}>
-                <NavLink className={navStyles.nav_link_large} to="/" activeClassName={navStyles.selected}>home</NavLink>
+
             </div>
             <div className={styles.column_two}>
                 <div className={styles.board_container}>

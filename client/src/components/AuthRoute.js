@@ -1,11 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
+import LoggedInLayout from './LoggedInLayout';
+import LoggedInPageContent from './LoggedInPageContent';
 import SplashPage from './SplashPage';
 
 const AuthRoute = ({ user_id, path, component }) => {
     if (!user_id) {
-        return <SplashPage />
+        return (
+            <>
+                <Redirect to='/' />
+                <LoggedInLayout />
+            </>
+
+        )
         // return (
         //     <>
         //         <Redirect to='/' />

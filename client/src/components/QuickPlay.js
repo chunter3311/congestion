@@ -29,7 +29,6 @@ const QuickPlay = () => {
     return (
         <>
             <Board />
-            <Nav />
         </>
     );
 }

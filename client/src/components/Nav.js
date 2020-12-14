@@ -27,9 +27,10 @@ const Nav = ({ history, user_id, path, component }) => {
                     {user ? `welcome, ${user.username}` : "welcome"}
                 </div>
                 <div className={`${styles.icons}`}>
-                    <a className={`${styles.home}`}></a>
-                    <a className={`${styles.github}`}></a>
-                    <a className={`${styles.info}`}></a>
+                    <a href="/" className={`${styles.home}`}></a>
+                    <a href="https://github.com/chunter3311/congestion" target="_blank" className={`${styles.github}`}></a>
+                    <NavLink className={styles.info} to="/about" activeClassName={styles.selected}></NavLink>
+                    {/* <a href="" className={`${styles.info}`}></a> */}
                 </div>
             </div>
             <div className={`${styles.nav_wrapper}`}>
