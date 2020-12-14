@@ -8,8 +8,8 @@ import SplashPage from './SplashPage';
 function LoggedInPageContent({ match }) {
     return (
         <>
-            <Route path={match.url} exact component={SplashPage} />
-            <Route path={match.url + "my-puzzles"} exact component={MyPuzzles} />
+            <Route path="/" exact component={SplashPage} />
+            <Route path="/my-puzzles" exact component={MyPuzzles} />
         </>
     );
 

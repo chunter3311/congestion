@@ -57,8 +57,7 @@ function App() {
                     <LoggedOutLayout />
                 </Route>
                 <Route exact path="/log-in">
-                    <LoginForm />
-                    {/* <LoggedOutLayout /> */}
+                    <LoggedOutLayout />
                 </Route>
                 <Route exact path="/join">
                     <LoggedOutLayout />
