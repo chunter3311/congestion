@@ -1,45 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import { login } from '../store/session';
-import styles from '../styles/auth.module.css';
+import React, { useState, useEffect } from "react"
+import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from "../../store/users.js";
+import { login } from "../../store/session.js";
+import { withRouter } from 'react-router-dom';
+import styles from '../../styles/auth.module.css';
 
-const LoginForm = ({ history }) => {
-    const [emailOrUsername, setEmailOrUsername] = useState("");
-    const [password, setPassword] = useState("");
+
+const SignUpForm = ({ history }) => {
+
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         setErrors([]);
-    }, [emailOrUsername, password]);
+    }, [email, username, password]);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const res = await dispatch(login(emailOrUsername, password))
-
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        const res = await dispatch(signup(username, email, password));
+        console.log("signup res", res)
         if (res.ok) {
-            history.replace('/');
+            await dispatch(login(username, password));
+            history.replace("/")
             return;
         }
 
         setErrors(res.data.errors);
     }
 
-    const onEmailOrUsernameChange = (event) => {
-        setEmailOrUsername(event.target.value);
-    }
-
-    const onPasswordChange = (event) => {
-        setPassword(event.target.value);
-
-    }
-
     const demoUserClick = async (event) => {
         event.preventDefault();
 
-        const res = await dispatch(login("demo", "password"))
+        const res = await dispatch(login("demo@demo.com", "password"))
 
         if (res.ok) {
             history.replace('/');
@@ -68,14 +65,12 @@ const LoginForm = ({ history }) => {
                         <div className={styles.divider_line}></div>
                     </div>
                     <div className={styles.login_form_container}>
-                        <form method="" action="" onSubmit={handleSubmit}>
-                            <div>
-                                <input placeholder="Email or Username" type="text" name="email_or_username" value={emailOrUsername} className={styles.auth_input} onChange={onEmailOrUsernameChange} />
-                            </div>
-                            <div>
-                                <input placeholder="Password" type="password" name="password" value={password} className={styles.auth_input} onChange={onPasswordChange} />
-                            </div>
-                            <div className={styles.login_form_error_container}>
+
+                        <form onSubmit={submitHandler}>
+                            <input name="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} className={styles.auth_input} placeholder='Username' />
+                            <input name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={styles.auth_input} placeholder='Email' />
+                            <input name="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.auth_input} placeholder='Password' />
+                            <div className={styles.login_form_error_container} >
                                 {errors.length ?
                                     <ul className={styles.auth_error_list}>
                                         {errors.map((error, i) => <li className={styles.error_message} key={`error-${i + 1}`}>{error}</li>)}
@@ -87,16 +82,16 @@ const LoginForm = ({ history }) => {
                     </div>
                     <div className={styles.form_footer}>
                         <div className={styles.footer_tagline}>
-                            Don't have an account?
+                            Already have an account?
                     </div>
                         <div className={styles.footer_cta_wrapper}>
-                            <Link className={styles.footer_cta} to='/join'>Create account</Link>
+                            <Link className={styles.footer_cta} to='/log-in'>Sign in</Link>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default withRouter(LoginForm);
+export default withRouter(SignUpForm)

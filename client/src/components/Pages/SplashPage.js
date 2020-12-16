@@ -1,8 +1,5 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
-import styles from '../styles/global.module.css';
-import splash from '../styles/splash.module.css';
-import Nav from './Nav';
+import splash from '../../styles/splash.module.css';
 
 
 

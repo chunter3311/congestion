@@ -1,0 +1,70 @@
+.block_container {
+    width: 16.667%;
+    height: 16.667%;
+    position: absolute;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.negativeMove {
+    /* background-color: blue; */
+    height: 100%;
+    width: 100%;
+}
+
+.positiveMove {
+    /* background-color: green; */
+    height: 100%;
+    width: 100%;
+}
+
+/* .negativeMove:hover, .positiveMove:hover {
+    background-image: url('https://i.imgur.com/PMyWP0J.png');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: contain;
+    border-width: 18px 18px 18px 18px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    width: 80%;
+
+    animation-duration: 0.8s;
+    animation-name: changearrow;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+} */
+
+@keyframes changearrow {
+    from {
+      opacity: 0.4;
+      width: 50%;
+    }
+  
+    to {
+        opacity: 0.6;
+        width: 70%;
+    }
+  }
+
+.negativeMove, .positiveMove {
+    /* transition: opacity 0.5s ease-in-out;
+    opacity: 100; */
+}
+
+.moveContainer {
+    width: 100%;
+    height: 100%;
+    /* background-color: rgba(255, 255, 0, 0.514); */
+    display: flex;
+    flex-direction: column;
+}
+
+.blockLabel {
+    /* background-color: green;
+    height: 50%;
+    width: 50%; */
+}

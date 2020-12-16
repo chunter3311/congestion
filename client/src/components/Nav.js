@@ -1,9 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { Redirect, Route, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { logout } from '../store/session';
 import styles from '../styles/nav.module.css';
-
 
 
 
@@ -24,11 +23,12 @@ const Nav = ({ history, user_id, path, component }) => {
         <div className={`${styles.background} ${styles.nav_container}`}>
             <div className={`${styles.nav_topbar}`}>
                 <div className={`${styles.user_name}`}>
-                    {user ? `welcome, ${user.username}` : "welcome"}
+                    {user ? `welcome, ${user.username}` : ""}
+                    {/* {user ? `${user.username}` : ""} */}
                 </div>
                 <div className={`${styles.icons}`}>
                     <a href="/" className={`${styles.home}`}></a>
-                    <a href="https://github.com/chunter3311/congestion" target="_blank" className={`${styles.github}`}></a>
+                    <a href="https://github.com/chunter3311/congestion" target="_blank" rel="noopener noreferrer" className={`${styles.github}`}></a>
                     <NavLink className={styles.info} to="/about" activeClassName={styles.selected}></NavLink>
                     {/* <a href="" className={`${styles.info}`}></a> */}
                 </div>

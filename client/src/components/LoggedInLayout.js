@@ -21,8 +21,8 @@ function LoggedInLayout({ userId }) {
     // const emptyTrashModal = useSelector(state => state.ui.showEmptyTrash);
 
     useEffect(() => {
-        // const getNotes = async () => {
-        //     await dispatch(setUserNotes(userId));
+        // const getBlocks = async () => {
+        //     await dispatch(setBlocks(userId));
         // }
         // const getTrash = async () => {
         //     await dispatch(setUserTrash(userId));

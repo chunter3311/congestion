@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
-import MyPuzzles from './MyPuzzles';
-import SplashPage from './SplashPage';
+import MyPuzzles from './Pages/MyPuzzles';
+import SplashPage from './Pages/SplashPage';
 
 
 function LoggedInPageContent({ match }) {

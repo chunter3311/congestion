@@ -1,14 +1,6 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Board from './Board';
-import styles from '../styles/global.module.css';
-// import Block from '../classes/Block';
-// import Game from '../classes/Block';
-// import CreateBlocks from '../classes/Block';
-
-// import {Block, Game, CreateBlocks} from '../classes/Block';
-
-import {CreateBlocks, Game} from '../classes/Block';
+import {CreatePuzzle, Game} from '../classes/GameFunctions';
 import Nav from './Nav';
 
 const layout = [[
@@ -21,9 +13,8 @@ const layout = [[
 ], 6];
 
 const game = new Game();
-CreateBlocks(layout, game);
+CreatePuzzle(layout, game);
 
-console.log(game.blocks);
 
 const Play = () => {
     return (

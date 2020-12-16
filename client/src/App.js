@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 // import {setSelectedNotebook, setActiveNote, loadSession} from './store/session';
 import { loadSession } from './store/session';
 // import UserList from './components/UsersList';
-import SignUpForm from './components/SignUpForm'
-import LoginForm from './components/LoginForm';
+import SignUpForm from './components/Pages/SignUpForm'
+import LoginForm from './components/Pages/LoginForm';
 import AuthRoute from './components/AuthRoute';
-import QuickPlay from './components/QuickPlay';
-import Shared from './components/Shared';
-import HowToPlay from './components/HowToPlay';
+import QuickPlay from './components/Pages/QuickPlay';
+import Shared from './components/Pages/Shared';
+import HowToPlay from './components/Pages/HowToPlay';
 import UsersList from './extras/UsersList';
 import Nav from './components/Nav';
 import LoggedInLayout from './components/LoggedInLayout';
 // import styles from './styles/home.module.css';
 import styles from './styles/global.module.css';
 import LoggedInPageContent from './components/LoggedInPageContent';
-import About from './components/About';
+import About from './components/Pages/About';
 
 
 function App() {
@@ -115,28 +115,3 @@ function App() {
 }
 
 export default App;
-
-
-{/* <BrowserRouter>
-            <Switch>
-                <Route exact path="/">
-                    <LoggedOutLayout />
-                </Route>
-                <Route exact path="/quick-play">
-                    <LoggedOutLayout />
-                </Route>
-                <Route exact path="/shared">
-                    <LoggedOutLayout />
-                </Route>
-                <Route exact path="/how-to-play">
-                    <LoggedOutLayout />
-                </Route>
-                <Route exact path="/log-in">
-                    <LoggedOutLayout />
-                </Route>
-                <Route exact path="/join">
-                    <LoggedOutLayout />
-                </Route>
-                <AuthRoute path="/" component={LoggedInLayout} />
-            </Switch>
-        </BrowserRouter> */}
