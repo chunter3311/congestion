@@ -1,12 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { Redirect, Route, NavLink, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { logout } from '../store/session';
 import styles from '../styles/nav.module.css';
-// import HomeLoggedOut from './HomeLoggedOut';
-// import Home from './Home';
-// import NavbarLoggedOut from './NavbarLoggedOut';
-// import MainContentLoggedOut from './MainContentLoggedOut';
+
 
 
 const Nav = ({ history, user_id, path, component }) => {
@@ -17,23 +14,36 @@ const Nav = ({ history, user_id, path, component }) => {
         e.preventDefault();
         const res = await dispatch(logout());
         if (res.ok) {
-            history.replace("/log-in")
+            history.replace("/")
         }
         return;
     }
 
     return (
-        <div className={styles.nav_wrapper}>
-            {/* {user ? user.username : ""} */}
-            <NavLink className={styles.nav_link} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
-            <NavLink className={styles.nav_link} to="/my-puzzles" activeClassName={styles.selected}>my puzzles</NavLink>
-            <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink>
-            <div className={styles.separator}></div>
-            <NavLink className={styles.nav_link} to="/how-to-play" activeClassName={styles.selected}>how to play</NavLink>
-            <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink>
-            <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink>
-            {user ? <a onClick={handleLogout}><div className={styles.navlink_text}>log out</div></a> : ""}
-            
+        <div className={`${styles.background} ${styles.nav_container}`}>
+            <div className={`${styles.nav_topbar}`}>
+                <div className={`${styles.user_name}`}>
+                    {user ? `welcome, ${user.username}` : ""}
+                    {/* {user ? `${user.username}` : ""} */}
+                </div>
+                <div className={`${styles.icons}`}>
+                    <a href="/" className={`${styles.home}`}></a>
+                    <a href="https://github.com/chunter3311/congestion" target="_blank" rel="noopener noreferrer" className={`${styles.github}`}></a>
+                    <NavLink className={styles.info} to="/about" activeClassName={styles.selected}></NavLink>
+                    {/* <a href="" className={`${styles.info}`}></a> */}
+                </div>
+            </div>
+            <div className={`${styles.nav_wrapper}`}>
+                <NavLink className={styles.nav_link_large} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
+                {user ? <NavLink className={styles.nav_link} to="/my-puzzles" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
+                <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink>
+                <NavLink className={styles.nav_link} to="/my-puzzles/builder" activeClassName={styles.selected}>build</NavLink>
+                <div className={styles.separator}></div>
+                <NavLink className={styles.nav_link} to="/how-to-play" activeClassName={styles.selected}>how to play</NavLink>
+                {!user ? <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink> : ""}
+                {!user ? <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink> : ""}
+                {user ? <a onClick={handleLogout}><div className={styles.navlink_text}>log out</div></a> : ""}
+            </div>
         </div>
     )
 }

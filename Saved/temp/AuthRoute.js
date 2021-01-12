@@ -1,23 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-import LoggedInLayout from './LoggedInLayout';
+import MainLayout from './MainLayout';
 
 const AuthRoute = ({ user_id, path, component }) => {
     if (!user_id) {
         return (
             <>
                 <Redirect to='/' />
-                <LoggedInLayout />
+                <MainLayout />
             </>
-
         )
-        // return (
-        //     <>
-        //         <Redirect to='/' />
-        //         <SplashPage />
-        //     </>
-        // )
     }
 
     return <Route path={path} component={component} />

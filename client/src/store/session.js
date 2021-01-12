@@ -5,7 +5,7 @@ const SET_USER = 'session/SET_USER';
 const LOGOUT_USER = 'session/LOGOUT_USER';
 // const SET_SELECTED_NOTEBOOK = 'session/SET_SELECTED_NOTEBOOK';
 // const SET_NOTE_LIST = "session/SET_NOTE_LIST";
-// const SET_ACTIVE_NOTE = "session/SET_ACTIVE_NOTE";
+// const SET_TEST = "session/SET_TEST";
 
 // export const setNoteList = (noteListType, id, display) => {
 //     return {
@@ -96,6 +96,7 @@ export const loadSession = () => {
 
 const initialSessionState = {
     user_id: null
+    // test: null
     // selectedNotebookId: null,
     // defaultNotebookId: null,
     // noteList: {
@@ -130,8 +131,8 @@ export default function sessionReducer(state = initialSessionState, action) {
         //     };
         //     newState.noteList = newNoteList;
         //     return newState;
-        // case SET_ACTIVE_NOTE:
-        //     localStorage.setItem('activeNote', action.noteId)
+        // case SET_TEST:
+        //     localStorage.setItem('test', action.noteId)
         //     newState.activeNote = action.noteId;
         //     return newState;
         default:
