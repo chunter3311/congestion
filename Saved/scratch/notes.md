@@ -18,3 +18,25 @@
         <p>Test</p>
     </div>
 </body>
+
+
+
+
+.background {
+    height: 100vh;
+    /* background-image: url("https://i.imgur.com/Gt2zGiY.jpg");
+    background-repeat: no-repeat;
+    background-size: cover; */
+    background-color: blue;
+}
+
+.user_name {
+    color: white;
+    text-shadow: 5px 5px 15px black;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.wrapper {
+    /* padding: 50px; */
+}

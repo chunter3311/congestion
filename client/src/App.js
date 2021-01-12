@@ -17,6 +17,7 @@ import LoggedInLayout from './components/LoggedInLayout';
 import styles from './styles/global.module.css';
 import LoggedInPageContent from './components/LoggedInPageContent';
 import About from './components/Pages/About';
+import Builder from './components/Pages/Builder';
 
 
 function App() {
@@ -48,6 +49,16 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
+            <Route exact path="/my-puzzles/builder">
+                    <div className={`${styles.view_height_flex} ${styles.background}`}>
+                        <div className={`${styles.page_content_container}`}>
+                            <Builder />
+                        </div>
+                        <div className={`${styles.nav_content_container}`}>
+                            <Nav />
+                        </div>
+                    </div>
+                </Route>
                 <Route exact path="/quick-play">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>

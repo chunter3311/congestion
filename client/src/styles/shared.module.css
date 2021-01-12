@@ -1,0 +1,104 @@
+.container {
+    position: absolute;
+    bottom: 50%;
+    right: 50%;
+    width: 16.667%;
+    height: 16.667%;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-position: center;
+    background-image: url("https://i.imgur.com/n07UANE.png");
+    position: relative;
+    bottom: -300px;
+
+    /* opacity: 1;
+    transition-property: opacity;
+    transition-duration: 4s;
+    transition-delay: 0s; */
+
+    cursor: pointer;
+    animation-duration: 1s;
+    animation-name: rumble;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    /* animation-fill-mode: alternate; */
+    animation-timing-function: ease-in-out;
+    
+    
+}
+
+/* .image:hover {
+    cursor: pointer;
+    animation-duration: 0.1s;
+    animation-name: rumble;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+} */
+
+@keyframes rumble {
+    from {
+        /* bottom: -300px; */
+        width: 100%;
+    }
+
+    to {
+        /* bottom: 300px; */
+        width: 60%;
+    }
+}
+
+.negativeMove, .positiveMove {
+    height: 100%;
+    width: 100%;
+}
+
+/* @keyframes changeposition {
+    from {
+        top: default;
+    }
+
+    to {
+        top: 0;
+    }
+} */
+
+
+/* @keyframes changearrow {
+    from {
+      opacity: 0.4;
+      width: 50%;
+    }
+  
+    to {
+        opacity: 0.6;
+        width: 70%;
+    }
+} */
+
+
+.moveContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.solved_message {
+    font-size: 40px;
+}
+
+.solved_message_wrapper {
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.719);
+    padding: 200px;
+}

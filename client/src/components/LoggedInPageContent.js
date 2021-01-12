@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
+import Builder from './Pages/Builder';
 
 import MyPuzzles from './Pages/MyPuzzles';
 import SplashPage from './Pages/SplashPage';

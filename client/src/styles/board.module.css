@@ -4,25 +4,43 @@
     justify-content: center;
     align-items: center;
     color: white;
+    /* margin: 0;
+    padding: 0;
+    width: 100%; */
 }
 
 .column_one, .column_three {
-    /* width: 10%; */
+    width: 10%;
+    height: 100vh;
+    position: relative;
 }
 
+.column_three {
+    background-image: url("https://i.imgur.com/yLriD5q.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.75;
+}
 .column_two {
-    /* width: 80%; */
+    width: 80%;
 }
 
 .board_container {
     display: flex;
     justify-content: center;
-    /* background-color: white; */
-    background-image: url("https://i.imgur.com/iG0U4dX.jpg");
-    background-repeat: no-repeat;
+    align-items: center;
+    background-image: url("https://i.imgur.com/4gm5SEK.jpg");
     background-size: cover;
     height: 90vh;
-    width: 90vh;
     position: relative;
 }
 
+.column_one button {
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.column_one button:hover {
+    background-color: rgb(204, 204, 204);
+}

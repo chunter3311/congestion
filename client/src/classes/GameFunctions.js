@@ -1,13 +1,11 @@
 export class Block {
-    constructor(row, column, id, isFerrari) {
+    constructor(row, column, id) {
         this.id = id;
-        this.isFerrari = isFerrari;
         this.initialCoordinates = [[row, column]];
         this.start = null;
         this.end = null;
         this.orientation = null;
         this.length = 1;
-
         this.row = null;
         this.column = null;
     }
@@ -20,9 +18,9 @@ export class Block {
 }
 
 export class Game {
-    constructor(layout, ferrari) {
+    constructor(layout) {
+        this.isSolved = false;
         this.layout = layout;
-        this.ferrari = ferrari;
         this.blocks = [];
         this.verticalBlocks = [];
         this.horizontalBlocks = [];
@@ -49,7 +47,7 @@ export class Game {
                 return;
             }
         }
-        const block = new Block(row, column, id, id === this.ferrari);
+        const block = new Block(row, column, id);
         this.blocks.push(block);
         return;
     }
@@ -88,16 +86,23 @@ export class Game {
             this.updateLayout();
         }
         else if (block.orientation === 'h') {
-            for (let column = block.end + 1; column <= 5; column++) { //1
-                if (this.layout[block.row][column] > 0) { //2
+            for (let column = block.end + 1; column <= 5; column++) {
+                if (this.layout[block.row][column] > 0) {
                     block.end = column - 1;
                     block.start = block.end - (block.length - 1);
                     this.updateLayout();
                     return;
                 }
             }
-            block.end = 5;
-            block.start = block.end - (block.length - 1);
+            if (block.row === 2) {
+                block.end = 7;
+                block.start = 6;
+                this.isSolved = true;
+            }
+            else {
+                block.end = 5;
+                block.start = block.end - (block.length - 1);
+            }
             this.updateLayout();
         }
         return;
@@ -154,4 +159,28 @@ export class Game {
         console.log(this.layout);
     }
     // ADD STYLING CODE
+}
+
+// const moves = {
+//     1: [2, 'D']
+// };
+
+// [0, 0, 0, 0, 0, 0],
+// [0, 0, 0, 0, 0, 0],
+// [0, 0, 0, 0, 0, 0],
+// [0, 0, 0, 0, 0, 0],
+// [0, 0, 0, 0, 0, 0],
+// [0, 0, 0, 0, 0, 0]
+
+//     [1, 1, 1, 2, 3, 4],
+//     [5, 0, 0, 2, 3, 4],
+//     [5, 0, 0, 6, 6, 4],
+//     [5, 0, 0, 7, 7, 7],
+//     [0, 0, 0, 8, 0, 0],
+//     [0, 0, 0, 8, 9, 9]
+
+export const solvePuzzle = (layout) => {
+    const moves = {};
+
+    return moves;
 }

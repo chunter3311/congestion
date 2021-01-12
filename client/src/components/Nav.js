@@ -37,6 +37,7 @@ const Nav = ({ history, user_id, path, component }) => {
                 <NavLink className={styles.nav_link_large} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
                 {user ? <NavLink className={styles.nav_link} to="/my-puzzles" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
                 <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink>
+                <NavLink className={styles.nav_link} to="/my-puzzles/builder" activeClassName={styles.selected}>build</NavLink>
                 <div className={styles.separator}></div>
                 <NavLink className={styles.nav_link} to="/how-to-play" activeClassName={styles.selected}>how to play</NavLink>
                 {!user ? <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink> : ""}

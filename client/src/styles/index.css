@@ -1,7 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@500&display=swap'); */
+/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Space+Grotesk:wght@600&family=Teko:wght@600&display=swap');
+
+
+
 
 * {
-    font-family: 'Baloo Chettan 2';
+    /* font-family: 'Baloo Chettan 2'; */
+    /* font-family: 'Open Sans'; */
+    font-family: 'Teko';
+    
 }
 
 body {

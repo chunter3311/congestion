@@ -1,0 +1,96 @@
+.board_wrapper {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.column_one, .column_three {
+    width: 10%;
+    height: 80vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.column_two {
+    width: 80%;
+}
+
+.board_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("https://i.imgur.com/mp1teS2.jpg");
+    background-size: cover;
+    height: 90vh;
+    position: relative;
+    border: solid #aaaaaa 1px;
+    box-sizing: border-box;
+}
+
+.row {
+    height: 16.667%;
+    width: 100%;
+    display: flex;
+}
+
+.car, .trash {
+    width: 100%;
+    height: 100%;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-position: center;
+    position: relative;
+}
+
+.drop_zone {
+    width: 16.667%;
+    border: solid #aaaaaa 2px;
+    box-sizing: border-box;
+} 
+
+.drop_zone:hover {
+    background-color: rgba(255, 255, 255, 0.335);
+}
+
+.is_being_dragged {
+    opacity: 0.5;
+    border: 2px dashed white;
+}
+
+.is_active_drop_zone {
+    background-color: blue;
+}
+
+.container {
+    width: 16.667%;
+    height: 16.667%;
+    position: absolute;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: top 0.3s, left 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.hide {
+    display: none;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
