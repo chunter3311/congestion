@@ -1,21 +1,3 @@
-# from flask_sqlalchemy import SQLAlchemy
-
-# db = SQLAlchemy()
-
-# class User(db.Model):
-#   __tablename__ = 'users'
-
-#   id = db.Column(db.Integer, primary_key = True)
-#   username = db.Column(db.String(40), nullable = False, unique = True)
-#   email = db.Column(db.String(255), nullable = False, unique = True)
-
-#   def to_dict(self):
-#     return {
-#       "id": self.id,
-#       "username": self.username,
-#       "email": self.email
-#     }
-
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -33,10 +15,8 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
-    # notes = db.relationship('Note', back_populates='user', order_by="Note.updated_at")
-    # notebooks = db.relationship('Notebook', back_populates='user')
-
-    # tags = db.relationship('Tag', back_populates="user")
+    puzzles = db.relationship('Puzzle', back_populates='user', order_by="Puzzle.updated_at")
+    packs = db.relationship('Pack', back_populates='user')
 
 
     @property
@@ -58,78 +38,58 @@ class User(db.Model, UserMixin):
         }
 
 
-# class Note(db.Model):
-#     __tablename__ = 'notes'
+class Puzzle(db.Model):
+    __tablename__ = 'puzzles'
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(255), default='Untitled', nullable=True)
-#     content = db.Column(db.String, nullable=False)
-#     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     notebookId = db.Column(db.Integer, db.ForeignKey('notebooks.id'))
-#     isTrash = db.Column(db.Boolean, default=False)
-#     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-#     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
-#     user = db.relationship('User', back_populates='notes')
-#     notebook = db.relationship('Notebook')
+    id = db.Column(db.Integer, primary_key=True)
+    difficulty = db.Column(db.String(255), nullable=True)
+    layout = db.Column(db.Array, nullable=False)
+    solution = db.Column(db.Array, nullable=False)
+    solutionMoves = db.Column(db.Integer, nullable=False)
+    totalStars = db.Column(db.Integer, default=0, nullable=False)
+    totalPlays = db.Column(db.Integer, default=0, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    packId = db.Column(db.Integer, db.ForeignKey('packs.id'))
+    isTrash = db.Column(db.Boolean, default=False)
+    created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    user = db.relationship('User', back_populates='puzzles')
+    pack = db.relationship('Pack')
 
-#     def to_dict(self):
-#         return {
-#             "id": self.id,
-#             "title": self.title,
-#             "content": self.content,
-#             "userId": self.userId,
-#             "notebookId": self.notebookId,
-#             "isTrash": self.isTrash,
-#             "created_at": self.created_at,
-#             "updated_at": self.updated_at
-#         }
-
-
-# class Notebook(db.Model):
-#     __tablename__ = 'notebooks'
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(255), nullable=False)
-#     isDefault = db.Column(db.Boolean, nullable=False)
-#     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-#     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
-#     user = db.relationship('User', back_populates="notebooks")
-#     __table_args__ = (db.UniqueConstraint('title', 'userId'), )
-
-#     def to_dict(self):
-#         return {
-#             "id": self.id,
-#             "title": self.title,
-#             "isDefault": self.isDefault,
-#             "userId": self.userId,
-#             "created_at": self.created_at,
-#             "updated_at": self.updated_at
-#         }
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "difficulty": self.difficulty,
+            "layout": self.layout,
+            "solution": self.solution,
+            "solutionMoves": self.solutionMoves,
+            "totalStars": self.totalStars,
+            "totalPlays": self.totalPlays,
+            "userId": self.userId,
+            "packId": self.packId,
+            "isTrash": self.isTrash,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
 
 
-# class Tag(db.Model):
-#     __tablename__ = 'tags'
+class Pack(db.Model):
+    __tablename__ = 'packs'
 
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(20), nullable=False)
-#     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
-#     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
-#     user = db.relationship('User', back_populates="tags")
+    id = db.Column(db.Integer, primary_key=True)
+    totalPuzzles = db.Column(db.Integer, default=0, nullable=False)
+    isShared = db.Column(db.Boolean, default=False, nullable=False)
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)
+    updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now, nullable=False)
+    user = db.relationship('User', back_populates="packs")
 
-#     def to_dict(self):
-#         return {
-#             "id": self.id,
-#             "name": self.name,
-#             "userId": self.userId
-#         }
-
-
-# noteTags = db.Table(
-#     'noteTags',
-#     db.Model.metadata,
-#     db.Column('noteId', db.Integer, db.ForeignKey(
-#         'notes.id'), primary_key=True),
-#     db.Column('tagId', db.Integer, db.ForeignKey('tags.id'), primary_key=True)
-# )
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "totalPuzzles": self.totalPuzzles,
+            "isShared": self.isShared,
+            "userId": self.userId,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }

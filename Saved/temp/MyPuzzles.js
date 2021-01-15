@@ -3,13 +3,13 @@ import { NavLink } from 'react-router-dom';
 
 
 
-const MyPuzzles = () => {
+const Packs = () => {
     return (
         <>
         {/* <NavLink to="/">Home</NavLink>
         <NavLink to="/my-puzzles">my puzzles</NavLink> */}
-        <h1>MyPuzzles</h1>
+        <h1>Packs</h1>
         </>
     );
 }
-export default MyPuzzles;
+export default Packs;

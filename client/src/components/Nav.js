@@ -6,7 +6,7 @@ import styles from '../styles/nav.module.css';
 
 
 
-const Nav = ({ history, user_id, path, component }) => {
+const Nav = ({ history }) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.entities.users[state.session.user_id]);
 
@@ -24,13 +24,11 @@ const Nav = ({ history, user_id, path, component }) => {
             <div className={`${styles.nav_topbar}`}>
                 <div className={`${styles.user_name}`}>
                     {user ? `welcome, ${user.username}` : ""}
-                    {/* {user ? `${user.username}` : ""} */}
                 </div>
                 <div className={`${styles.icons}`}>
                     <a href="/" className={`${styles.home}`}></a>
                     <a href="https://github.com/chunter3311/congestion" target="_blank" rel="noopener noreferrer" className={`${styles.github}`}></a>
                     <NavLink className={styles.info} to="/about" activeClassName={styles.selected}></NavLink>
-                    {/* <a href="" className={`${styles.info}`}></a> */}
                 </div>
             </div>
             <div className={`${styles.nav_wrapper}`}>
@@ -52,14 +50,5 @@ const mapStateToProps = (state, ownProps) => {
     const { session: { user_id } } = state;
     return { user_id: user_id, ...ownProps };
 }
-
-// export default connect(mapStateToProps)(Nav);
-
-// const mapStateToProps = (state, ownProps) => {
-//     return {
-//         userId: state.session.user_id
-//         selectedNotebookId: state.session.selectedNotebookId
-//     }
-// }
 
 export default withRouter(connect(mapStateToProps)(Nav));

@@ -8,8 +8,8 @@ from flask_migrate import Migrate
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.session import session
-# from .api.notes import notes
-# from .api.notebooks import notebooks
+from .api.puzzles import puzzles
+from .api.packs import packs
 
 from .config import Config
 
@@ -18,8 +18,8 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(session, url_prefix='/api/session')
-# app.register_blueprint(notes, url_prefix='/api/notes')
-# app.register_blueprint(notebooks, url_prefix='/api/notebooks')
+app.register_blueprint(puzzles, url_prefix='/api/puzzles')
+app.register_blueprint(packs, url_prefix='/api/packs')
 db.init_app(app)
 login_manager.init_app(app)
 migrate = Migrate(app, db)
