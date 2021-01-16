@@ -6,6 +6,8 @@ const TOGGLE_CREATE_PUZZLE_MODAL = 'ui/TOGGLE_CREATE_PUZZLE_MODAL';
 const TOGGLE_EDIT_PACK_MODAL = 'ui/TOGGLE_EDIT_PACK_MODAL';
 const TOGGLE_EDIT_PUZZLE_MODAL = 'ui/TOGGLE_EDIT_PUZZLE_MODAL';
 
+const TOGGLE_LOG_IN_MODAL = 'ui/TOGGLE_LOG_IN_MODAL';
+
 export const toggleUserModal = () => {
     return {
         type: TOGGLE_USER_MODAL
@@ -36,13 +38,20 @@ export const toggleEditPuzzleModal = () => {
     }
 };
 
+export const toggleLogInModal = () => {
+    return {
+        type: TOGGLE_LOG_IN_MODAL
+    }
+};
+
 
 const initialUIState = {
     userModal: false,
     createPack: false,
     createPuzzle: false,
     editPack: false,
-    editPuzzle: false
+    editPuzzle: false,
+    logIn: false
 };
 
 export default function uiReducer(state = initialUIState, action) {
@@ -62,6 +71,9 @@ export default function uiReducer(state = initialUIState, action) {
             return newState;
         case TOGGLE_EDIT_PUZZLE_MODAL:
             newState.editPuzzle = !newState.editPuzzle;
+            return newState;
+        case TOGGLE_LOG_IN_MODAL:
+            newState.logIn = !newState.logIn;
             return newState;
         default:
             return state;
