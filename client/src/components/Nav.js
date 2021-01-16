@@ -26,7 +26,6 @@ const Nav = ({ history }) => {
                     {user ? `welcome, ${user.username}` : ""}
                 </div>
                 <div className={`${styles.icons}`}>
-                    <a href="/" className={`${styles.home}`}></a>
                     <a href="https://github.com/chunter3311/congestion" target="_blank" rel="noopener noreferrer" className={`${styles.github}`}></a>
                     <NavLink className={styles.info} to="/about" activeClassName={styles.selected}></NavLink>
                 </div>
@@ -35,9 +34,9 @@ const Nav = ({ history }) => {
                 <NavLink className={styles.nav_link_large} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
                 {user ? <NavLink className={styles.nav_link} to="/my-puzzles" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
                 <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink>
-                <NavLink className={styles.nav_link} to="/my-puzzles/builder" activeClassName={styles.selected}>build</NavLink>
+                {user ? <NavLink className={styles.nav_link} to="/my-puzzles/builder" activeClassName={styles.selected}>build</NavLink> : ""}
                 <div className={styles.separator}></div>
-                <NavLink className={styles.nav_link} to="/how-to-play" activeClassName={styles.selected}>how to play</NavLink>
+                {/* <NavLink className={styles.nav_link} to="/how-to-play" activeClassName={styles.selected}>how to play</NavLink> */}
                 {!user ? <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink> : ""}
                 {!user ? <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink> : ""}
                 {user ? <a onClick={handleLogout}><div className={styles.navlink_text}>log out</div></a> : ""}

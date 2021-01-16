@@ -22,7 +22,7 @@ def login():
             login_user(user)
             return {"user": { "user_id": user.to_dict()['id'] } }
         else:
-            res = make_response({ "errors": ["Invalid credentials"] }, 401)
+            res = make_response({ "errors": ["invalid credentials"] }, 401)
             return res
     else:
         res = make_response({ "errors": [ form.errors[error][0] for error in form.errors ]}, 401)

@@ -49,7 +49,7 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-            <Route exact path="/my-puzzles/builder">
+                {/* <Route exact path="/my-puzzles/builder">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
                             <Builder />
@@ -58,7 +58,7 @@ function App() {
                             <Nav />
                         </div>
                     </div>
-                </Route>
+                </Route> */}
                 <Route exact path="/quick-play">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>

@@ -5,6 +5,7 @@ import Packs from './Packs';
 import Pack from './Pages/Pack';
 import SplashPage from './Pages/SplashPage';
 import styles from '../styles/global.module.css';
+import Builder from './Pages/Builder';
 
 
 function LoggedInPageContent({ match }) {
@@ -14,6 +15,7 @@ function LoggedInPageContent({ match }) {
             <Route path={match.url + "packs/:packId"} exact component={Pack} />
             <Route path={match.url} exact component={SplashPage} />
             <Route path={match.url + "puzzles"} component={Puzzles} />
+            <Route path={match.url + "/my-puzzles/builder"} component={Builder} />
         </div>
     );
 }
