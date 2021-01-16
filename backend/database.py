@@ -11,7 +11,7 @@ with app.app_context():
 
   demo = User(username = 'demo', email = 'demo@demo.com', password='password')
   demo_user_new_pack = Pack(totalPuzzles=1, userId=1)
-  demo_user_puzzle = Puzzle(layout=[[0, 0, 0, 1, 1, 1],[0, 0, 0, 2, 0, 0],[3, 4, 4, 2, 5, 6],[3, 7, 7, 7, 5, 6],[3, 0, 8, 9, 5, 6],[0, 0, 8, 9, 10, 10]], difficulty="beginner", solution=[[1, 1], [2, 1]], solutionMoves=2, userId=1, packId=1)
+  demo_user_puzzle = Puzzle(layout="010101020304050000020304050000060604500000707070000008000000000080909", difficulty="beginner", userId=1, packId=1)
   
 
 

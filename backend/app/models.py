@@ -42,10 +42,10 @@ class Puzzle(db.Model):
     __tablename__ = 'puzzles'
 
     id = db.Column(db.Integer, primary_key=True)
-    difficulty = db.Column(db.String(255), nullable=True)
-    layout = db.Column(db.Array, nullable=False)
-    solution = db.Column(db.Array, nullable=False)
-    solutionMoves = db.Column(db.Integer, nullable=False)
+    difficulty = db.Column(db.String, nullable=True)
+    layout = db.Column(db.String, nullable=False)
+    solution = db.Column(db.String, default="unsolved", nullable=False)
+    solutionMoves = db.Column(db.Integer, default=-1, nullable=False)
     totalStars = db.Column(db.Integer, default=0, nullable=False)
     totalPlays = db.Column(db.Integer, default=0, nullable=False)
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)

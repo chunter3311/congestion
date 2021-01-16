@@ -17,10 +17,10 @@ class PackForm(FlaskForm):
     isShared = BooleanField("isShared")
     userId = IntegerField("UserId")
 
-class PuzzleForm(FlaskForm):
-    difficulty = StringField("Difficulty", validators=[InputRequired("Puzzle difficulty must be at least one character long")])
-    solutionMoves = IntegerField("SolutionMoves")
-    totalStars = IntegerField("TotalStars")
-    totalPlays = IntegerField("TotalPlays")
-    packId = IntegerField("PackId")
-    userId = IntegerField("UserId")
+# class PuzzleForm(FlaskForm):
+#     difficulty = StringField("Difficulty", validators=[InputRequired("Puzzle difficulty must be at least one character long")])
+#     solutionMoves = IntegerField("SolutionMoves")
+#     totalStars = IntegerField("TotalStars")
+#     totalPlays = IntegerField("TotalPlays")
+#     packId = IntegerField("PackId")
+#     userId = IntegerField("UserId")
