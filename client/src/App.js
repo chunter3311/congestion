@@ -34,16 +34,16 @@ function App() {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        const load = async () => {
-            // const selectedNotebook = await localStorage.getItem('selectedNotebook');
-            // await dispatch(setSelectedNotebook(Number(selectedNotebook)));
-            // const activeNote = await localStorage.getItem('activeNote');
-            // await dispatch(setActiveNote(Number(activeNote)));
-            await dispatch(loadSession());
-        }
-        load()
-    }, [dispatch])
+    // useEffect(() => {
+    //     const load = async () => {
+    //         // const selectedNotebook = await localStorage.getItem('selectedNotebook');
+    //         // await dispatch(setSelectedNotebook(Number(selectedNotebook)));
+    //         // const activeNote = await localStorage.getItem('activeNote');
+    //         // await dispatch(setActiveNote(Number(activeNote)));
+    //         await dispatch(loadSession());
+    //     }
+    //     load()
+    // }, [dispatch])
 
 
     return (

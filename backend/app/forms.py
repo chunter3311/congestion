@@ -12,7 +12,15 @@ class SignUpForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired("Please provide a valid email."), Email("Please provide a valid email.")])
     password = PasswordField("Password", validators=[InputRequired("Please provide a valid password.")])
 
-# class NotebookForm(FlaskForm):
-#     title = StringField("Title", validators=[InputRequired("Notebook names must be at least one character long")])
-#     isDefault = BooleanField("isDefault")
+class PackForm(FlaskForm):
+    totalPuzzles = IntegerField("totalPuzzles")
+    isShared = BooleanField("isShared")
+    userId = IntegerField("UserId")
+
+# class PuzzleForm(FlaskForm):
+#     difficulty = StringField("Difficulty", validators=[InputRequired("Puzzle difficulty must be at least one character long")])
+#     solutionMoves = IntegerField("SolutionMoves")
+#     totalStars = IntegerField("TotalStars")
+#     totalPlays = IntegerField("TotalPlays")
+#     packId = IntegerField("PackId")
 #     userId = IntegerField("UserId")

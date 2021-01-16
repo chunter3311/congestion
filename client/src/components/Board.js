@@ -55,17 +55,39 @@ function Board() {
 
     setTimeout(setBoard, 0);
 
-    const solveHandler = (e) => {
-        e.preventDefault();
-        const moves = solvePuzzle(layout);
-        console.log(moves);
-    }
 
     return (
         <>
             <div className={styles.board_wrapper}>
                 <div className={styles.column_one}>
-                    <button onClick={solveHandler}>Solve</button>
+                    <div className={`${styles.widget}`}>
+                        <div className={`${styles.widget}`}>
+                            <div className={styles.small_text}>Cole</div>
+                            <div className={styles.large_text}>pack 1</div>
+                        </div>
+                        <div className={`${styles.widget}`}>
+                            <div className={styles.small_text}>level</div>
+                            <div className={styles.level_number}>
+                                <div className={styles.extra_large_text}>2</div>
+                                <div className={styles.extra_small_text}>of</div>
+                                <div className={styles.extra_small_text}>5</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`${styles.widget}`}>
+                        <div className={`${styles.yellow} ${styles.small_text}`}>moves</div>
+                        <div className={styles.extra_large_text}>0</div>
+                    </div>
+                    <div className={`${styles.widget}`}>
+                        <div className={styles.small_text}>your best</div>
+                        <div className={styles.your_best_display}>
+                            <div className={styles.extra_large_text}>12</div>
+                            {/* <div className={`${styles.subscript} ${styles.extra_small_text}`}>/12</div> */}
+                        </div>
+                    </div>
+                    <div className={`${styles.widget}`}>
+                        <div className={styles.previous_arrow}></div>
+                    </div>
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
@@ -76,7 +98,18 @@ function Board() {
                         })}
                     </div>
                 </div>
-                <div className={styles.column_three}></div>
+                <div className={styles.column_three}>
+                        <div className={`${styles.widget} ${styles.button_spacing}`}>
+                            <div className={styles.reset_button}></div>
+                            <div className={styles.help_button}></div>
+                            <div className={styles.solution_button}></div>
+                        </div>
+                        <div className={`${styles.widget}`}>
+                            <div className={styles.next_arrow}></div>
+                        </div>
+                    {/* <div className={`${styles.widget}`}>
+                    </div> */}
+                </div>
             </div>
         </>
     );

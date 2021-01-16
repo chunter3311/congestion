@@ -1,48 +1,39 @@
 import React, { useEffect } from 'react';
 import LoggedInPageContent from './LoggedInPageContent';
 import Nav from './Nav';
-import styles from '../styles/global.module.css';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { setUserPuzzles } from '../store/puzzles';
+import { setSelectedPack } from '../store/session';
+import { setUserPacks } from '../store/packs';
+import { setUserTrash } from '../store/trash';
 import { setUserInfo } from '../store/users';
-// import MoveNoteModal from './MoveNoteModal';
-// import EmptyTrashModal from './EmptyTrashModal';
-// import { setUserNotes } from '../store/notes';
-// import { setSelectedNotebook } from '../store/session';
-// import { setUserNotebooks } from '../store/notesbooks';
-// import { setUserTrash } from '../store/trash';
-// import { addUserNotebooks } from '../store/notesbooks';
+import styles from '../styles/global.module.css';
 
-// function Home({ userId, selectedNotebookId, notes, notebooks, defaultNotebookId }) {
-function LoggedInLayout({ userId }) {
+function LoggedInLayout({ userId, selectedPackId, defaultPackId }) {
     const dispatch = useDispatch();
-    
-    // const { editorFullscreen: { isFullscreen: editorFullscreen } } = useSelector(state => state.ui);
-    // const noteMoveModal = useSelector(state => state.ui.moveNotes);
-    // const emptyTrashModal = useSelector(state => state.ui.showEmptyTrash);
 
     useEffect(() => {
-        // const getBlocks = async () => {
-        //     await dispatch(setBlocks(userId));
-        // }
-        // const getTrash = async () => {
-        //     await dispatch(setUserTrash(userId));
-        // }
+        const getPuzzles = async () => {
+            await dispatch(setUserPuzzles(userId));
+        }
+        const getTrash = async () => {
+            await dispatch(setUserTrash(userId));
+        }
+        getPuzzles();
+        getTrash();
 
-        // const getNotebooks = async () => {
-        //     await dispatch(setUserNotebooks(userId));
-        // }
+        const getPacks = async () => {
+            await dispatch(setUserPacks(userId));
+        }
+        getPacks();
+        dispatch(setSelectedPack(selectedPackId || 1));
 
         const getUserInfo = async () => {
             await dispatch(setUserInfo(userId));
         }
-
-        // getNotes();
-        // getTrash();
-        // getNotebooks();
         getUserInfo();
-
-        // dispatch(setSelectedNotebook(selectedNotebookId || defaultNotebookId));
-    }, [dispatch, userId]);
+        
+    }, [dispatch, userId, selectedPackId]);
 
     return (
         <>
@@ -60,10 +51,10 @@ function LoggedInLayout({ userId }) {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        userId: state.session.user_id
-        // selectedNotebookId: state.session.selectedNotebookId,
-        // notebooks: state.entities.notebooks,
-        // defaultNotebookId: state.session.defaultNotebookId
+        userId: state.session.user_id,
+        selectedPackId: state.session.selectedPackId,
+        packs: state.entities.packs,
+        puzzles: state.entities.puzzles
     }
 };
 

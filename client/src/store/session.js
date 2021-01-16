@@ -1,34 +1,16 @@
 import Cookies from 'js-cookie';
 
-// const SET_DEFAULT_NOTEBOOK = 'notebooks/SET_DEFAULT_NOTEBOOK';
 const SET_USER = 'session/SET_USER';
 const LOGOUT_USER = 'session/LOGOUT_USER';
-// const SET_SELECTED_NOTEBOOK = 'session/SET_SELECTED_NOTEBOOK';
-// const SET_NOTE_LIST = "session/SET_NOTE_LIST";
-// const SET_TEST = "session/SET_TEST";
+const SET_SELECTED_PACK = 'session/SET_SELECTED_PACK';
+const SET_PUZZLE_LIST = "session/SET_PUZZLE_LIST";
 
-// export const setNoteList = (noteListType, id, display) => {
-//     return {
-//         type: SET_NOTE_LIST,
-//         noteListType,
-//         id,
-//         display
-//     }
-// }
-
-// export const setSelectedNotebook = (notebookId) => {
-//     return {
-//         type: SET_SELECTED_NOTEBOOK,
-//         notebookId
-//     };
-// }
-
-// export const setActiveNote = (noteId) => {
-//     return {
-//         type: SET_ACTIVE_NOTE,
-//         noteId
-//     }
-// }
+export const setSelectedPack = (packId) => {
+    return {
+        type: SET_SELECTED_PACK,
+        packId
+    };
+}
 
 export const setUser = user => {
     return {
@@ -82,29 +64,10 @@ export const logout = () => {
     }
 }
 
-export const loadSession = () => {
-    return async dispatch => {
-        const res = await fetch('/api/session/load');
-        res.data = await res.json();
-        if (res.ok) {
-            dispatch(setUser(res.data.user));
-        }
-        return res
-    }
-
-}
-
 const initialSessionState = {
-    user_id: null
-    // test: null
-    // selectedNotebookId: null,
-    // defaultNotebookId: null,
-    // noteList: {
-    //     display: true,
-    //     type: 'notebook',
-    //     id: null
-    // },
-    // activeNote: null
+    user_id: null,
+    selectedPackId: null,
+    puzzleList: null
 }
 
 
@@ -115,26 +78,13 @@ export default function sessionReducer(state = initialSessionState, action) {
             newState.user_id = action.user.user_id;
             return newState;
         case LOGOUT_USER:
-            return initialSessionState;
-        // case SET_SELECTED_NOTEBOOK:
-        //     localStorage.setItem('selectedNotebook', action.notebookId)
-        //     newState.selectedNotebookId = action.notebookId;
-        //     return newState;
-        // case SET_DEFAULT_NOTEBOOK:
-        //     newState.defaultNotebookId = action.defaultNotebookId;
-        //     return newState;
-        // case SET_NOTE_LIST:
-        //     let newNoteList = {
-        //         display: action.display,
-        //         type: action.noteListType,
-        //         id: action.id
-        //     };
-        //     newState.noteList = newNoteList;
-        //     return newState;
-        // case SET_TEST:
-        //     localStorage.setItem('test', action.noteId)
-        //     newState.activeNote = action.noteId;
-        //     return newState;
+            return {};
+        case SET_SELECTED_PACK:
+            newState.selectedPackId = action.packId;
+            return newState;
+        case SET_PUZZLE_LIST:
+            newState.puzzleList = action.puzzleList;
+            return newState;
         default:
             return state;
     }
