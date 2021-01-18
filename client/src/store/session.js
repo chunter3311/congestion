@@ -64,6 +64,19 @@ export const logout = () => {
     }
 }
 
+export const loadSession = () => {
+    return async dispatch => {
+        const res = await fetch('/api/session/load');
+        res.data = await res.json();
+        if (res.ok) {
+            dispatch(setUser(res.data.user));
+
+        }
+        return res
+    }
+
+}
+
 const initialSessionState = {
     user_id: null,
     selectedPackId: null,

@@ -29,7 +29,7 @@ const updatePack = (pack) => {
     }
 }
 
-export const addUserPacks = (title, isShared, userId) => {
+export const addUserPacks = (userId) => {
     const csrfToken = Cookies.get('XSRF-TOKEN');
     const path = `/api/packs/`;
     return async dispatch => {
@@ -39,7 +39,7 @@ export const addUserPacks = (title, isShared, userId) => {
                 'Content-Type': 'application/json',
                 'X-CSRFTOKEN': csrfToken
             },
-            body: JSON.stringify({ title, isShared, userId, "csrf_token": csrfToken })
+            body: JSON.stringify({ userId, "csrf_token": csrfToken })
         });
         
         res.data = await res.json();
@@ -89,7 +89,7 @@ export const updateUserPack = id => {
 }
 
 
-export const editUserPacks = (title, isShared, userId, id) => {
+export const editUserPacks = (totalPuzzles, isShared, userId, id) => {
     const csrfToken = Cookies.get('XSRF-TOKEN');
     const path = `/api/packs/${id}`;
     return async dispatch => {
@@ -99,7 +99,7 @@ export const editUserPacks = (title, isShared, userId, id) => {
                 'Content-Type': 'application/json',
                 'X-CSRFTOKEN': csrfToken
             },
-            body: JSON.stringify({ title, isShared, userId, "csrf_token": csrfToken })
+            body: JSON.stringify({ totalPuzzles, isShared, userId, "csrf_token": csrfToken })
         });
         res.data = await res.json();
         if (res.ok) {

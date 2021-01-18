@@ -1,7 +1,7 @@
 .background {
     background-image: url("https://i.imgur.com/ad5xSVo.png");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     height: 100vh;
 }

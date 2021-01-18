@@ -7,18 +7,13 @@
     height: 100vh;
 }
 
-/* .page_container {
-    display: flex;
-    height: 100vh;
-} */
-
 .page_content_container {
-    width: 70%;
+    width: 75%;
     color: white;
 }
 
 .nav_content_container {
-    width: 30%;
+    width: 25%;
 }
 
 .background {
