@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react"
-import styles from '../styles/pack.module.css';
-import { toggleCreatePackModal } from '../store/ui';
+import React, { useState } from "react"
+import styles from '../../styles/pack.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import NewPackModal from './NewPackModal';
-import PackRow from './PackRow';
-import EditPackModal from './EditPackModal';
-import { addUserPacks } from '../store/packs';
+import PackRow from '../PackRow';
+import { addUserPacks } from '../../store/packs';
+import { NavLink } from 'react-router-dom';
 
-function Packs(props) {
+function MyPacks(props) {
 
     const dispatch = useDispatch();
     const userId = useSelector(state => state.session.user_id);
@@ -33,9 +31,12 @@ function Packs(props) {
         <div className={styles.packs_container}>
             <div className={styles.puzzle_pack_buttons_container}>
                 <div>
-                    <button id='pro' onClick={() => setActiveTab('pro')} className={`${styles.puzzle_pack_tab} ${styles.active_tab}`}>pro</button>
-                    <button id='community' onClick={() => setActiveTab('community')} className={styles.puzzle_pack_tab}>community</button>
-                    <button id='creations' onClick={() => setActiveTab('creations')} className={styles.puzzle_pack_tab}>my creations</button>
+                    <NavLink className={styles.puzzle_pack_tab} to="/puzzle-packs/pro" activeClassName={styles.active_tab}>pro</NavLink>
+                    <NavLink className={styles.puzzle_pack_tab} to="/puzzle-packs/adopted" activeClassName={styles.active_tab}>adopted</NavLink>
+                    <NavLink className={styles.puzzle_pack_tab} to="/puzzle-packs/mine" activeClassName={styles.active_tab}>mine</NavLink>
+                    {/* <button id='pro' onClick={() => setActiveTab('pro')} className={`${styles.puzzle_pack_tab}`}>pro</button>
+                    <button id='adopted' onClick={() => setActiveTab('adopted')} className={`${styles.puzzle_pack_tab}`}>adopted</button>
+                    <button id='mine' onClick={() => setActiveTab('mine')} className={`${styles.puzzle_pack_tab} ${styles.active_tab}`}>mine</button> */}
                 </div>
                 <button className={styles.puzzle_pack_button} onClick={handleNewPackClick}>puzzle builder</button>
             </div>
@@ -49,4 +50,4 @@ function Packs(props) {
         </div>
     );
 }
-export default Packs;
+export default MyPacks;

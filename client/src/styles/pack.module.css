@@ -1,7 +1,7 @@
 .packs_container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     align-items: center;
     height: 100vh;
 }
@@ -13,24 +13,24 @@
 }
 
 .puzzle_pack_buttons_container {
-    width: 90%;
+    width: 93%;
     margin-top: 2.5vh;
     display: flex;
     justify-content: space-between;
 }
 
-
 .puzzle_pack_tab {
     margin-right: 1vh;
+    color: black;
 }
 
-.active_tab {
+.active_tab, .puzzle_pack_tab:hover {
     background-color: #efefef;
 }
 
 .pack_rows_container {
     overflow-y: auto;
-    width: 90%;
+    width: 93%;
     background-color: #ececd625;
     background-size: cover;
     background-position: center;
@@ -40,10 +40,10 @@
 
 .pack_row_container {
     display: flex;
-    justify-content: space-around;
+    /* justify-content: space-between; */
     align-items: center;
-    margin: 10px 0;
-    padding: 30px 0;
+    margin: 3vh 0;
+    padding: 3.2vh 0;
     width: 100%;
     text-decoration: none;
 }
@@ -51,30 +51,42 @@
 .pack_column_container {
     display: flex;
     flex-direction: column;
+    width: 25%;
+    margin: 0 5vh;
+    
+    
+    /* background-color: blue;
+    border: white solid 2px; */
+    /* justify-content: space-around; */
+    /* align-items: center; */
 }
 
+
 .pack_column_container div {
-    text-shadow: black 2px 2px 1px;
-    line-height: 1.1;
+    text-shadow: rgb(31, 31, 31) 0.3vh 0.3vh 0.3vh;
+    line-height: 4.1vh;
 }
 
 .pack_data_label_large {
-    font-size: 35px;
+    font-size: 3.7vh;
     color: #f3cb2b;
 }
 
 .pack_data_label_small {
     color: whitesmoke;
-    font-size: 28px;
+    font-size: 3.0vh;
 }
 
 .icon_row {
     display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* align-items: center; */
 }
 
 .pack_icon {
-    padding: 0 15px;
-    width: 100%;
+    /* padding: 0 1.6vh; */
+    /* width: 25%; */
     font-size: 3vh;
     cursor: pointer;
     color: whitesmoke;
@@ -84,11 +96,16 @@
     color: rgb(184, 184, 184);
 }
 
-.pack_icon_hover:hover {
-    color: rgb(184, 184, 184);
-}
 .pack_icon:hover {
     color: rgb(184, 184, 184);
+}
+
+.pack_icon_last {
+    /* padding: 0 1.6vh; */
+    /* width: 25%; */
+    font-size: 3vh;
+    cursor: pointer;
+    color: whitesmoke;
 }
 
 .shared_true {
