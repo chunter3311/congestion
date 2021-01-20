@@ -7,13 +7,11 @@ import { loadSession } from './store/session';
 import SignUpForm from './components/Pages/SignUpForm'
 import LoginForm from './components/Pages/LoginForm';
 import AuthRoute from './components/AuthRoute';
-import QuickPlay from './components/Pages/QuickPlay';
+import Play from './components/Play/Play';
 import Shared from './components/Pages/Shared';
-import HowToPlay from './components/Pages/HowToPlay';
-import UsersList from './extras/UsersList';
+import Help from './components/Pages/Help';
 import Nav from './components/Nav';
 import LoggedInLayout from './components/LoggedInLayout';
-// import styles from './styles/home.module.css';
 import styles from './styles/global.module.css';
 import LoggedInPageContent from './components/LoggedInPageContent';
 import About from './components/Pages/About';
@@ -34,35 +32,25 @@ function App() {
 
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     const load = async () => {
-    //         // const selectedNotebook = await localStorage.getItem('selectedNotebook');
-    //         // await dispatch(setSelectedNotebook(Number(selectedNotebook)));
-    //         // const activeNote = await localStorage.getItem('activeNote');
-    //         // await dispatch(setActiveNote(Number(activeNote)));
-    //         await dispatch(loadSession());
-    //     }
-    //     load()
-    // }, [dispatch])
+    useEffect(() => {
+        const load = async () => {
+            // const selectedNotebook = await localStorage.getItem('selectedNotebook');
+            // await dispatch(setSelectedNotebook(Number(selectedNotebook)));
+            // const activeNote = await localStorage.getItem('activeNote');
+            // await dispatch(setActiveNote(Number(activeNote)));
+            await dispatch(loadSession());
+        }
+        load()
+    }, [dispatch])
 
 
     return (
         <BrowserRouter>
             <Switch>
-            <Route exact path="/my-puzzles/builder">
+                <Route exact path="/play">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
-                            <Builder />
-                        </div>
-                        <div className={`${styles.nav_content_container}`}>
-                            <Nav />
-                        </div>
-                    </div>
-                </Route>
-                <Route exact path="/quick-play">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
-                        <div className={`${styles.page_content_container}`}>
-                            <QuickPlay />
+                            <Play />
                         </div>
                         <div className={`${styles.nav_content_container}`}>
                             <Nav />
@@ -89,10 +77,10 @@ function App() {
                         </div>
                     </div>
                 </Route>
-                <Route exact path="/how-to-play">
+                <Route exact path="/help">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
-                            <HowToPlay />
+                            <Help />
                         </div>
                         <div className={`${styles.nav_content_container}`}>
                             <Nav />

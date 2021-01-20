@@ -119,8 +119,6 @@ export class Puzzle {
             let rowStart = rowEnd - (length - 1);
             if (rowStart < 0) return false;
             if (rowEnd > 5) return false;
-            console.log('rowEnd', rowEnd);
-            console.log('rowStart', rowStart);
             for (let r = rowStart; r <= rowEnd; r++) {
                 if (this.layout[r][column] > 0) return false;
             }
@@ -152,8 +150,7 @@ export class Puzzle {
             if (row === 5 && vehicle.length === 2) row--;
             else if (row === 5 && vehicle.length === 3) row = row - 2;
             for (let r = row; r < row + vehicle.length; r++) {
-                console.log(r);
-                console.log(column);
+                
                 if (this.layout[r][column] > 0 && this.layout[r][column] !== vehicle.id) return;
             }
             vehicle.column = column;

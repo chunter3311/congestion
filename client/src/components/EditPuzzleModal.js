@@ -26,9 +26,9 @@ const EditPuzzleModal = ({ editPuzzleId }) => {
     }
 
     const togEditPuzzleModal = (e) => {
-        // console.log(e.target.name)
+        
         e.preventDefault();
-        // console.log(e.target)
+        
         // if (e.target === null || !e.target.name) dispatch(toggleEditPuzzleModal());
         // if (!e.target.name) dispatch(toggleEditPuzzleModal());
         dispatch(toggleEditPuzzleModal());

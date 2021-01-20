@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../styles/block.module.css';
+import styles from '../../styles/block.module.css';
 
 const Block = ({ block, game }) => {
     const [isSolved, setIsSolved] = useState(false);
@@ -21,7 +21,7 @@ const Block = ({ block, game }) => {
         }
 
         if (game.isSolved) setIsSolved(true);
-        console.log(game);
+        
     };
 
     setTimeout(updateBlock, 0);

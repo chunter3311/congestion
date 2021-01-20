@@ -1,23 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route } from 'react-router-dom';
-import LoggedInLayout from './LoggedInLayout';
+import Nav from './Nav';
+import SplashPage from './Pages/SplashPage';
+import styles from '../styles/global.module.css';
 
 const AuthRoute = ({ user_id, path, component }) => {
     if (!user_id) {
         return (
             <>
+                <div className={`${styles.view_height_flex} ${styles.background}`}>
+                    <div className={`${styles.page_content_container}`}>
+                        <SplashPage />
+                    </div>
+                    <div className={`${styles.nav_content_container}`}>
+                        <Nav />
+                    </div>
+                </div>
                 <Redirect to='/' />
-                <LoggedInLayout />
             </>
-
         )
-        // return (
-        //     <>
-        //         <Redirect to='/' />
-        //         <SplashPage />
-        //     </>
-        // )
     }
 
     return <Route path={path} component={component} />

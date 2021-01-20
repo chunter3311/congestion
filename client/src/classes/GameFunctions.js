@@ -36,7 +36,7 @@ export class Game {
             }
         }
         this.defineOrientations();
-        console.log(this.layout);
+        
         return;
     }
 
@@ -156,7 +156,7 @@ export class Game {
                 }
             }
         })
-        console.log(this.layout);
+        
     }
     // ADD STYLING CODE
 }

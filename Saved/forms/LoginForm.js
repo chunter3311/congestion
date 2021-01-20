@@ -50,16 +50,30 @@ const LoginForm = ({ history }) => {
     }
 
     return (
-        <div className={styles.background}>
+        <div className={styles.body}>
             <div className={`${styles.form_wrapper} ${styles.centered}`}>
                 <div className={styles.form_container}>
+                    <div className={styles.form_header}>
+                        <img alt="logo" src='https://i.imgur.com/GOpcw1D.png' style={{ width: "30%" }} />
+                        <h1 className={styles.header_title}>
+                            EverQuote
+                    </h1>
+                        <div className={styles.header_tagline}>
+                            Remember everything important.
+                    </div>
+                    </div>
+                    <button onClick={demoUserClick} className={styles.demo_button}>Continue as Demo User</button>
+                    <div className={styles.divider_container}>
+                        <div className={styles.divider_text}>or</div>
+                        <div className={styles.divider_line}></div>
+                    </div>
                     <div className={styles.login_form_container}>
                         <form method="" action="" onSubmit={handleSubmit}>
                             <div>
-                                <input placeholder="email or username" type="text" name="email_or_username" value={emailOrUsername} className={styles.auth_input} onChange={onEmailOrUsernameChange} />
+                                <input placeholder="Email or Username" type="text" name="email_or_username" value={emailOrUsername} className={styles.auth_input} onChange={onEmailOrUsernameChange} />
                             </div>
                             <div>
-                                <input placeholder="password" type="password" name="password" value={password} className={styles.auth_input} onChange={onPasswordChange} />
+                                <input placeholder="Password" type="password" name="password" value={password} className={styles.auth_input} onChange={onPasswordChange} />
                             </div>
                             <div className={styles.login_form_error_container}>
                                 {errors.length ?
@@ -68,10 +82,17 @@ const LoginForm = ({ history }) => {
                                     </ul>
                                     : <></>}
                             </div>
-                            <button type="submit" className={styles.auth_button}>log in</button>
+                            <button type="submit" className={styles.auth_button}>Continue</button>
                         </form>
                     </div>
-                    <button onClick={demoUserClick} className={styles.demo_button}>play as demo user</button>
+                    <div className={styles.form_footer}>
+                        <div className={styles.footer_tagline}>
+                            Don't have an account?
+                    </div>
+                        <div className={styles.footer_cta_wrapper}>
+                            <Link className={styles.footer_cta} to='/join'>Create account</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,138 +1,139 @@
-* {
-    /* font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif; */
-    text-decoration: none;
+.packs_container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    height: 100vh;
 }
 
-.hide {
-    display: none;
+.puzzle_pack_button, .puzzle_pack_tab {
+    font-size: 3vh;
+    padding: 0 2.5vh;
+    background-color: #acacac;
 }
 
-body {
-    background-image: none;
-}
-
-main {
-    padding: 30px;
-    background-color: white;
-}
-
-.modal_wrapper {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(133, 133, 133, 0.5);
-    z-index: 9;
-    top: -1px;
-    right: -316px;
-}
-
-
-h1 {
-    display: block;
-    line-height: 0;
-    margin: 0;
-    margin-bottom: 20px;
-    padding: 10px;
-    font-size: 20px;
-    color: rgb(51 51 51);
-    font-weight: normal;
-}
-
-h2 {
-    font-size: 15px;
-    color: rgb(51 51 51);
-    font-weight: 900;
-    margin: 0;
-    padding: 0;
-}
-
-.packs_title_bar {
+.puzzle_pack_buttons_container {
+    width: 93%;
+    margin-top: 2.5vh;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 40px;
 }
 
-table {
-    margin-top: 13px;
-    border-top: 2px #c7c79e solid;
-    width: 100%;
-    border-collapse: collapse;
-    border-left: rgb(212, 212, 212) solid 1px;
-    border-right: rgb(212, 212, 212) solid 1px;
-}
-
-th {
-    background-image: url('https://i.imgur.com/agZA72Z.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-bottom: 1px solid #c9c993;;
-    color: white;
-    height: 37px;
-    font-size: 11px;
-    font-weight: 400;
-    line-height: 20px;
-}
-
-th, td {
-    text-align: left;
-}
-
-th {
-    padding: 0 40px;
-}
-
-td {
-    padding: 40px;
-}
-
-tr:nth-child(odd) {background-color: #ececd642;}
-
-.pack_title {
-    cursor: pointer;
-    width: 15%;
-}
-
-.pack_title_two {
-    cursor: pointer;
-    width: 15%;
-    padding: 40px;
-    text-decoration: none;
-}
-
-.pack_title_two_td {
-    padding: 0;
-    width: 15%;
-    text-decoration: none;
-}
-
-.pack_title_two_td a {
-    
+.puzzle_pack_tab {
+    margin-right: 1vh;
     color: black;
 }
 
-.pack_title_two_td a:hover {
-    color: rgb(128, 0, 0);
+.active_tab, .puzzle_pack_tab:hover {
+    background-color: #efefef;
 }
 
-.pack_progress {
-    width: 15%;
+.pack_rows_container {
+    overflow-y: auto;
+    width: 93%;
+    background-color: #ececd625;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 2.5vh;
+    background:linear-gradient(0deg, #1b1b1be5, #1b1b1be5), url(https://i.imgur.com/ibLPvQP.jpg);
 }
 
-.pack_study_button a {
-    font-size: 40px;
-    text-decoration: none !important;
-    color: rgb(128, 0, 0);
+.pack_row_container {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin: 3vh 0;
+    padding: 3.2vh 0;
+    width: 100%;
+    text-decoration: none;
 }
 
-.pack_study_button a:hover {
-    color: rgb(202, 2, 2);
+.pack_column_container {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    margin: 0 5vh;
 }
 
-.edit_pack_icon {
+.pack_column_container div {
+    text-shadow: rgb(31, 31, 31) 0.3vh 0.3vh 0.3vh;
+    line-height: 4.1vh;
+}
+
+.pack_data_label_large {
+    font-size: 3.7vh;
+    color: #f3cb2b;
+}
+
+.pack_data_label_small {
+    color: whitesmoke;
+    font-size: 3.0vh;
+}
+
+.icon_row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    /* align-items: center; */
+}
+
+.pack_icon {
+    /* padding: 0 1.6vh; */
+    /* width: 25%; */
+    font-size: 3vh;
     cursor: pointer;
+    color: whitesmoke;
 }
 
-.edit_pack_icon:hover {
-    color: rgb(202, 2, 2);
+.pack_icon:hover {
+    color: rgb(184, 184, 184);
 }
+
+.pack_icon:hover {
+    color: rgb(184, 184, 184);
+}
+
+.pack_icon_last {
+    /* padding: 0 1.6vh; */
+    /* width: 25%; */
+    font-size: 3vh;
+    cursor: pointer;
+    color: whitesmoke;
+}
+
+.shared_true {
+    color: #00ff7f;
+    transform: rotate(360deg);
+    transition-property: color, transform;
+    transition-duration: 0.3s;
+}
+
+.shared_false {
+    color: whitesmoke;
+    transform: rotate(0deg);
+    transition-property: color, transform;
+    transition-duration: 0.3s;
+}
+
+.shared_false:hover {
+    color: rgb(184, 184, 184);
+}
+
+.pack_header {
+    background-color: #ececd625;
+    /* background-size: cover;
+    background-position: center;
+    background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
+
+    width: 93%;
+    /* margin-top: 2.5vh; */
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .puzzle_pack_buttons_container {
+    width: 93%;
+    margin-top: 2.5vh;
+    display: flex;
+    justify-content: space-between;
+} */

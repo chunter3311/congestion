@@ -7,23 +7,18 @@
     height: 100vh;
 }
 
-/* .page_container {
-    display: flex;
-    height: 100vh;
-} */
-
 .page_content_container {
-    width: 70%;
+    width: 75%;
     color: white;
 }
 
 .nav_content_container {
-    width: 30%;
+    width: 25%;
 }
 
 .background {
-    /* background-color: #1e1e1e; */
     background-image: url("https://i.imgur.com/imgYnOL.jpg");
+    /* background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
