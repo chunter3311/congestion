@@ -43,36 +43,11 @@ const Created_Puzzle_ITEM = ({ puzzle }) => {
 
     // setTimeout(setInitialStyles, 0);
 
-    // const getDifficulty = () => {
-    //     let total = 0;
-    //     if (packPuzzles.length === 0) return '–';
-    //     packPuzzles.map((puzzle, i) => {
-    //         switch (puzzle.difficulty) {
-    //             case 'beginner':
-    //                 total += 1;
-    //                 break;
-    //             case 'intermediate':
-    //                 total += 2;
-    //                 break;
-    //             case 'experienced':
-    //                 total += 3;
-    //                 break;
-    //             case 'master':
-    //                 total += 4;
-    //                 break;
-    //         }
-    //     })
-    //     const average = total / packPuzzles.length;
-    //     if (pack.id <= 2) {
-    //         console.log('total', total)
-    //         console.log('average', average)
-    //         console.log('packPuzzles.length', packPuzzles.length)
-    //     }
-    //     if (average <= 1.75) return 'beginner';
-    //     else if (average <= 2.5) return 'intermediate';
-    //     else if (average <= 3.25) return 'experienced';
-    //     else return 'master';
-    // }
+    const getSolution = () => {
+        console.log(puzzle.solutionMoves);
+        if (puzzle.solutionMoves === -1) return '–';
+        else return `${puzzle.solutionMoves} moves`;
+    }
 
     return (
         <>
@@ -82,19 +57,16 @@ const Created_Puzzle_ITEM = ({ puzzle }) => {
                     <div className={styles.pack_data_label_small}>{puzzle.difficulty}</div>
                 </div>
                 <div className={styles.pack_column_container}>
-                    <div className={styles.pack_data_label_large}>{puzzle.solutionMoves} moves</div>
+                    <div className={styles.pack_data_label_large}>{getSolution()}</div>
                     <div className={styles.pack_data_label_small}>solution</div>
                 </div>
                 <div className={styles.pack_column_container}>
-                    <div className={styles.pack_data_label_large}>23 stars</div>
-                    <div className={styles.pack_data_label_small}>52 plays</div>
+                    <div className={styles.pack_data_label_large}>{puzzle.totalStars} stars</div>
+                    <div className={styles.pack_data_label_small}>{puzzle.totalPlays} plays</div>
                 </div>
                 <div className={styles.pack_column_container}>
                     <div className={`${styles.icon_row}`}>
-                        {/* <div className={`${styles.pack_icon}`} onClick={toggleSharedStatus}><FontAwesomeIcon id={`pack-${pack.id}`} icon="share-square" /></div> */}
-                        <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="play" /></div>
-                        <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="play" /></div>
-                        {/* <div className={`${styles.pack_icon}`}><NavLink to={`/packs/created/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div> */}
+                        <div className={`${styles.pack_icon}`}><NavLink to={`/play`}><FontAwesomeIcon icon="play" /></NavLink></div>
                         <div className={`${styles.pack_icon_last}`}><FontAwesomeIcon icon="trash" /></div>
                     </div>
                 </div>

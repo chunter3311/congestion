@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styles from '../styles/board.module.css';
-import { Game, solvePuzzle } from '../classes/GameFunctions';
+import styles from '../../styles/board.module.css';
+import { Game, solvePuzzle } from '../../classes/GameFunctions';
 import Block from './Block';
 
 

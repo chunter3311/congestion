@@ -7,7 +7,7 @@ import { loadSession } from './store/session';
 import SignUpForm from './components/Pages/SignUpForm'
 import LoginForm from './components/Pages/LoginForm';
 import AuthRoute from './components/AuthRoute';
-import QuickPlay from './components/Pages/QuickPlay';
+import Play from './components/Play/Play';
 import Shared from './components/Pages/Shared';
 import Help from './components/Pages/Help';
 import Nav from './components/Nav';
@@ -47,10 +47,10 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/quick-play">
+                <Route exact path="/play">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
-                            <QuickPlay />
+                            <Play />
                         </div>
                         <div className={`${styles.nav_content_container}`}>
                             <Nav />

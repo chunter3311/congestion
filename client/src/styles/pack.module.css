@@ -35,7 +35,7 @@
     background-size: cover;
     background-position: center;
     margin-bottom: 2.5vh;
-    background:linear-gradient(0deg, #1b1b1be5, #1b1b1be5), url(https://i.imgur.com/ZdG23KL.png);
+    background:linear-gradient(0deg, #1b1b1be5, #1b1b1be5), url(https://i.imgur.com/ibLPvQP.jpg);
 }
 
 .pack_row_container {
@@ -53,14 +53,7 @@
     flex-direction: column;
     width: 25%;
     margin: 0 5vh;
-    
-    
-    /* background-color: blue;
-    border: white solid 2px; */
-    /* justify-content: space-around; */
-    /* align-items: center; */
 }
-
 
 .pack_column_container div {
     text-shadow: rgb(31, 31, 31) 0.3vh 0.3vh 0.3vh;
@@ -125,3 +118,22 @@
 .shared_false:hover {
     color: rgb(184, 184, 184);
 }
+
+.pack_header {
+    background-color: #ececd625;
+    /* background-size: cover;
+    background-position: center;
+    background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
+
+    width: 93%;
+    /* margin-top: 2.5vh; */
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .puzzle_pack_buttons_container {
+    width: 93%;
+    margin-top: 2.5vh;
+    display: flex;
+    justify-content: space-between;
+} */

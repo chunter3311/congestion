@@ -9,9 +9,17 @@ import { faShareSquare, faPen, faTrash, faPlay } from '@fortawesome/free-solid-s
 library.add(faShareSquare, faPlay, faPen, faTrash);
 
 const Created_Pack_ITEM = ({ pack, puzzles }) => {
-    console.log(pack);
+
     const packPuzzles = useSelector(state => Object.values(state.entities.puzzles).filter((puzzle) => puzzle.packId === pack.id));
-    console.log(packPuzzles);
+    // console.log(pack.id)
+    // console.log('pack', pack[0]);
+    // // console.log('puzzles', puzzles);
+    // // console.log('packPuzzles', packPuzzles);
+    // if (pack.id === 1) {
+    //     // console.log('pack', pack);
+    //     // console.log('puzzles', puzzles);
+    //     // console.log('packPuzzles', packPuzzles);
+    // }
     const dispatch = useDispatch();
     const totalPuzzles = pack.totalPuzzles;
     const userId = pack.userId;
@@ -47,7 +55,6 @@ const Created_Pack_ITEM = ({ pack, puzzles }) => {
 
     const getDifficulty = () => {
         let total = 0;
-        console.log(packPuzzles);
         if (packPuzzles.length === 0) return '–';
         packPuzzles.map((puzzle, i) => {
             switch (puzzle.difficulty) {
@@ -66,7 +73,7 @@ const Created_Pack_ITEM = ({ pack, puzzles }) => {
             }
         })
         const average = total / packPuzzles.length;
-        
+
         if (average <= 1.75) return 'beginner';
         else if (average <= 2.5) return 'intermediate';
         else if (average <= 3.25) return 'experienced';

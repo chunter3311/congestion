@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../styles/board.module.css';
 import builderStyles from '../../styles/builder.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
-import Block from '../Block';
+import Block from '../Play/Block';
 
 function Board() {
     const layout = [
