@@ -48,9 +48,9 @@ const Nav = ({ history }) => {
                 </div>
                 <div className={`${styles.nav_wrapper}`}>
                     <NavLink className={styles.nav_link_large} to="/quick-play" activeClassName={styles.selected}>quick play</NavLink>
-                    {user ? <NavLink className={styles.nav_link} to="/puzzle-packs/mine" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
-                    <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink>
-                    {/* {user ? <NavLink className={styles.nav_link} to="/builder" activeClassName={styles.selected}>build</NavLink> : ""} */}
+                    {user ? <NavLink className={styles.nav_link} to="/packs/created" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
+                    {/* <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink> */}
+                    {user ? <NavLink className={styles.nav_link} to="/builder" activeClassName={styles.selected}>build</NavLink> : ""}
                 </div>
                 <div className={`${styles.nav_wrapper}`}>
                     <NavLink className={styles.nav_link} to="/help" activeClassName={styles.selected}>help</NavLink>

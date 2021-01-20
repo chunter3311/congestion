@@ -7,12 +7,12 @@ import Block from './Block';
 
 function Board() {
     const layout = [
-        [0, 0, 0, 1, 1, 1],
-        [0, 0, 0, 2, 0, 0],
-        [3, 4, 4, 2, 5, 6],
-        [3, 7, 7, 7, 5, 6],
-        [3, 0, 8, 9, 5, 6],
-        [0, 0, 8, 9, 10, 10]
+        [1, 1, 1, 2, 3, 4],
+        [5, 0, 0, 2, 3, 4],
+        [5, 0, 0, 6, 6, 4],
+        [5, 0, 0, 7, 7, 7],
+        [0, 0, 0, 8, 0, 0],
+        [0, 0, 0, 8, 9, 9]
     ];
     const game = new Game(layout);
 
@@ -82,7 +82,6 @@ function Board() {
                         <div className={styles.small_text}>your best</div>
                         <div className={styles.your_best_display}>
                             <div className={styles.extra_large_text}>12</div>
-                            {/* <div className={`${styles.subscript} ${styles.extra_small_text}`}>/12</div> */}
                         </div>
                     </div>
                     <div className={`${styles.widget}`}>
@@ -99,16 +98,14 @@ function Board() {
                     </div>
                 </div>
                 <div className={styles.column_three}>
-                        <div className={`${styles.widget} ${styles.button_spacing}`}>
-                            <div className={styles.reset_button}></div>
-                            <div className={styles.help_button}></div>
-                            <div className={styles.solution_button}></div>
-                        </div>
-                        <div className={`${styles.widget}`}>
-                            <div className={styles.next_arrow}></div>
-                        </div>
-                    {/* <div className={`${styles.widget}`}>
-                    </div> */}
+                    <div className={`${styles.widget} ${styles.button_spacing}`}>
+                        <div className={styles.reset_button}></div>
+                        <div className={styles.help_button}></div>
+                        <div className={styles.solution_button}></div>
+                    </div>
+                    <div className={`${styles.widget}`}>
+                        <div className={styles.next_arrow}></div>
+                    </div>
                 </div>
             </div>
         </>

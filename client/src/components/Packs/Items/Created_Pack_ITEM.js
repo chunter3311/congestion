@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { toggleEditPackModal } from '../store/ui';
-import { editUserPacks } from '../store/packs';
-
-import styles from '../styles/pack.module.css';
+import { editUserPacks } from '../../../store/packs';
+import styles from '../../../styles/pack.module.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareSquare, faPen, faTrash, faPlay } from '@fortawesome/free-solid-svg-icons';
-library.add(faShareSquare, faPlay, faPen, faTrash)
+library.add(faShareSquare, faPlay, faPen, faTrash);
 
-const PackRow = ({ pack, puzzles, setEditPackId }) => {
+const Created_Pack_ITEM = ({ pack, puzzles }) => {
+    console.log(pack);
     const packPuzzles = useSelector(state => Object.values(state.entities.puzzles).filter((puzzle) => puzzle.packId === pack.id));
+    console.log(packPuzzles);
     const dispatch = useDispatch();
     const totalPuzzles = pack.totalPuzzles;
     const userId = pack.userId;
@@ -47,6 +47,7 @@ const PackRow = ({ pack, puzzles, setEditPackId }) => {
 
     const getDifficulty = () => {
         let total = 0;
+        console.log(packPuzzles);
         if (packPuzzles.length === 0) return '–';
         packPuzzles.map((puzzle, i) => {
             switch (puzzle.difficulty) {
@@ -65,11 +66,7 @@ const PackRow = ({ pack, puzzles, setEditPackId }) => {
             }
         })
         const average = total / packPuzzles.length;
-        if (pack.id <= 2) {
-            console.log('total', total)
-            console.log('average', average)
-            console.log('packPuzzles.length', packPuzzles.length)
-        }
+        
         if (average <= 1.75) return 'beginner';
         else if (average <= 2.5) return 'intermediate';
         else if (average <= 3.25) return 'experienced';
@@ -95,13 +92,8 @@ const PackRow = ({ pack, puzzles, setEditPackId }) => {
                     <div className={`${styles.icon_row}`}>
                         <div className={`${styles.pack_icon}`} onClick={toggleSharedStatus}><FontAwesomeIcon id={`pack-${pack.id}`} icon="share-square" /></div>
                         <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="play" /></div>
-                        {/* <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="pen" /></div> */}
-                        <div className={`${styles.pack_icon}`}><NavLink to={`/puzzle-packs/mine/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div>
+                        <div className={`${styles.pack_icon}`}><NavLink to={`/packs/created/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div>
                         <div className={`${styles.pack_icon_last}`}><FontAwesomeIcon icon="trash" /></div>
-
-                        {/* <NavLink to={`/decks/deck-${deck.id}`}>{deck.title} <FontAwesomeIcon icon={faPenAlt} /></NavLink> */}
-                        {/* <NavLink to={`/decks/deck-${deck.id}`}><FontAwesomeIcon icon="pen" /></NavLink> */}
-
                     </div>
                 </div>
             </div>
@@ -109,4 +101,4 @@ const PackRow = ({ pack, puzzles, setEditPackId }) => {
     );
 }
 
-export default PackRow;
+export default Created_Pack_ITEM;

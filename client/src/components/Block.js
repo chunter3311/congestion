@@ -21,7 +21,7 @@ const Block = ({ block, game }) => {
         }
 
         if (game.isSolved) setIsSolved(true);
-        console.log(game);
+        
     };
 
     setTimeout(updateBlock, 0);
