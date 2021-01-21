@@ -6,7 +6,7 @@ import splash from '../../styles/splash.module.css';
 const SplashPage = () => {
     return (
         <>
-            <div className={`${splash.background}`}></div >
+            <div className={`${splash.logo}`}></div >
         </>
     );
 }

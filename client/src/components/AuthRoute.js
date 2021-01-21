@@ -4,12 +4,13 @@ import { Redirect, Route } from 'react-router-dom';
 import Nav from './Nav';
 import SplashPage from './Pages/SplashPage';
 import styles from '../styles/global.module.css';
+import splashStyles from '../styles/splash.module.css';
 
 const AuthRoute = ({ user_id, path, component }) => {
     if (!user_id) {
         return (
             <>
-                <div className={`${styles.view_height_flex} ${styles.background}`}>
+                <div className={`${styles.view_height_flex} ${splashStyles.background}`}>
                     <div className={`${styles.page_content_container}`}>
                         <SplashPage />
                     </div>

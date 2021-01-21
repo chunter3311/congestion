@@ -19,6 +19,7 @@ import Builder from './components/Pages/Builder';
 
 
 function App() {
+    const proPuzzles = useSelector(state => Object.values(state.entities.puzzles).filter((puzzle) => puzzle.packId === 1));
     useEffect(() => {
         const getCSRF = async () => {
             const res = await fetch('/api/session/csrf');
@@ -47,16 +48,16 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/play">
+                {/* <Route exact path="/play">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
-                            <Play />
+                            <Play puzzles={proPuzzles} />
                         </div>
                         <div className={`${styles.nav_content_container}`}>
                             <Nav />
                         </div>
                     </div>
-                </Route>
+                </Route> */}
                 <Route exact path="/about">
                     <div className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>

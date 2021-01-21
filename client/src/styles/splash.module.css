@@ -1,4 +1,11 @@
 .background {
+    background-image: url("https://i.imgur.com/imgYnOL.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.logo {
     background-image: url("https://i.imgur.com/ad5xSVo.png");
     background-repeat: no-repeat;
     background-size: contain;

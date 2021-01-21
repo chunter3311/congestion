@@ -6,6 +6,10 @@
     color: white;
 }
 
+.hide_board {
+    display: none;
+}
+
 .column_one, .column_three {
     width: 15%;
     height: 100vh;
@@ -29,11 +33,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("https://i.imgur.com/IsMpBad.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 90vh;
-    width: 90vh;
+    /* background-image: url("https://i.imgur.com/IsMpBad.jpg"); */
+    background-image: url("https://i.imgur.com/Sy6tORY.png");
+    background-position: left;
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 3vh;
+    height: 95vh;
+    width: 95vh;
     position: relative;
 }
 

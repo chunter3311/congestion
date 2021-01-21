@@ -9,6 +9,10 @@ import styles from '../styles/nav.module.css';
 const Nav = ({ history }) => {
     const dispatch = useDispatch();
     const user = useSelector(state => state.entities.users[state.session.user_id]);
+    const packId = 1;
+    const puzzleId = 1;
+
+    // const userName = user.username;
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -47,10 +51,11 @@ const Nav = ({ history }) => {
                     </div> */}
                 </div>
                 <div className={`${styles.nav_wrapper}`}>
-                    <NavLink className={styles.nav_link_large} to="/play" activeClassName={styles.selected}>quick play</NavLink>
+                {user ? <NavLink className={styles.nav_link_large} to={`/play/${user.username}/pack-${packId}/puzzle-${puzzleId}`} activeClassName={styles.selected}>quick play</NavLink> : ""}
+                    
                     {user ? <NavLink className={styles.nav_link} to="/packs/created" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
                     {/* <NavLink className={styles.nav_link} to="/shared" activeClassName={styles.selected}>shared</NavLink> */}
-                    {user ? <NavLink className={styles.nav_link} to="/builder" activeClassName={styles.selected}>build</NavLink> : ""}
+                    {/* {user ? <NavLink className={styles.nav_link} to="/builder" activeClassName={styles.selected}>build</NavLink> : ""} */}
                 </div>
                 <div className={`${styles.nav_wrapper}`}>
                     <NavLink className={styles.nav_link} to="/help" activeClassName={styles.selected}>help</NavLink>

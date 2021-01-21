@@ -17,8 +17,10 @@
 }
 
 .background {
-    background-image: url("https://i.imgur.com/imgYnOL.jpg");
+    /* background:linear-gradient(0deg, #1b1b1ba6, #1b1b1ba6), url(https://i.imgur.com/ibLPvQP.jpg); */
+    /* background-image: url("https://i.imgur.com/imgYnOL.jpg"); */
     /* background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
+    background-image: url(https://i.imgur.com/elE1PFd.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
