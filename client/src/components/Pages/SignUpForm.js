@@ -5,9 +5,16 @@ import { signup } from "../../store/users.js";
 import { login } from "../../store/session.js";
 import { withRouter } from 'react-router-dom';
 import styles from '../../styles/auth.module.css';
+import globalStyles from '../../styles/global.module.css';
 
 
 const SignUpForm = ({ history }) => {
+    const setBackground = () => {
+        const background = document.getElementById('page-background');
+        background.classList.add(globalStyles.background_image_asphalt);
+    }
+
+    setTimeout(setBackground, 0);
 
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');

@@ -1,9 +1,16 @@
 import React from 'react';
 import Board from './Board';
 import styles from '../../styles/board.module.css';
+import globalStyles from '../../styles/global.module.css';
 import { Game } from '../../classes/GameFunctions';
 
 const Play = ({ puzzles }) => {
+    const setBackground = () => {
+        const background = document.getElementById('page-background');
+        background.classList.add(globalStyles.background_image_carbon_fiber);
+    }
+
+    setTimeout(setBackground, 0);
 
     const game = [];
     

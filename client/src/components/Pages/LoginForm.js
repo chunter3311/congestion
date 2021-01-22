@@ -3,8 +3,17 @@ import { useDispatch } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { login } from '../../store/session';
 import styles from '../../styles/auth.module.css';
+import globalStyles from '../../styles/global.module.css';
+
 
 const LoginForm = ({ history }) => {
+    const setBackground = () => {
+        const background = document.getElementById('page-background');
+        background.classList.add(globalStyles.background_image_asphalt);
+    }
+
+    setTimeout(setBackground, 0);
+
     const [emailOrUsername, setEmailOrUsername] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);

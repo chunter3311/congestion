@@ -1,3 +1,7 @@
+/* .background_image {
+    background-image: url(https://i.imgur.com/imgYnOL.jpg);
+} */
+
 .packs_container {
     display: flex;
     flex-direction: column;
@@ -24,6 +28,10 @@
     color: black;
 }
 
+.puzzle_pack_tab:last-child {
+    margin-right: 0vh;
+}
+
 .active_tab, .puzzle_pack_tab:hover {
     background-color: #efefef;
 }
@@ -31,14 +39,15 @@
 .pack_rows_container {
     overflow-y: auto;
     width: 93%;
-    background-color: #ececd625;
+    background-color: #8888881e;
     background-size: cover;
     background-position: center;
     margin-bottom: 2.5vh;
+    border-bottom-left-radius: 4vh;
     /* background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
-    background:linear-gradient(0deg, #1b1b1ba6, #1b1b1ba6), url(https://i.imgur.com/ibLPvQP.jpg);
+    /* background:linear-gradient(0deg, #1b1b1ba6, #1b1b1ba6), url(https://i.imgur.com/ibLPvQP.jpg); */
 }
-
+    
 .pack_row_container {
     display: flex;
     /* justify-content: space-between; */
@@ -78,28 +87,14 @@
     /* align-items: center; */
 }
 
-.pack_icon {
-    /* padding: 0 1.6vh; */
-    /* width: 25%; */
+.pack_icon, .pack_icon a {
     font-size: 3vh;
     cursor: pointer;
     color: whitesmoke;
 }
 
-.pack_icon:hover {
+.pack_icon:hover, .pack_icon a:hover {
     color: rgb(184, 184, 184);
-}
-
-.pack_icon:hover {
-    color: rgb(184, 184, 184);
-}
-
-.pack_icon_last {
-    /* padding: 0 1.6vh; */
-    /* width: 25%; */
-    font-size: 3vh;
-    cursor: pointer;
-    color: whitesmoke;
 }
 
 .shared_true {
@@ -131,10 +126,3 @@
     display: flex;
     justify-content: space-between;
 }
-
-/* .puzzle_pack_buttons_container {
-    width: 93%;
-    margin-top: 2.5vh;
-    display: flex;
-    justify-content: space-between;
-} */

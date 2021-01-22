@@ -1,12 +1,19 @@
 import React from 'react';
-import splash from '../../styles/splash.module.css';
+import styles from '../../styles/splash.module.css';
+import globalStyles from '../../styles/global.module.css';
 
 
 
 const SplashPage = () => {
+    const setBackground = () => {
+        const background = document.getElementById('page-background');
+        background.classList.add(globalStyles.background_image_asphalt);
+    }
+
+    setTimeout(setBackground, 0);
     return (
         <>
-            <div className={`${splash.logo}`}></div >
+            <div className={`${styles.logo}`}></div >
         </>
     );
 }

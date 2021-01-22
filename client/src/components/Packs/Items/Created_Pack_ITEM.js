@@ -100,7 +100,7 @@ const Created_Pack_ITEM = ({ pack, puzzles }) => {
                         <div className={`${styles.pack_icon}`} onClick={toggleSharedStatus}><FontAwesomeIcon id={`pack-${pack.id}`} icon="share-square" /></div>
                         <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="play" /></div>
                         <div className={`${styles.pack_icon}`}><NavLink to={`/packs/created/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div>
-                        <div className={`${styles.pack_icon_last}`}><FontAwesomeIcon icon="trash" /></div>
+                        <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="trash" /></div>
                     </div>
                 </div>
             </div>

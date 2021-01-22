@@ -37,7 +37,7 @@ function LoggedInLayout({ userId, selectedPackId, defaultPackId }) {
 
     return (
         <>
-            <div className={`${styles.view_height_flex} ${styles.background}`}>
+            <div id='page-background' className={`${styles.view_height_flex} ${styles.background}`}>
                 <div className={`${styles.page_content_container}`}>
                     <LoggedInPageContent />
                 </div>
