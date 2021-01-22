@@ -7,14 +7,13 @@ import { Game } from '../../classes/GameFunctions';
 const Play = ({ puzzles }) => {
     const setBackground = () => {
         const background = document.getElementById('page-background');
+        background.classList.remove(globalStyles.background_image_asphalt);
         background.classList.add(globalStyles.background_image_carbon_fiber);
     }
 
     setTimeout(setBackground, 0);
 
     const game = [];
-    
-
     const layoutArrays = [];
     const getProperValues = (puzzle) => {
         const layoutStringToArray = puzzle.layout.split("");
@@ -76,8 +75,6 @@ const Play = ({ puzzles }) => {
     setTimeout(revealBoard, 0);
 
     const puzzleNumb = layoutArrays.length;
-    // console.log('puzzleNumb', puzzleNumb)
-
 
     return (
         <>
@@ -87,7 +84,6 @@ const Play = ({ puzzles }) => {
                 )
             })}
         </>
-        // <Board puzzles={puzzles} />
     );
 }
 export default Play;

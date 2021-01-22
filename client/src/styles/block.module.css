@@ -2,9 +2,9 @@
     width: 16.667%;
     height: 16.667%;
     position: absolute;
-    border: rgba(255, 255, 255, 0) solid 13px;
+    border: rgba(255, 255, 255, 0) solid 1vh;
     box-sizing: border-box;
-    cursor: pointer;
+    
     transition: top 0.3s, left 0.3s;
     transition-timing-function: ease-in-out;
 }
@@ -12,11 +12,12 @@
 .image {
     width: 100%;
     height: 100%;
-    border: rgba(255, 255, 255, 0) solid 13px;
-    box-sizing: border-box;
+    border: rgba(255, 255, 255, 0) solid 1vh;
+    /* box-sizing: border-box; */
+    
     background-repeat: no-repeat;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     position: relative;
 }
@@ -25,6 +26,7 @@
 .moveContainer {
     width: 100%;
     height: 100%;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
 }
@@ -34,7 +36,7 @@
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
-    background-size: 83px;
+    background-size: 8.5vh;
 }
 
 .arrow:hover {
@@ -56,11 +58,11 @@
 }
 
 .solved_message {
-    font-size: 40px;
+    font-size: 8vh;
 }
 
 .solved_message_wrapper {
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.719);
-    padding: 200px;
+    padding: 8vh;
 }

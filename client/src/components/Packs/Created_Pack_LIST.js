@@ -8,6 +8,14 @@ import { NavLink } from 'react-router-dom';
 
 function Created_Pack_LIST(props) {
 
+    const setBackground = () => {
+        const background = document.getElementById('page-background');
+        background.classList.remove(globalStyles.background_image_asphalt);
+        background.classList.add(globalStyles.background_image_carbon_fiber);
+    }
+
+    setTimeout(setBackground, 0);
+
     const dispatch = useDispatch();
     const userId = useSelector(state => state.session.user_id);
     const packs = useSelector(state => Object.values(state.entities.packs));
@@ -21,14 +29,6 @@ function Created_Pack_LIST(props) {
         dispatch(addUserPacks(userId));
         return;
     }
-
-    const setBackground = () => {
-        const background = document.getElementById('page-background');
-        background.classList.add(globalStyles.background_image_carbon_fiber);
-    }
-
-    setTimeout(setBackground, 0);
-
 
     return (
         <div className={styles.packs_container}>

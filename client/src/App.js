@@ -13,6 +13,7 @@ import Nav from './components/Nav';
 import LoggedInLayout from './components/LoggedInLayout';
 import styles from './styles/global.module.css';
 import About from './components/Pages/About';
+import LoggedInPageContent from './components/LoggedInPageContent';
 // import splashStyles from '../../styles/splash.module.css';
 
 
@@ -56,16 +57,6 @@ function App() {
                         </div>
                     </div>
                 </Route>
-                {/* <Route exact path="/shared">
-                    <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_carbon_fiber}`}>
-                        <div className={`${styles.page_content_container}`}>
-                            <Shared />
-                        </div>
-                        <div className={`${styles.nav_content_container}`}>
-                            <Nav />
-                        </div>
-                    </div>
-                </Route> */}
                 <Route exact path="/help">
                     <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_carbon_fiber}`}>
                         <div className={`${styles.page_content_container}`}>

@@ -7,18 +7,15 @@ import Block from './Block';
 
 function Board({ boardId, game, layout, puzzleNumb }) {
 
-    // const game = new Game(layout);
-    console.log('puzzleNumb', puzzleNumb)
-
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
     const leftArrow = 'https://i.imgur.com/yU2HmxP.png';
     const downArrow = 'https://i.imgur.com/1DIjjAm.png';
     const priBlk = "https://i.imgur.com/n07UANE.png";
-    const horSBlk = "https://i.imgur.com/EuehW2s.png";
-    const horLBlk = "https://i.imgur.com/TLYg7Bv.png";
-    const vertSBlk = "https://i.imgur.com/CJswBXz.png";
-    const vertLBlk = "https://i.imgur.com/bzFg8KO.png";
+    const horSBlk = "https://i.imgur.com/AihDIR0.png";
+    const horLBlk = "https://i.imgur.com/CG1s8K7.png";
+    const vertSBlk = "https://i.imgur.com/3y0Ss2a.png";
+    const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
 
     const setBoard = () => {
         game.blocks.forEach(block => {
@@ -82,7 +79,7 @@ function Board({ boardId, game, layout, puzzleNumb }) {
                         <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>level</div>
                             <div className={styles.level_number}>
-                                <div className={styles.extra_large_text}>{boardId + 1}</div>
+                                <div className={styles.large_text}>{boardId + 1}</div>
                                 <div className={styles.extra_small_text}>of</div>
                                 <div className={styles.extra_small_text}>{puzzleNumb}</div>
                             </div>
@@ -91,12 +88,12 @@ function Board({ boardId, game, layout, puzzleNumb }) {
                     <div className={`${styles.widget}`}>
                         <div className={`${styles.widget}`}>
                             <div className={`${styles.yellow} ${styles.small_text}`}>moves</div>
-                            <div className={styles.extra_large_text}>0</div>
+                            <div className={styles.large_text}>0</div>
                         </div>
                         <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>your best</div>
                             <div className={styles.your_best_display}>
-                                <div className={styles.extra_large_text}>12</div>
+                                <div className={styles.large_text}>12</div>
                             </div>
                         </div>
                     </div>

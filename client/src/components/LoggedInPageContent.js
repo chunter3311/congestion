@@ -38,7 +38,7 @@ function LoggedInPageContent({ match }) {
 
             <Route path={match.url} exact component={SplashPage} />
             <Route path={match.url + "builder"} component={Builder} />
-            <Route path={match.url + "help"} exact component={Help} />
+            {/* <Route path={match.url + "help"} exact component={Help} /> */}
         </>
     );
 }

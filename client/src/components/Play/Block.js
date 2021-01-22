@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import styles from '../../styles/block.module.css';
 
 const Block = ({ block, boardId, game }) => {
-    // console.log('block', block);
     const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
 
     const updateBlock = () => {
-        // console.log(block.id)
-        // console.log(blockElement)
         const blockElement = document.getElementById(`${boardId}-${block.id}`);
         blockElement.classList.add(styles.change_position);
         const moveContainer = document.getElementById(`${boardId}-move-container-${block.id}`);

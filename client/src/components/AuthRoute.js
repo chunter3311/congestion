@@ -4,14 +4,14 @@ import { Redirect, Route } from 'react-router-dom';
 import Nav from './Nav';
 import SplashPage from './Pages/SplashPage';
 import styles from '../styles/global.module.css';
+import LoggedInPageContent from './LoggedInPageContent';
 
 
 const AuthRoute = ({ user_id, path, component }) => {
     if (!user_id) {
-        console.log('test');
         return (
             <>
-                <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_asphalt}`}>
+                <div id='page-background' className={`${styles.view_height_flex} ${styles.background}`}>
                     <div className={`${styles.page_content_container}`}>
                         <SplashPage />
                     </div>
@@ -23,7 +23,6 @@ const AuthRoute = ({ user_id, path, component }) => {
             </>
         )
     }
-
     return <Route path={path} component={component} />
 }
 

@@ -7,6 +7,7 @@ import globalStyles from '../../styles/global.module.css';
 const SplashPage = () => {
     const setBackground = () => {
         const background = document.getElementById('page-background');
+        background.classList.remove(globalStyles.background_image_carbon_fiber);
         background.classList.add(globalStyles.background_image_asphalt);
     }
 
