@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import styles from '../../styles/block.module.css';
 
-const Block = ({ block, game }) => {
+const Block = ({ block, boardId, game }) => {
+    // console.log('block', block);
     const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
 
     const updateBlock = () => {
-        const blockElement = document.getElementById(block.id);
+        // console.log(block.id)
+        // console.log(blockElement)
+        const blockElement = document.getElementById(`${boardId}-${block.id}`);
         blockElement.classList.add(styles.change_position);
-        const moveContainer = document.getElementById(`move-container-${block.id}`);
+        const moveContainer = document.getElementById(`${boardId}-move-container-${block.id}`);
 
         blockElement.style.top = (block.orientation === 'h') ? (block.row * pct) + '%' : (block.start * pct) + '%';
         blockElement.style.left = (block.orientation === 'h') ? (block.start * pct) + '%' : (block.column * pct) + '%';
@@ -45,11 +48,11 @@ const Block = ({ block, game }) => {
 
     return (
         <>
-            <div id={block.id} className={styles.container}>
-                <div id={`image-${block.id}`} className={styles.image}>
-                    <div id={`move-container-${block.id}`} className={styles.moveContainer}>
-                        <div className={styles.arrow} id={`negativeMove-${block.id}`} onClick={negativeMoveHandler}></div>
-                        <div className={styles.arrow} id={`positiveMove-${block.id}`} onClick={positiveMoveHandler}></div>
+            <div id={`${boardId}-${block.id}`} className={styles.container}>
+                <div id={`${boardId}-image-${block.id}`} className={styles.image}>
+                    <div id={`${boardId}-move-container-${block.id}`} className={styles.moveContainer}>
+                        <div className={styles.arrow} id={`${boardId}-negativeMove-${block.id}`} onClick={negativeMoveHandler}></div>
+                        <div className={styles.arrow} id={`${boardId}-positiveMove-${block.id}`} onClick={positiveMoveHandler}></div>
                     </div>
                 </div>
             </div>

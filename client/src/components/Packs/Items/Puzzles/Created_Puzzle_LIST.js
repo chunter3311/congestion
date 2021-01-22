@@ -46,7 +46,7 @@ function Created_Puzzle_LIST(props) {
                     <NavLink className={styles.puzzle_pack_tab} to="/packs/adopted" activeClassName={styles.active_tab}>adopted</NavLink> */}
                     <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>back to packs</NavLink>
                 </div>
-                <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>add a level</NavLink>
+                <NavLink className={styles.puzzle_pack_tab} to="/builder" activeClassName={styles.active_tab}>add a puzzle</NavLink>
             </div>
             <div className={`${styles.pack_header} `}>
                 {pack.map((pack, i) => {

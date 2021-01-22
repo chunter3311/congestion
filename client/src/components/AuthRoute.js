@@ -5,11 +5,13 @@ import Nav from './Nav';
 import SplashPage from './Pages/SplashPage';
 import styles from '../styles/global.module.css';
 
+
 const AuthRoute = ({ user_id, path, component }) => {
     if (!user_id) {
+        console.log('test');
         return (
             <>
-                <div className={`${styles.view_height_flex} ${styles.background}`}>
+                <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_asphalt}`}>
                     <div className={`${styles.page_content_container}`}>
                         <SplashPage />
                     </div>

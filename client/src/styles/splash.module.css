@@ -1,4 +1,8 @@
-.background {
+/* .background_image {
+    background-image: url(https://i.imgur.com/imgYnOL.jpg);
+} */
+
+.logo {
     background-image: url("https://i.imgur.com/ad5xSVo.png");
     background-repeat: no-repeat;
     background-size: contain;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/builder.module.css';
 import { Puzzle } from '../../classes/BuilderFunctions';
-import VehicleComponent from '../VehicleComponent';
+import VehicleComponent from './VehicleComponent';
 
 
 

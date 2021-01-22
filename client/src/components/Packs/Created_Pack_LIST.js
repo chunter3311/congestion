@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import styles from '../../styles/pack.module.css';
+import globalStyles from '../../styles/global.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Created_Pack_ITEM from './Items/Created_Pack_ITEM';
 import { addUserPacks } from '../../store/packs';
@@ -21,11 +22,13 @@ function Created_Pack_LIST(props) {
         return;
     }
 
-    const setActiveTab = (tab) => {
-        const activeTab = document.getElementById(tab);
-        activeTab.classList.add(styles.active_tab);
-        return;
+    const setBackground = () => {
+        const background = document.getElementById('page-background');
+        background.classList.add(globalStyles.background_image_carbon_fiber);
     }
+
+    setTimeout(setBackground, 0);
+
 
     return (
         <div className={styles.packs_container}>
@@ -35,7 +38,7 @@ function Created_Pack_LIST(props) {
                     <NavLink className={styles.puzzle_pack_tab} to="/packs/adopted" activeClassName={styles.active_tab}>adopted</NavLink>
                     <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>created</NavLink>
                 </div>
-                <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>start a new pack</NavLink>
+                <NavLink className={styles.puzzle_pack_tab} to={`/packs/created/pack-pack.id`} activeClassName={styles.active_tab}>start a new pack</NavLink>
             </div>
             <div className={styles.pack_rows_container}>
                 {packs.map((pack, i) => {

@@ -1,6 +1,4 @@
-.full_width {
-    width: 100%;
-}
+
 
 .view_height_flex {
     display: flex;
@@ -8,18 +6,28 @@
 }
 
 .page_content_container {
-    width: 75%;
+    width: 75vw;
     color: white;
 }
 
 .nav_content_container {
-    width: 25%;
+    width: 25vw;
 }
 
 .background {
-    background-image: url("https://i.imgur.com/imgYnOL.jpg");
+    /* background:linear-gradient(0deg, #1b1b1ba6, #1b1b1ba6), url(https://i.imgur.com/ibLPvQP.jpg); */
+    /* background-image: url("https://i.imgur.com/imgYnOL.jpg"); */
     /* background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
+    /* background-image: url(https://i.imgur.com/xh9DeTB.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+}
+
+.background_image_carbon_fiber {
+    background-image: url(https://i.imgur.com/xh9DeTB.jpg);
+}
+
+.background_image_asphalt {
+    background-image: url(https://i.imgur.com/imgYnOL.jpg);
 }

@@ -7,21 +7,61 @@ import BuilderBlock from '../BuilderBlock';
 
 function Builder() {
 
-    const layout = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0]
-    ];
-    var game = new Game(layout);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleDragStart = e => {
-        e.target.classList.add(styles.is_being_dragged);
-        e.dataTransfer.setData('text/plain', e.target.id);
-        e.dataTransfer.dropEffect = 'move';
+        
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleDragEnter = e => {
         e.preventDefault();

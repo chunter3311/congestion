@@ -7,18 +7,17 @@ import { loadSession } from './store/session';
 import SignUpForm from './components/Pages/SignUpForm'
 import LoginForm from './components/Pages/LoginForm';
 import AuthRoute from './components/AuthRoute';
-import Play from './components/Play/Play';
 import Shared from './components/Pages/Shared';
 import Help from './components/Pages/Help';
 import Nav from './components/Nav';
 import LoggedInLayout from './components/LoggedInLayout';
 import styles from './styles/global.module.css';
-import LoggedInPageContent from './components/LoggedInPageContent';
 import About from './components/Pages/About';
-import Builder from './components/Pages/Builder';
+// import splashStyles from '../../styles/splash.module.css';
 
 
 function App() {
+    const proPuzzles = useSelector(state => Object.values(state.entities.puzzles).filter((puzzle) => puzzle.packId === 1));
     useEffect(() => {
         const getCSRF = async () => {
             const res = await fetch('/api/session/csrf');
@@ -47,18 +46,8 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/play">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
-                        <div className={`${styles.page_content_container}`}>
-                            <Play />
-                        </div>
-                        <div className={`${styles.nav_content_container}`}>
-                            <Nav />
-                        </div>
-                    </div>
-                </Route>
                 <Route exact path="/about">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
+                    <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_carbon_fiber}`}>
                         <div className={`${styles.page_content_container}`}>
                             <About />
                         </div>
@@ -67,8 +56,8 @@ function App() {
                         </div>
                     </div>
                 </Route>
-                <Route exact path="/shared">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
+                {/* <Route exact path="/shared">
+                    <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_carbon_fiber}`}>
                         <div className={`${styles.page_content_container}`}>
                             <Shared />
                         </div>
@@ -76,9 +65,9 @@ function App() {
                             <Nav />
                         </div>
                     </div>
-                </Route>
+                </Route> */}
                 <Route exact path="/help">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
+                    <div id='page-background' className={`${styles.view_height_flex} ${styles.background} ${styles.background_image_carbon_fiber}`}>
                         <div className={`${styles.page_content_container}`}>
                             <Help />
                         </div>
@@ -88,7 +77,7 @@ function App() {
                     </div>
                 </Route>
                 <Route exact path="/log-in">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
+                    <div id='page-background' className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
                             <LoginForm />
                         </div>
@@ -98,7 +87,7 @@ function App() {
                     </div>
                 </Route>
                 <Route exact path="/join">
-                    <div className={`${styles.view_height_flex} ${styles.background}`}>
+                    <div id='page-background' className={`${styles.view_height_flex} ${styles.background}`}>
                         <div className={`${styles.page_content_container}`}>
                             <SignUpForm />
                         </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/builder.module.css';
+import styles from '../../styles/builder.module.css';
 
 const VehicleComponent = ({ vehicle }) => {
     const handleDragStart = e => {

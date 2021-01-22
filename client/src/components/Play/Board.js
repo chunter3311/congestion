@@ -5,16 +5,10 @@ import Block from './Block';
 
 
 
-function Board() {
-    const layout = [
-        [1, 1, 1, 2, 3, 4],
-        [5, 0, 0, 2, 3, 4],
-        [5, 0, 0, 6, 6, 4],
-        [5, 0, 0, 7, 7, 7],
-        [0, 0, 0, 8, 0, 0],
-        [0, 0, 0, 8, 9, 9]
-    ];
-    const game = new Game(layout);
+function Board({ boardId, game, layout, puzzleNumb }) {
+
+    // const game = new Game(layout);
+    console.log('puzzleNumb', puzzleNumb)
 
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
@@ -28,9 +22,9 @@ function Board() {
 
     const setBoard = () => {
         game.blocks.forEach(block => {
-            const imageElement = document.getElementById(`image-${block.id}`);
-            const negativeMoveElement = document.getElementById(`negativeMove-${block.id}`);
-            const positiveMoveElement = document.getElementById(`positiveMove-${block.id}`);
+            const imageElement = document.getElementById(`${boardId}-image-${block.id}`);
+            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${block.id}`);
+            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${block.id}`);
 
             if (block.orientation === 'v') {
                 negativeMoveElement.style.backgroundImage = `url(${upArrow})`;
@@ -55,10 +49,30 @@ function Board() {
 
     setTimeout(setBoard, 0);
 
+    const nextPuzzle = () => {
+        let newBoardId;
+        if (boardId + 1 === puzzleNumb) newBoardId = 0;
+        else newBoardId = boardId + 1;
+        const boardElement = document.getElementById(`board-${boardId}`);
+        boardElement.classList.add(styles.hide_board);
+        const nextBoardElement = document.getElementById(`board-${newBoardId}`);
+        nextBoardElement.classList.remove(styles.hide_board);
+    }
+
+    const previousPuzzle = () => {
+        let newBoardId;
+        if (boardId === 0) newBoardId = puzzleNumb - 1;
+        else newBoardId = boardId - 1;
+        const boardElement = document.getElementById(`board-${boardId}`);
+        boardElement.classList.add(styles.hide_board);
+        const nextBoardElement = document.getElementById(`board-${newBoardId}`);
+        nextBoardElement.classList.remove(styles.hide_board);
+    }
+
 
     return (
         <>
-            <div className={styles.board_wrapper}>
+            <div id={`board-${boardId}`} className={`${styles.board_wrapper} ${styles.hide_board}`}>
                 <div className={styles.column_one}>
                     <div className={`${styles.widget}`}>
                         <div className={`${styles.widget}`}>
@@ -68,31 +82,33 @@ function Board() {
                         <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>level</div>
                             <div className={styles.level_number}>
-                                <div className={styles.extra_large_text}>2</div>
+                                <div className={styles.extra_large_text}>{boardId + 1}</div>
                                 <div className={styles.extra_small_text}>of</div>
-                                <div className={styles.extra_small_text}>5</div>
+                                <div className={styles.extra_small_text}>{puzzleNumb}</div>
                             </div>
                         </div>
                     </div>
                     <div className={`${styles.widget}`}>
-                        <div className={`${styles.yellow} ${styles.small_text}`}>moves</div>
-                        <div className={styles.extra_large_text}>0</div>
-                    </div>
-                    <div className={`${styles.widget}`}>
-                        <div className={styles.small_text}>your best</div>
-                        <div className={styles.your_best_display}>
-                            <div className={styles.extra_large_text}>12</div>
+                        <div className={`${styles.widget}`}>
+                            <div className={`${styles.yellow} ${styles.small_text}`}>moves</div>
+                            <div className={styles.extra_large_text}>0</div>
+                        </div>
+                        <div className={`${styles.widget}`}>
+                            <div className={styles.small_text}>your best</div>
+                            <div className={styles.your_best_display}>
+                                <div className={styles.extra_large_text}>12</div>
+                            </div>
                         </div>
                     </div>
                     <div className={`${styles.widget}`}>
-                        <div className={styles.previous_arrow}></div>
+                        <div onClick={previousPuzzle} className={styles.previous_arrow}></div>
                     </div>
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
                         {game.blocks.map((block, i) => {
                             return (
-                                <Block block={block} game={game} key={`block-${i + 1}`} />
+                                <Block block={block} boardId={boardId} game={game} key={`block-${i + 1}`} />
                             )
                         })}
                     </div>
@@ -104,7 +120,7 @@ function Board() {
                         <div className={styles.solution_button}></div>
                     </div>
                     <div className={`${styles.widget}`}>
-                        <div className={styles.next_arrow}></div>
+                        <div onClick={nextPuzzle} className={styles.next_arrow}></div>
                     </div>
                 </div>
             </div>
