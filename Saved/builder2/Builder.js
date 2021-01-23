@@ -89,17 +89,17 @@ function Builder() {
     setTimeout(initialize, 0);
 
     const setBoard = () => {
-        game.blocks.forEach(block => {
-            const imageElement = document.getElementById(`image-${block.id}`);
+        game.blocks.forEach(car => {
+            const imageElement = document.getElementById(`image-${car.id}`);
 
-            if (block.orientation === 'v') {
-                if (block.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
-                else if (block.length === 3) imageElement.style.backgroundImage = `url(${vertLBlk})`;
+            if (car.orientation === 'v') {
+                if (car.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
+                else if (car.length === 3) imageElement.style.backgroundImage = `url(${vertLBlk})`;
             } else {
-                if (block.length === 2) {
-                    if (block.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
+                if (car.length === 2) {
+                    if (car.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
                     else imageElement.style.backgroundImage = `url(${horSBlk})`;
-                } else if (block.length === 3) imageElement.style.backgroundImage = `url(${horLBlk})`;
+                } else if (car.length === 3) imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
 
         })
@@ -119,9 +119,9 @@ function Builder() {
                     <div className={styles.car} draggable="true" id='car-five'></div>
                 </div>
                 <div className={styles.column_two}>
-                        {game.blocks.map((block, i) => {
+                        {game.blocks.map((car, i) => {
                             return (
-                                <BuilderBlock block={block} game={game} key={`block-${i + 1}`} />
+                                <BuilderBlock car={car} game={game} key={`car-${i + 1}`} />
                             )
                         })}
                     <div className={styles.board_container}>

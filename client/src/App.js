@@ -7,7 +7,6 @@ import { loadSession } from './store/session';
 import SignUpForm from './components/Pages/SignUpForm'
 import LoginForm from './components/Pages/LoginForm';
 import AuthRoute from './components/AuthRoute';
-import Shared from './components/Pages/Shared';
 import Help from './components/Pages/Help';
 import Nav from './components/Nav';
 import LoggedInLayout from './components/LoggedInLayout';

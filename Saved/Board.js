@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import styles from '../../styles/board.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
-import Block from './Block';
+import Car from './Car';
 
 
 
-function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBestSolution }) {
+function Puzzle({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBestSolution }) {
     const user = useSelector(state => state.entities.users[state.session.user_id]);
     
     const [moveCount, setMoveCount] = useState(null);
@@ -23,25 +23,25 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
     const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
 
     const setBoard = () => {
-        game.blocks.forEach(block => {
-            const imageElement = document.getElementById(`${boardId}-image-${block.id}`);
-            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${block.id}`);
-            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${block.id}`);
+        game.blocks.forEach(car => {
+            const imageElement = document.getElementById(`${boardId}-image-${car.id}`);
+            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${car.id}`);
+            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${car.id}`);
 
-            if (block.orientation === 'v') {
+            if (car.orientation === 'v') {
                 negativeMoveElement.style.backgroundImage = `url(${upArrow})`;
                 positiveMoveElement.style.backgroundImage = `url(${downArrow})`;
                 negativeMoveElement.style.backgroundPosition = 'top';
                 positiveMoveElement.style.backgroundPosition = 'bottom';
-                if (block.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
+                if (car.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
                 else imageElement.style.backgroundImage = `url(${vertLBlk})`;
             } else {
                 negativeMoveElement.style.backgroundImage = `url(${leftArrow})`;
                 positiveMoveElement.style.backgroundImage = `url(${rightArrow})`;
                 negativeMoveElement.style.backgroundPosition = 'left';
                 positiveMoveElement.style.backgroundPosition = 'right';
-                if (block.length === 2) {
-                    if (block.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
+                if (car.length === 2) {
+                    if (car.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
                     else imageElement.style.backgroundImage = `url(${horSBlk})`;
                 } else imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
@@ -109,9 +109,9 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
-                        {game.blocks.map((block, i) => {
+                        {game.blocks.map((car, i) => {
                             return (
-                                <Block puzzle={puzzle} block={block} boardId={boardId} game={game} setMoveCount={setMoveCount} key={`block-${i + 1}`} />
+                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} key={`car-${i + 1}`} />
                             )
                         })}
                     </div>
@@ -130,4 +130,4 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
         </>
     );
 }
-export default Board;
+export default Puzzle;

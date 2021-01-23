@@ -2,15 +2,13 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import styles from '../../styles/board.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
-import Block from './Block';
+import Car from './Car';
 
 
 
-function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBestSolution }) {
+function Puzzle({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBestSolution }) {
     const user = useSelector(state => state.entities.users[state.session.user_id]);
-
     const [moveCount, setMoveCount] = useState(null);
-
 
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
@@ -21,66 +19,57 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
     const horLBlk = "https://i.imgur.com/CG1s8K7.png";
     const vertSBlk = "https://i.imgur.com/3y0Ss2a.png";
     const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
+
     const pct = 16.667;
 
-    const updateMoveCounter = () => {
-        setMoveCount(0);
-    }
+    const resetBoard = () => {
+        game.reset(layout);
+        game.blocks.forEach(car => {
+            const blockElement = document.getElementById(`${boardId}-${car.id}`);
+            blockElement.classList.add(styles.change_position);
+            const moveContainer = document.getElementById(`${boardId}-move-container-${car.id}`);
 
-    const setBoard = (reset) => {
-        console.log(reset);
-        game.blocks.forEach(block => {
-            const imageElement = document.getElementById(`${boardId}-image-${block.id}`);
-            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${block.id}`);
-            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${block.id}`);
+            blockElement.style.top = (car.orientation === 'h') ? (car.row * pct) + '%' : (car.start * pct) + '%';
+            blockElement.style.left = (car.orientation === 'h') ? (car.start * pct) + '%' : (car.column * pct) + '%';
 
-            if (block.orientation === 'v') {
+            if (car.orientation === 'v') {
+                blockElement.style.height = (car.length * pct) + '%';
+            } else {
+                moveContainer.style.flexDirection = 'row';
+                blockElement.style.width = (car.length * pct) + '%';
+            }
+        })
+        
+    };
+
+    const setBoard = () => {
+        game.blocks.forEach(car => {
+            const imageElement = document.getElementById(`${boardId}-image-${car.id}`);
+            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${car.id}`);
+            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${car.id}`);
+
+            if (car.orientation === 'v') {
                 negativeMoveElement.style.backgroundImage = `url(${upArrow})`;
                 positiveMoveElement.style.backgroundImage = `url(${downArrow})`;
                 negativeMoveElement.style.backgroundPosition = 'top';
                 positiveMoveElement.style.backgroundPosition = 'bottom';
-                if (block.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
+                if (car.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
                 else imageElement.style.backgroundImage = `url(${vertLBlk})`;
             } else {
                 negativeMoveElement.style.backgroundImage = `url(${leftArrow})`;
                 positiveMoveElement.style.backgroundImage = `url(${rightArrow})`;
                 negativeMoveElement.style.backgroundPosition = 'left';
                 positiveMoveElement.style.backgroundPosition = 'right';
-                if (block.length === 2) {
-                    if (block.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
+                if (car.length === 2) {
+                    if (car.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
                     else imageElement.style.backgroundImage = `url(${horSBlk})`;
                 } else imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
-
-            if (reset) {
-                const blockElement = document.getElementById(`${boardId}-${block.id}`);
-                blockElement.classList.add(styles.change_position);
-                const moveContainer = document.getElementById(`${boardId}-move-container-${block.id}`);
-    
-                blockElement.style.top = (block.orientation === 'h') ? (block.row * pct) + '%' : (block.start * pct) + '%';
-                blockElement.style.left = (block.orientation === 'h') ? (block.start * pct) + '%' : (block.column * pct) + '%';
-    
-                if (block.orientation === 'v') {
-                    blockElement.style.height = (block.length * pct) + '%';
-                } else {
-                    moveContainer.style.flexDirection = 'row';
-                    blockElement.style.width = (block.length * pct) + '%';
-                }
-    
-                updateMoveCounter();
-            }
-
-        })
+            
+        })  
     };
 
-
-    
-    function callbackTester (callback) {
-        setTimeout(callback (arguments[1]),;
-    }
-    
-    setTimeout(callbackTester(setBoard, 'false'), 0);
-
+    setTimeout(setBoard, 0);
 
     const nextPuzzle = () => {
         let newBoardId;
@@ -100,13 +89,6 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
         boardElement.classList.add(styles.hide_board);
         const nextBoardElement = document.getElementById(`board-${newBoardId}`);
         nextBoardElement.classList.remove(styles.hide_board);
-    }
-
-    const resetBoard = () => {
-        // console.log(game);
-        // game.reset(layout);
-        // console.log(game);
-        // setBoard(true);
     }
 
 
@@ -147,17 +129,16 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
-                        {game.blocks.map((block, i) => {
+                        {game.blocks.map((car, i) => {
                             return (
-                                <Block puzzle={puzzle} block={block} boardId={boardId} game={game} setMoveCount={setMoveCount} key={`block-${i + 1}`} />
+                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} key={`car-${i + 1}`} />
                             )
                         })}
                     </div>
                 </div>
                 <div className={styles.column_three}>
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
-                        {/* <div onClick={() => callbackTester(setBoard, 'false')} className={styles.reset_button}></div> */}
-                        {/* callbackTester(setBoard, 'false') */}
+                        <div onClick={resetBoard} className={styles.reset_button}></div>
                         <div className={styles.help_button}></div>
                         <div className={styles.solution_button}></div>
                     </div>
@@ -169,4 +150,4 @@ function Board({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBest
         </>
     );
 }
-export default Board;
+export default Puzzle;

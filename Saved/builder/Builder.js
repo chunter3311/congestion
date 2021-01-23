@@ -101,25 +101,25 @@ function Builder() {
     const vertLBlk = "https://i.imgur.com/bzFg8KO.png";
 
     const updateBoard = () => {
-        game.blocks.forEach(block => {
-            const imageElement = document.getElementById(`image-${block.id}`);
-            // const negativeMoveElement = document.getElementById(`negativeMove-${block.id}`);
-            // const positiveMoveElement = document.getElementById(`positiveMove-${block.id}`);
+        game.blocks.forEach(car => {
+            const imageElement = document.getElementById(`image-${car.id}`);
+            // const negativeMoveElement = document.getElementById(`negativeMove-${car.id}`);
+            // const positiveMoveElement = document.getElementById(`positiveMove-${car.id}`);
 
-            if (block.orientation === 'v') {
+            if (car.orientation === 'v') {
                 // negativeMoveElement.style.backgroundImage = `url(${upArrow})`;
                 // positiveMoveElement.style.backgroundImage = `url(${downArrow})`;
                 // negativeMoveElement.style.backgroundPosition = 'top';
                 // positiveMoveElement.style.backgroundPosition = 'bottom';
-                if (block.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
+                if (car.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
                 else imageElement.style.backgroundImage = `url(${vertLBlk})`;
             } else {
                 // negativeMoveElement.style.backgroundImage = `url(${leftArrow})`;
                 // positiveMoveElement.style.backgroundImage = `url(${rightArrow})`;
                 // negativeMoveElement.style.backgroundPosition = 'left';
                 // positiveMoveElement.style.backgroundPosition = 'right';
-                if (block.length === 2) {
-                    if (block.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
+                if (car.length === 2) {
+                    if (car.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
                     else imageElement.style.backgroundImage = `url(${horSBlk})`;
                 } else imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
@@ -188,9 +188,9 @@ function Builder() {
                     <div className={styles.car} draggable="true" id='car-five'></div>
                 </div>
                 <div className={styles.column_two}>
-                        {game.blocks.map((block, i) => {
+                        {game.blocks.map((car, i) => {
                             return (
-                                <BuilderBlock block={block} game={game} key={`block-${i + 1}`} />
+                                <BuilderBlock car={car} game={game} key={`car-${i + 1}`} />
                             )
                         })}
                     <div className={styles.board_container}>

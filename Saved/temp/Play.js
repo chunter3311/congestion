@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from './Board';
+import Puzzle from './Puzzle';
 import {CreatePuzzle, Game} from '../classes/GameFunctions';
 import Nav from './Nav';
 
@@ -19,7 +19,7 @@ CreatePuzzle(layout, game);
 const Play = () => {
     return (
         <>
-            <Board />
+            <Puzzle />
             <Nav />
         </>
     );
