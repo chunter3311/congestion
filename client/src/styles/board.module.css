@@ -4,6 +4,11 @@
     justify-content: center;
     align-items: center;
     color: white;
+
+    background-image: url("https://i.imgur.com/RPiVBXT.png");
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .hide_board {
@@ -25,11 +30,10 @@
     width: 45vw;
     /* background-color: red; */
     height: 45vw;
-}
+}   
 
 .button_spacing div {
-    /* margin: 0.5vh 0; */
-    margin-bottom: 1vh;
+    margin: 0 0.5vh;
 }
 
 .board_container {
@@ -38,9 +42,9 @@
     align-items: center;
     background-image: url("https://i.imgur.com/XzZVRyr.png");
     background-position: left;
-    background-size: cover;
-    background-repeat: repeat;
-    border-radius: 3vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 1.5vh;
     height: 100%;
     width: 100%;
     position: relative;
@@ -50,6 +54,13 @@
 .widget {
     display: flex;
     flex-direction: column;
+    line-height: 1;
+    align-items: center;
+}
+
+.widget_row {
+    display: flex;
+    /* flex-direction: column; */
     line-height: 1;
     align-items: center;
 }
@@ -141,50 +152,50 @@
 
 @keyframes flashpreviousarrow {
     from {
-        background-image: url("https://i.imgur.com/HchIA22.png");
-    }
-  
-    to {
         background-image: url("https://i.imgur.com/b2yVpqQ.png");
+    }
+    
+    to {
+        background-image: url("https://i.imgur.com/HchIA22.png");
     }
 }
 
 @keyframes flashnextarrow {
     from {
-        background-image: url("https://i.imgur.com/FMriHYm.png");
-    }
-  
-    to {
         background-image: url("https://i.imgur.com/G7UVI7s.png");
+    }
+    
+    to {
+        background-image: url("https://i.imgur.com/FMriHYm.png");
     }
 }
 
 @keyframes flashresetbutton {
     from {
-        background-image: url("https://i.imgur.com/ywLwL3b.png");
-    }
-  
-    to {
         background-image: url("https://i.imgur.com/kduJLKI.png");
+    }
+    
+    to {
+        background-image: url("https://i.imgur.com/ywLwL3b.png");
     }
 }
 
 @keyframes flashhelpicon {
     from {
-        background-image: url("https://i.imgur.com/Y39iIRV.png");
-    }
-  
-    to {
         background-image: url("https://i.imgur.com/XQVG9wP.png");
+    }
+    
+    to {
+        background-image: url("https://i.imgur.com/Y39iIRV.png");
     }
 }
 
 @keyframes flashsolutionicon {
     from {
-        background-image: url("https://i.imgur.com/5GMEoyz.png");
-    }
-  
-    to {
         background-image: url("https://i.imgur.com/XyqUgww.png");
+    }
+    
+    to {
+        background-image: url("https://i.imgur.com/5GMEoyz.png");
     }
 }

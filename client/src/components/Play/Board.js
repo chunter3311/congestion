@@ -111,7 +111,7 @@ function Board({ boardId, game, layout, puzzleNumb }) {
                     </div>
                 </div>
                 <div className={styles.column_three}>
-                    <div className={`${styles.widget} ${styles.button_spacing}`}>
+                    <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div className={styles.reset_button}></div>
                         <div className={styles.help_button}></div>
                         <div className={styles.solution_button}></div>
