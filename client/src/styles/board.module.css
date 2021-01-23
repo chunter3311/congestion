@@ -23,12 +23,10 @@
     justify-content: space-between;
     align-items: center;
     height: 35vw;
-    /* background-color: teal; */
 }
 
 .column_two {
     width: 45vw;
-    /* background-color: red; */
     height: 45vw;
 }   
 

@@ -1,9 +1,28 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { updateUserPuzzle } from '../../store/puzzles';
 import styles from '../../styles/block.module.css';
 
-const Block = ({ block, boardId, game }) => {
+const Block = ({ puzzle, block, boardId, game, setMoveCount }) => {
+    const dispatch = useDispatch();
     const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
+
+    const updateMoveCounter = () => {
+        // e.preventDefault(e);
+        setMoveCount(game.moves);
+        // dispatch(updateMoveCounter());
+    }
+
+    const updateBestSolution = async () => {
+        console.log('game.moves', game.moves);
+        console.log('puzzle.solutionMoves', puzzle.solutionMoves)
+        if (game.moves < puzzle.solutionMoves || puzzle.solutionMoves === -1) {
+            console.log('puzzle.difficulty', puzzle.difficulty)
+            const res = await dispatch(updateUserPuzzle(puzzle.difficulty, puzzle.layout, puzzle.solution, game.moves, puzzle.totalStars, puzzle.totalPlays, puzzle.id));
+            if (res.ok) return;
+        }
+    }
 
     const updateBlock = () => {
         const blockElement = document.getElementById(`${boardId}-${block.id}`);
@@ -20,22 +39,26 @@ const Block = ({ block, boardId, game }) => {
             blockElement.style.width = (block.length * pct) + '%';
         }
 
-        if (game.isSolved) setIsSolved(true);
+        updateMoveCounter();
         
+        if (game.isSolved) {
+            setIsSolved(true);
+            updateBestSolution();
+        }
+
     };
 
     setTimeout(updateBlock, 0);
 
     const negativeMoveHandler = (e) => {
         e.preventDefault();
-        game.negativeMove(block);
-        updateBlock();
+        if (!game.negativeMove(block)) updateBlock();
+
     }
 
     const positiveMoveHandler = (e) => {
         e.preventDefault();
-        game.positiveMove(block);
-        updateBlock();
+        if (!game.positiveMove(block)) updateBlock();
     }
 
     const restartHandler = (e) => {

@@ -28,7 +28,7 @@ export const updatePuzzle = puzzle => {
 }
 
 
-export const addUserPuzzle = (question, answer, confidence, userId, packId) => {
+export const addUserPuzzle = (difficulty, layout, solution, solutionMoves, totalStars, totalPlays, userId, packId) => {
     const csrfToken = Cookies.get('XSRF-TOKEN');
     const path = `/api/puzzles/`;
     return async dispatch => {
@@ -38,7 +38,7 @@ export const addUserPuzzle = (question, answer, confidence, userId, packId) => {
                 'Content-Type': 'application/json',
                 'X-CSRFTOKEN': csrfToken
             },
-            body: JSON.stringify({ question, answer, confidence, userId, packId })
+            body: JSON.stringify({ difficulty, layout, solution, solutionMoves, totalStars, totalPlays, userId, packId })
         });
 
         res.data = await res.json();
@@ -65,7 +65,7 @@ export const setUserPuzzles = userId => {
 }
 
 
-export const updateUserPuzzle = (question, answer, confidence, puzzleId) => {
+export const updateUserPuzzle = (difficulty, layout, solution, solutionMoves, totalStars, totalPlays, puzzleId) => {
     const csrfToken = Cookies.get("XSRF-TOKEN");
     return async dispatch => {
         const res = await fetch(`/api/puzzles/${puzzleId}`, {
@@ -74,7 +74,7 @@ export const updateUserPuzzle = (question, answer, confidence, puzzleId) => {
                 "Content-Type": "application/json",
                 "X-CSRFTOKEN": csrfToken
             },
-            body: JSON.stringify({ question, answer, confidence, puzzleId })
+            body: JSON.stringify({ difficulty, layout, solution, solutionMoves, totalStars, totalPlays, puzzleId })
         });
         res.data = await res.json();
         if (res.ok) {

@@ -15,16 +15,54 @@ export class Block {
         this.length++;
         return;
     }
+
+    reset() {
+        this.initialCoordinates = [];
+        this.start = null;
+        this.end = null;
+        this.orientation = null;
+        this.length = 1;
+        this.row = null;
+        this.column = null;
+    }
 }
 
 export class Game {
     constructor(layout) {
         this.isSolved = false;
+        this.moves = 0;
         this.layout = layout;
         this.blocks = [];
         this.verticalBlocks = [];
         this.horizontalBlocks = [];
         this.initialize(this.layout);
+    }
+
+    reset(layout) {
+        this.isSolved = false;
+        this.moves = 0;
+        this.layout = layout;
+        this.blocks = [];
+        this.verticalBlocks = [];
+        this.horizontalBlocks = [];
+        this.initializeReset(this.layout);
+    }
+
+    initializeReset(layout) {
+        this.blocks.forEach(block => {
+            block.reset();
+        })
+
+        for (let row = 0; row < 6; row++) {
+            for (let column = 0; column < 6; column++) {
+                if (layout[row][column] === 0) continue;
+                let id = layout[row][column];
+                this.resetBlockPosition(row, column, id);
+            }
+        }
+        this.defineOrientations();
+        
+        return;
     }
 
     initialize(layout) {
@@ -49,6 +87,17 @@ export class Game {
         }
         const block = new Block(row, column, id);
         this.blocks.push(block);
+        return;
+    }
+
+    resetBlockPosition(row, column, id) {
+        for (let i = 0; i < this.blocks.length; i++) {
+            if (this.blocks[i].id === id) {
+                this.blocks[i].add(row, column);
+                return;
+            }
+        }
+        
         return;
     }
 
@@ -139,6 +188,9 @@ export class Game {
     }
 
     updateLayout() {
+        this.moves++;
+        let oldLayout = this.layout.slice();
+
         this.layout.forEach(row => {
             row.forEach((column, i) => {
                 row[i] = 0;
@@ -156,9 +208,33 @@ export class Game {
                 }
             }
         })
+
+        return this.arraysEqual(oldLayout, this.layout);
+        
         
     }
-    // ADD STYLING CODE
+    
+    arraysEqual(_arr1, _arr2) {
+        if (
+          !Array.isArray(_arr1)
+          || !Array.isArray(_arr2)
+          || _arr1.length !== _arr2.length
+          ) {
+            return false;
+          }
+        
+        // .concat() is used so the original arrays are unaffected
+        const arr1 = _arr1.concat().sort();
+        const arr2 = _arr2.concat().sort();
+        
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] !== arr2[i]) {
+                return false;
+             }
+        }
+        
+        return true;
+    }
 }
 
 // const moves = {
