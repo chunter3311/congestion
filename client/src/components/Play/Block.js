@@ -4,6 +4,7 @@ import { updateUserPuzzle } from '../../store/puzzles';
 import styles from '../../styles/block.module.css';
 
 const Block = ({ puzzle, block, boardId, game, setMoveCount }) => {
+    
     const dispatch = useDispatch();
     const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
@@ -25,6 +26,7 @@ const Block = ({ puzzle, block, boardId, game, setMoveCount }) => {
     }
 
     const updateBlock = () => {
+        console.log(game)
         const blockElement = document.getElementById(`${boardId}-${block.id}`);
         blockElement.classList.add(styles.change_position);
         const moveContainer = document.getElementById(`${boardId}-move-container-${block.id}`);
@@ -39,13 +41,13 @@ const Block = ({ puzzle, block, boardId, game, setMoveCount }) => {
             blockElement.style.width = (block.length * pct) + '%';
         }
 
-        updateMoveCounter();
         
         if (game.isSolved) {
             setIsSolved(true);
             updateBestSolution();
         }
-
+        
+        updateMoveCounter();
     };
 
     setTimeout(updateBlock, 0);

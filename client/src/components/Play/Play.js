@@ -74,8 +74,8 @@ const Play = ({ puzzles }) => {
     getLayouts();
 
     const revealBoard = () => {
-        const boardElement = document.getElementById(`board-0`);
-        boardElement.classList.remove(styles.hide_board);
+        // const boardElement = document.getElementById(`board-0`);
+        // boardElement.classList.remove(styles.hide_board);
     }
 
     setTimeout(revealBoard, 0);
