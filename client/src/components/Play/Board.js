@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from '../../styles/board.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
 import Block from './Block';
+import {Solver} from '../../classes/SolutionFunctions';
 
 
 
@@ -66,6 +67,10 @@ function Board({ boardId, game, layout, puzzleNumb }) {
         nextBoardElement.classList.remove(styles.hide_board);
     }
 
+    const solutionHandler = () => {
+        Solver(layout, game);
+    }
+
 
     return (
         <>
@@ -114,7 +119,7 @@ function Board({ boardId, game, layout, puzzleNumb }) {
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div className={styles.reset_button}></div>
                         <div className={styles.help_button}></div>
-                        <div className={styles.solution_button}></div>
+                        <div onClick={solutionHandler} className={styles.solution_button}></div>
                     </div>
                     <div className={`${styles.widget}`}>
                         <div onClick={nextPuzzle} className={styles.next_arrow}></div>
