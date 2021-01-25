@@ -44,6 +44,9 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
         }
 
         updateMoveCounter();
+        console.log(game);
+        console.log(boardId);
+        console.log(car.id);
     };
 
     setTimeout(updateBlock, 0);
