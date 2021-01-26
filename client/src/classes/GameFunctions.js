@@ -97,6 +97,11 @@ export class Game {
             if (!unitsMoved) return false;
             car.start += unitsMoved;
             car.end += unitsMoved;
+            if (car.row === 2 && car.end === 5) {
+                car.start += 2;
+                car.end += 2;
+                this.isSolved = true;
+            }
             return true;
         }
     }

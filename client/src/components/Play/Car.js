@@ -3,10 +3,10 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { updateUserPuzzle } from '../../store/puzzles';
 import styles from '../../styles/car.module.css';
 
-const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
+const Car = ({ puzzle, car, boardId, game, setMoveCount, setIsSolved, totalPuzzles }) => {
 
     const dispatch = useDispatch();
-    const [isSolved, setIsSolved] = useState(false);
+    // const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
 
     const updateBestSolution = async () => {
@@ -30,12 +30,6 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
             moveContainer.style.flexDirection = 'row';
             blockElement.style.width = (car.length * pct) + '%';
         }
-
-
-        if (game.isSolved) {
-            setIsSolved(true);
-            updateBestSolution();
-        }
     };
 
     setTimeout(updateBlock, 0);
@@ -51,15 +45,31 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
 
     const positiveMoveHandler = () => {
         if (game.positiveMove(car)) {
+            setIsSolved(game.isSolved);
+            if (game.isSolved) {
+                updateBestSolution();
+            }
             updateBlock();
             game.moves++;
             setMoveCount(game.moves);
         }
     }
 
-    // const restartHandler = (e) => {
-    //     e.preventDefault();
-    // }
+    const restartHandler = (e) => {
+        e.preventDefault();
+    }
+
+    const nextPuzzle = () => {
+        if (boardId === totalPuzzles - 1) setNewPuzzle(0);
+        else setNewPuzzle(boardId + 1);
+    }
+
+    const setNewPuzzle = (newBoardId) => {
+        const boardElement = document.getElementById(`board-${boardId}`);
+        boardElement.classList.add(styles.hide_board);
+        const nextBoardElement = document.getElementById(`board-${newBoardId}`);
+        nextBoardElement.classList.remove(styles.hide_board);
+    }
 
     return (
         <>
@@ -71,12 +81,13 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
                     </div>
                 </div>
             </div>
-            {isSolved ? <>
+            {/* {game.isSolved ? <>
                 <div className={styles.solved_message_wrapper}>
                     <div className={styles.solved_message}>whoa, you're good!</div>
-                    {/* <button onClick={restartHandler}>restart</button> */}
+                    <button onClick={restartHandler}>restart</button>
+                    <button onClick={nextPuzzle}>next</button>
                 </div>
-            </> : ""}
+            </> : ""} */}
         </>
     );
 }

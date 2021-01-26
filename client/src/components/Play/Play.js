@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import Puzzle from './Puzzle';
 import styles from '../../styles/board.module.css';
+import globalStyles from '../../styles/global.module.css';
 import { Game } from '../../classes/GameFunctions';
 import { getLayout } from '../../classes/PuzzleFunctions';
 import { useLocation } from 'react-router-dom';
@@ -22,9 +23,9 @@ const Play = ({ puzzles }) => {
         const boardElement = document.getElementById(`board-0`);
         boardElement.classList.remove(styles.hide_board);
 
-        //     const background = document.getElementById('page-background');
-        //     background.classList.remove(globalStyles.background_image_asphalt);
-        //     background.classList.add(globalStyles.background_image_carbon_fiber);
+        const background = document.getElementById('page-background');
+        background.classList.remove(globalStyles.background_image_asphalt);
+        background.classList.add(globalStyles.background_image_carbon_fiber);
     }
 
     setTimeout(initializeBoard, 0);
@@ -33,7 +34,7 @@ const Play = ({ puzzles }) => {
         <>
             {puzzles.map((puzzle, i) => {
                 return (
-                    <Puzzle puzzle={puzzle} boardId={i} userName = {userName} totalPuzzles={totalPuzzles} packId={packId} game={games[i]} key={`pack-${i + 1}`} />
+                    <Puzzle puzzle={puzzle} boardId={i} userName={userName} totalPuzzles={totalPuzzles} packId={packId} game={games[i]} key={`pack-${i + 1}`} />
                 )
             })}
         </>

@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
 import styles from '../../styles/board.module.css';
+import authStyles from '../../styles/auth.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { updateUserPuzzle } from '../../store/puzzles';
 import Car from './Car';
 
 
 
 function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
+    const dispatch = useDispatch();
+    const [isSolved, setIsSolved] = useState(false);
     const [moveCount, setMoveCount] = useState(0);
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
@@ -87,9 +91,26 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
         nextBoardElement.classList.remove(styles.hide_board);
     }
 
+    const updateBestSolution = async () => {
+        if (game.moves < puzzle.solutionMoves || puzzle.solutionMoves === -1) {
+            const res = await dispatch(updateUserPuzzle(puzzle.difficulty, puzzle.layout, puzzle.solution, game.moves, puzzle.totalStars, puzzle.totalPlays, puzzle.id));
+            if (res.ok) return;
+        }
+    }
+
+    const resetNext = () => {
+        nextPuzzle();
+        resetBoard();
+    }
+
+    const toggleHelp = () => {
+        // nextPuzzle();
+        // resetBoard();
+    }
 
     return (
         <>
+
             <div id={`board-${boardId}`} className={`${styles.board_wrapper} ${styles.hide_board}`}>
                 <div className={styles.column_one}>
                     <div className={`${styles.widget}`}>
@@ -124,9 +145,27 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
+                        {game.isSolved ? <>
+                            <div className={styles.solved_message_wrapper}>
+                                <div className={styles.solved_message}>whoa, you're good!</div>
+                                <div className={styles.solved_message_buttons}>
+                                    <button onClick={resetBoard} className={styles.message_button}>try again</button>
+                                    <button onClick={resetNext} className={styles.message_button}>next puzzle</button>
+                                </div>
+                            </div>
+                        </> : ""}
+                        {game.isSolved ? <>
+                            <div className={styles.solved_message_wrapper}>
+                                <div className={styles.solved_message}>whoa, you're good!</div>
+                                <div className={styles.solved_message_buttons}>
+                                    <button onClick={resetBoard} className={styles.message_button}>try again</button>
+                                    <button onClick={resetNext} className={styles.message_button}>next puzzle</button>
+                                </div>
+                            </div>
+                        </> : ""}
                         {game.cars.map((car, i) => {
                             return (
-                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} key={`car-${i + 1}`} />
+                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} setIsSolved={setIsSolved} totalPuzzles={totalPuzzles} key={`car-${i + 1}`} />
                             )
                         })}
                     </div>
@@ -134,7 +173,7 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                 <div className={styles.column_three}>
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div onClick={resetBoard} className={styles.reset_button}></div>
-                        <div className={styles.help_button}></div>
+                        <div onClick={toggleHelp} className={styles.help_button}></div>
                         <div className={styles.solution_button}></div>
                     </div>
                     <div className={`${styles.widget}`}>
