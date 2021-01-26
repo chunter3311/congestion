@@ -39,11 +39,11 @@
 
 //     return (
 //         <div style={{ top: '55px', position: 'absolute', right: '5px' }}>
-//             <div style={{ maxHeight: 'calc(100vh - 20px)', minWidth: '150px', margin: '10px 0', display: 'block', background: '#fff', boxShadow: '0 0 6px rgba(0,0,0,0.3)', padding: '12px 0', textAlign: 'left', border: '1px solid #d9d9d9', borderRadius: '3px', color: '#333', fontSize: '14px', overflowY: 'auto' }}>
+//             <div style={{ maxHeight: 'calc(100vh - 20px)', minWidth: '150px', margin: '10px 0', display: 'car', background: '#fff', boxShadow: '0 0 6px rgba(0,0,0,0.3)', padding: '12px 0', textAlign: 'left', border: '1px solid #d9d9d9', borderRadius: '3px', color: '#333', fontSize: '14px', overflowY: 'auto' }}>
 //                 <div>
 //                     <ul style={{display: 'flex', flexDirection: 'column'}}>
 //                         <li style={{marginLeft: '6px'}}><button onClick={handleMoveModal}>Move...</button></li>
-//                         <li style={{borderTop: '1px solid #f2f2f2', display: 'block', height: '1px', margin: '8px 0', padding: '0'}}></li>
+//                         <li style={{borderTop: '1px solid #f2f2f2', display: 'car', height: '1px', margin: '8px 0', padding: '0'}}></li>
 //                         <li style={{marginLeft: '6px'}}><button onClick={handleTrash}>Move to Trash</button></li>
 //                     </ul>
 //                 </div>

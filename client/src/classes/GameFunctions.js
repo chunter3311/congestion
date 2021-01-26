@@ -1,4 +1,10 @@
-export class Block {
+export const solvePuzzle = (layout) => {
+    const moves = {};
+
+    return moves;
+}
+
+export class Car {
     constructor(row, column, id) {
         this.id = id;
         this.initialCoordinates = [[row, column]];
@@ -20,146 +26,180 @@ export class Block {
 export class Game {
     constructor(layout) {
         this.isSolved = false;
+        this.moves = 0;
+        this.ids = new Set();
         this.layout = layout;
-        this.blocks = [];
-        this.verticalBlocks = [];
-        this.horizontalBlocks = [];
+        this.originalLayout = [[],[],[],[],[],[]];
+        this.cars = [];
         this.initialize(this.layout);
     }
 
     initialize(layout) {
         for (let row = 0; row < 6; row++) {
             for (let column = 0; column < 6; column++) {
+                this.originalLayout[row].push(layout[row][column]);
                 if (layout[row][column] === 0) continue;
                 let id = layout[row][column];
-                this.buildBlock(row, column, id);
+                if (this.ids.has(id)) {
+                    this.cars[id - 1].add(row, column);
+                }
+                else {
+                    this.ids.add(id);
+                    this.cars.push(new Car(row, column, id));
+                }
             }
         }
-        this.defineOrientations();
-        
-        return;
-    }
-
-    buildBlock(row, column, id) {
-        for (let i = 0; i < this.blocks.length; i++) {
-            if (this.blocks[i].id === id) {
-                this.blocks[i].add(row, column);
-                return;
+        this.cars.forEach(car => {
+            if (car.initialCoordinates[0][0] === car.initialCoordinates[1][0]) {
+                car.orientation = 'h';
+                car.row = car.initialCoordinates[0][0];
             }
-        }
-        const block = new Block(row, column, id);
-        this.blocks.push(block);
-        return;
-    }
-
-    defineOrientations() {
-        this.blocks.forEach(block => {
-            if (block.initialCoordinates[0][0] === block.initialCoordinates[block.length - 1][0]) {
-                block.orientation = 'h';
-                block.row = block.initialCoordinates[0][0];
-                block.start = block.initialCoordinates[0][1];
-                block.end = block.initialCoordinates[block.length - 1][1];
-                this.horizontalBlocks.push(block);
-            } else {
-                block.orientation = 'v';
-                block.column = block.initialCoordinates[0][1];
-                block.start = block.initialCoordinates[0][0];
-                block.end = block.initialCoordinates[block.length - 1][0];
-                this.horizontalBlocks.push(block);
+            else {
+                car.orientation = 'v';
+                car.column = car.initialCoordinates[0][1];
             }
+            this.setCarEndPoints(car);
         });
         return;
     }
 
-    positiveMove(block) {
-        if (block.orientation === 'v') {
-            for (let row = block.end + 1; row <= 5; row++) { //1
-                if (this.layout[row][block.column] > 0) { //2
-                    block.end = row - 1;
-                    block.start = block.end - (block.length - 1);
-                    this.updateLayout();
-                    return;
-                }
-            }
-            block.end = 5;
-            block.start = block.end - (block.length - 1);
-            this.updateLayout();
+    setCarEndPoints(car) {
+        if (car.orientation === 'h') {
+            car.start = car.initialCoordinates[0][1];
+            car.end = car.initialCoordinates[car.length - 1][1];
         }
-        else if (block.orientation === 'h') {
-            for (let column = block.end + 1; column <= 5; column++) {
-                if (this.layout[block.row][column] > 0) {
-                    block.end = column - 1;
-                    block.start = block.end - (block.length - 1);
-                    this.updateLayout();
-                    return;
-                }
-            }
-            if (block.row === 2) {
-                block.end = 7;
-                block.start = 6;
-                this.isSolved = true;
-            }
-            else {
-                block.end = 5;
-                block.start = block.end - (block.length - 1);
-            }
-            this.updateLayout();
+        else {
+            car.start = car.initialCoordinates[0][0];
+            car.end = car.initialCoordinates[car.length - 1][0];
         }
         return;
     }
 
-    negativeMove(block) {
-        if (block.orientation === 'v') {
-            for (let row = block.start - 1; row >= 0; row--) { //1
-                if (this.layout[row][block.column] > 0) { //2
-                    block.start = row + 1;
-                    block.end = block.start + (block.length - 1);
-                    this.updateLayout();
-                    return;
-                }
+    positiveMove(car) {
+        let unitsMoved = 0;
+        if (car.orientation === 'v') {
+            for (let row = car.end + 1; row <= 5 && this.layout[row][car.column] === 0; row++) {
+                unitsMoved++;
+                this.layout[row][car.column] = car.id;
+                this.layout[row - car.length][car.column] = 0;
             }
-            block.start = 0;
-            block.end = block.start + (block.length - 1);
-            this.updateLayout();
+            if (!unitsMoved) return false;
+            car.start += unitsMoved;
+            car.end += unitsMoved;
+            return true;
         }
-        else if (block.orientation === 'h') {
-            for (let column = block.start - 1; column >= 0; column--) { //1
-                if (this.layout[block.row][column] > 0) { //2
-                    block.start = column + 1;
-                    block.end = block.start + (block.length - 1);
-                    this.updateLayout();
-                    return;
-                }
+        else if (car.orientation === 'h') {
+            for (let column = car.end + 1; column <= 5 && this.layout[car.row][column] === 0; column++) {
+                unitsMoved++;
+                this.layout[car.row][column] = car.id;
+                this.layout[car.row][column - car.length] = 0;
             }
-            block.start = 0;
-            block.end = block.start + (block.length - 1);
-            this.updateLayout();
+            if (!unitsMoved) return false;
+            car.start += unitsMoved;
+            car.end += unitsMoved;
+            return true;
         }
-        return;
     }
 
-    updateLayout() {
-        this.layout.forEach(row => {
-            row.forEach((column, i) => {
-                row[i] = 0;
-            })
-        })
-        this.blocks.forEach(block => {
-            if (block.orientation === 'h') {
-                for (let column = block.start; column <= block.end; column++) {
-                    this.layout[block.row][column] = block.id;
-                }
+    negativeMove(car) {
+        let unitsMoved = 0;
+        if (car.orientation === 'v') {
+            for (let row = car.start - 1; row >= 0 && this.layout[row][car.column] === 0; row--) {
+                unitsMoved++;
+                this.layout[row][car.column] = car.id;
+                this.layout[row + car.length][car.column] = 0;
             }
-            else if (block.orientation === 'v') {
-                for (let row = block.start; row <= block.end; row++) {
-                    this.layout[row][block.column] = block.id;
-                }
+            if (!unitsMoved) return false;
+            car.start -= unitsMoved;
+            car.end -= unitsMoved;
+            return true;
+        }
+        else if (car.orientation === 'h') {
+            for (let column = car.start - 1; column >= 0 && this.layout[car.row][column] === 0; column--) {
+                unitsMoved++;
+                this.layout[car.row][column] = car.id;
+                this.layout[car.row][column + car.length] = 0;
             }
-        })
-        
+            if (!unitsMoved) return false;
+            car.start -= unitsMoved;
+            car.end -= unitsMoved;
+            return true;
+        }
     }
-    // ADD STYLING CODE
+
+    reset() {
+        for (let row = 0; row < 6; row++) {
+            for (let column = 0; column < 6; column++) {
+                this.layout[row][column] = this.originalLayout[row][column];
+            }
+        }
+
+        // this.layout = [...this.originalLayout];
+        this.cars.forEach(car => {
+            this.setCarEndPoints(car);
+        });
+        this.isSolved = false;
+        this.moves = 0;
+    }
 }
+
+    // reset(layout) {
+    //     this.isSolved = false;
+    //     this.moves = 0;
+    //     this.resetLayout(layout);
+    //     this.resetCars();
+    //     this.defineOrientations();
+    // }
+
+    // resetLayout(layout) {
+    //     this.layout.forEach((row, r) => {
+    //         row.forEach((column, c) => {
+    //             row[c] = layout[r][c];
+    //         })
+    //     })
+    // }
+
+    // resetCars() {
+    //     this.cars.forEach(car => {
+    //         car.initialCoordinates.forEach(set => {
+    //             set = [];
+    //         })
+    //     })
+
+    //     for (let r = 0; r < 6; r++) {
+    //         for (let c = 0; c < 6; c++) {
+    //             if (this.layout[r][c] === 0) continue;
+    //             for (let b = 0; b < this.cars.length; b++) {
+    //                 if (this.cars[b].id === this.layout[r][c]) {
+    //                     this.cars[b].initialCoordinates.push(r, c);
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+
+
+// arraysEqual(_arr1, _arr2) {
+//     if (
+//         !Array.isArray(_arr1)
+//         || !Array.isArray(_arr2)
+//         || _arr1.length !== _arr2.length
+//     ) {
+//         return false;
+//     }
+
+//     const arr1 = _arr1.concat().sort();
+//     const arr2 = _arr2.concat().sort();
+
+//     for (let i = 0; i < arr1.length; i++) {
+//         if (arr1[i] !== arr2[i]) {
+//             return false;
+//         }
+//     }
+
+//     return true;
+// }
 
 // const moves = {
 //     1: [2, 'D']
@@ -172,15 +212,38 @@ export class Game {
 // [0, 0, 0, 0, 0, 0],
 // [0, 0, 0, 0, 0, 0]
 
-//     [1, 1, 1, 2, 3, 4],
-//     [5, 0, 0, 2, 3, 4],
-//     [5, 0, 0, 6, 6, 4],
-//     [5, 0, 0, 7, 7, 7],
-//     [0, 0, 0, 8, 0, 0],
-//     [0, 0, 0, 8, 9, 9]
+    // [1, 1, 1, 2, 3, 4],
+    // [5, 0, 0, 2, 3, 4],
+    // [5, 0, 0, 6, 6, 4],
+    // [5, 0, 0, 7, 7, 7],
+    // [0, 0, 0, 8, 0, 0],
+    // [0, 0, 0, 8, 9, 9]
 
-export const solvePuzzle = (layout) => {
-    const moves = {};
-
-    return moves;
-}
+    // updateLayout(id, start, end, row, column) {
+    //     if (row) {
+    //         for (let c = 0; c <= 5; c++) {
+    //             if (c === start) {
+    //                 while (c <= end) {
+    //                     this.layout[row][c] = id;
+    //                     c++;
+    //                 }
+    //             }
+    //             if (this.layout[row][c] === id) this.layout[row][c] = 0;
+    //         }
+    //     }
+    //     else {
+    //         for (let r = 0; r <= 5; r++) {
+    //             if (r === start) {
+    //                 while (r <= end) {
+    //                     this.layout[r][column] = id;
+    //                     r++;
+    //                 }
+    //             }
+    //             else {
+    //                 if (this.layout[r][column] === id) this.layout[r][column] = 0;
+    //             }
+    //             console.log(r)
+    //             console.log(column)
+    //         }
+    //     }
+    // }

@@ -2,11 +2,19 @@ import React, { useState } from 'react';
 import styles from '../../styles/builder.module.css';
 import { Puzzle } from '../../classes/BuilderFunctions';
 import VehicleComponent from './VehicleComponent';
+import { addUserPuzzle } from '../../store/puzzles';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 
 
 function Builder() {
-    const layout = [
+    const dispatch = useDispatch();
+    let location = useLocation();
+    const packId = location.state.packId;
+    const user = useSelector(state => state.entities.users[state.session.user_id]);
+
+    const initialLayout = [
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -14,7 +22,7 @@ function Builder() {
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0]
     ];
-    const puzzle = new Puzzle(layout);
+    const puzzle = new Puzzle(initialLayout);
 
     const priBlk = "https://i.imgur.com/n07UANE.png";
     const horSBlk = "https://i.imgur.com/EuehW2s.png";
@@ -31,12 +39,9 @@ function Builder() {
 
     const handleDragEnter = e => {
         e.preventDefault();
-        // e.target.classList.add('is_active_drop_zone');
     };
 
     const handleDragLeave = e => {
-        // e.target.classList.remove(styles.is_being_dragged);
-        // e.target.classList.remove('is_active_drop_zone');
     };
 
     const handleDragOver = e => {
@@ -49,15 +54,7 @@ function Builder() {
         const vehicleElement = document.getElementById(id);
         const column = parseInt(e.target.id[7]);
         const row = parseInt(e.target.id[8]);
-
         vehicleElement.classList.remove(styles.is_being_dragged);
-
-        console.log('id', id);
-        console.log('vehicleElement', vehicleElement);
-        console.log('row', row);
-        console.log('column', column);
-
-        console.log(e.target.id);
         if (id === 'car-one') {
             puzzle.addVehicle(row, column, 2, 'h', priBlk);
             updateBoard();
@@ -81,7 +78,6 @@ function Builder() {
         else {
             puzzle.vehicles.forEach((vehicle, i) => {
                 const pct = 16.667;
-                // console.log(vehicle.id)
                 if (vehicle.id === idNumb) {
                     console.log('test');
                     if (e.target.id === 'trash') {
@@ -104,33 +100,6 @@ function Builder() {
                 }
             });
         }
-        // puzzle.vehicles.forEach((vehicle, i) => {
-        //     const pct = 16.667;
-        //     if (vehicle.length > 0) {
-        //         const imageElement = document.getElementById(`image-${vehicle.id}`);
-        //         imageElement.style.backgroundImage = `url(${vehicle.imageUrl})`;
-        //         const newVehicleElement = document.getElementById(vehicle.id);
-        //         newVehicleElement.classList.remove(styles.hide);
-        //         if (vehicle.orientation === 'h') {
-        //             newVehicleElement.style.top = (vehicle.row * pct) + '%';
-        //             newVehicleElement.style.left = (vehicle.start * pct) + '%';
-        //             newVehicleElement.style.width = (vehicle.length * pct) + '%';
-        //             // if (vehicle.length === 2) {
-        //             //     if (vehicle.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
-        //             //     else imageElement.style.backgroundImage = `url(${horSBlk})`;
-        //             // } else if (vehicle.length === 3) imageElement.style.backgroundImage = `url(${horLBlk})`;
-        //         } else if (vehicle.orientation === 'v') {
-        //             newVehicleElement.style.top = (vehicle.start * pct) + '%';
-        //             newVehicleElement.style.left = (vehicle.column * pct) + '%';
-        //             newVehicleElement.style.height = (vehicle.length * pct) + '%';
-        //             // if (vehicle.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
-        //             // else if (vehicle.length === 3) imageElement.style.backgroundImage = `url(${vertLBlk})`;
-        //         }
-        //     }
-        // });
-        console.log(puzzle);
-
-        // updateBoard(vehicleElement);
     };
 
     const updateBoard = () => {
@@ -145,16 +114,10 @@ function Builder() {
                     newVehicleElement.style.top = (vehicle.row * pct) + '%';
                     newVehicleElement.style.left = (vehicle.start * pct) + '%';
                     newVehicleElement.style.width = (vehicle.length * pct) + '%';
-                    // if (vehicle.length === 2) {
-                    //     if (vehicle.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
-                    //     else imageElement.style.backgroundImage = `url(${horSBlk})`;
-                    // } else if (vehicle.length === 3) imageElement.style.backgroundImage = `url(${horLBlk})`;
                 } else if (vehicle.orientation === 'v') {
                     newVehicleElement.style.top = (vehicle.start * pct) + '%';
                     newVehicleElement.style.left = (vehicle.column * pct) + '%';
                     newVehicleElement.style.height = (vehicle.length * pct) + '%';
-                    // if (vehicle.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
-                    // else if (vehicle.length === 3) imageElement.style.backgroundImage = `url(${vertLBlk})`;
                 }
             }
         });
@@ -182,12 +145,6 @@ function Builder() {
         carFour.addEventListener('dragstart', handleDragStart);
         carFive.addEventListener('dragstart', handleDragStart);
 
-        // carOne.addEventListener('drop', handleAddDrop);
-        // carTwo.addEventListener('drop', handleAddDrop);
-        // carThree.addEventListener('drop', handleAddDrop);
-        // carFour.addEventListener('drop', handleAddDrop);
-        // carFive.addEventListener('drop', handleAddDrop);
-
         const trashElement = document.getElementById('trash');
         trashElement.addEventListener('drop', handleDrop);
         trashElement.addEventListener('dragenter', handleDragEnter);
@@ -205,9 +162,20 @@ function Builder() {
 
     setTimeout(initialize, 0);
 
+    const createPuzzleHandler = async () => {
+        const layout = puzzle.getDatabaseLayout();
+        // console.log(layout);
+        const res = await dispatch(addUserPuzzle('unavailable', layout, 'unavailable', -1, 0, 0, user.id, packId));
+
+        if (res.ok) {
+            return;
+        }
+    }
+
     return (
         <>
             <div className={styles.board_wrapper}>
+                <button onClick={createPuzzleHandler}>Create test puzzle</button>
                 <div className={styles.column_one}>
                     <div className={styles.trash} id='trash'></div>
                     <div className={styles.car} draggable="true" id='car-one'></div>

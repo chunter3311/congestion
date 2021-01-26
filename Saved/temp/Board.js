@@ -3,7 +3,7 @@ import { Redirect, Route, NavLink, withRouter } from 'react-router-dom';
 import styles from '../styles/board.module.css';
 import navStyles from '../styles/nav.module.css';
 
-function Board() {
+function Puzzle() {
 
 
     return (
@@ -69,4 +69,4 @@ function Board() {
         </div>
     );
 }
-export default Board;
+export default Puzzle;

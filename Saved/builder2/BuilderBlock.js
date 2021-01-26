@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import styles from '../styles/builderblock.module.css';
 
-const BuilderBlock = ({ block, game }) => {
+const BuilderBlock = ({ car, game }) => {
     const pct = 16.667;
 
     const updateBlock = () => {
-        const blockElement = document.getElementById(block.id);
+        const blockElement = document.getElementById(car.id);
         blockElement.classList.add(styles.change_position);
-        // const moveContainer = document.getElementById(`move-container-${block.id}`);
+        // const moveContainer = document.getElementById(`move-container-${car.id}`);
 
-        blockElement.style.top = (block.orientation === 'h') ? (block.row * pct) + '%' : (block.start * pct) + '%';
-        blockElement.style.left = (block.orientation === 'h') ? (block.start * pct) + '%' : (block.column * pct) + '%';
+        blockElement.style.top = (car.orientation === 'h') ? (car.row * pct) + '%' : (car.start * pct) + '%';
+        blockElement.style.left = (car.orientation === 'h') ? (car.start * pct) + '%' : (car.column * pct) + '%';
 
-        if (block.orientation === 'v') {
-            blockElement.style.height = (block.length * pct) + '%';
+        if (car.orientation === 'v') {
+            blockElement.style.height = (car.length * pct) + '%';
         } else {
             // moveContainer.style.flexDirection = 'row';
-            blockElement.style.width = (block.length * pct) + '%';
+            blockElement.style.width = (car.length * pct) + '%';
         }
     };
 
@@ -24,23 +24,23 @@ const BuilderBlock = ({ block, game }) => {
 
     // const negativeMoveHandler = (e) => {
     //     e.preventDefault();
-    //     game.negativeMove(block);
+    //     game.negativeMove(car);
     //     updateBlock();
     // }
 
     // const positiveMoveHandler = (e) => {
     //     e.preventDefault();
-    //     game.positiveMove(block);
+    //     game.positiveMove(car);
     //     updateBlock();
     // }
 
     return (
         <>
-            <div id={block.id} className={styles.container}>
-                <div id={`image-${block.id}`} className={styles.image}>
-                    {/* <div id={`move-container-${block.id}`} className={styles.moveContainer}>
-                        <div className={styles.arrow} id={`negativeMove-${block.id}`} onClick={negativeMoveHandler}></div>
-                        <div className={styles.arrow} id={`positiveMove-${block.id}`} onClick={positiveMoveHandler}></div>
+            <div id={car.id} className={styles.container}>
+                <div id={`image-${car.id}`} className={styles.image}>
+                    {/* <div id={`move-container-${car.id}`} className={styles.moveContainer}>
+                        <div className={styles.arrow} id={`negativeMove-${car.id}`} onClick={negativeMoveHandler}></div>
+                        <div className={styles.arrow} id={`positiveMove-${car.id}`} onClick={positiveMoveHandler}></div>
                     </div> */}
                 </div>
             </div>

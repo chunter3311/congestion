@@ -201,4 +201,15 @@ export class Puzzle {
             }
         })
     }
+
+    getDatabaseLayout() {
+        console.log(this.layout)
+        let databaseLayout = '';
+        this.layout.forEach((row, i) => {
+            row.forEach((value, i) => {
+                databaseLayout += `${value}0`;
+            })
+        })
+        return databaseLayout;
+    }
 }

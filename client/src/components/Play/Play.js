@@ -1,86 +1,39 @@
 import React from 'react';
-import Board from './Board';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import Puzzle from './Puzzle';
 import styles from '../../styles/board.module.css';
-import globalStyles from '../../styles/global.module.css';
 import { Game } from '../../classes/GameFunctions';
+import { getLayout } from '../../classes/PuzzleFunctions';
+import { useLocation } from 'react-router-dom';
 
 const Play = ({ puzzles }) => {
-    const setBackground = () => {
-        const background = document.getElementById('page-background');
-        background.classList.remove(globalStyles.background_image_asphalt);
-        background.classList.add(globalStyles.background_image_carbon_fiber);
-    }
+    let location = useLocation();
+    const user = useSelector(state => state.entities.users[state.session.user_id]);
+    const userName = user.username;
+    const totalPuzzles = puzzles.length;
+    const packId = location.state.packId;
+    const games = [];
 
-    setTimeout(setBackground, 0);
+    puzzles.forEach((puzzle) => {
+        games.push(new Game(getLayout(puzzle)))
+    })
 
-    const game = [];
-    const layoutArrays = [];
-    const getProperValues = (puzzle) => {
-        const layoutStringToArray = puzzle.layout.split("");
-        const properValues = [];
-        let properValue;
-        for (let i = 0; i < layoutStringToArray.length; i++) {
-            if (i % 2 === 0) {
-                properValue = '';
-                if (layoutStringToArray[i] === '0') continue;
-            }
-            properValue += layoutStringToArray[i];
-
-            if (i % 2 !== 0) {
-                properValues.push(parseInt(properValue));
-            }
-        }
-        return properValues;
-    }
-
-    const getLayoutArray = (puzzle) => {
-        const properValues = getProperValues(puzzle);
-        const layoutArray = [];
-        let count = 1;
-        let row = 0;
-        for (let i = 0; i < properValues.length; i++) {
-            if (count === 1) {
-                layoutArray.push([]);
-            }
-
-            layoutArray[row].push(properValues[i]);
-            count++;
-
-            if (count === 7) {
-                count = 1;
-                row++;
-            }
-        }
-
-        return layoutArray;
-    }
-
-    const getLayouts = () => {
-
-        puzzles.forEach((puzzle) => {
-            const layoutArray = getLayoutArray(puzzle);
-            game.push(new Game(layoutArray));
-            layoutArrays.push(layoutArray);
-        })
-    }
-
-    
-    getLayouts();
-
-    const revealBoard = () => {
+    const initializeBoard = () => {
         const boardElement = document.getElementById(`board-0`);
         boardElement.classList.remove(styles.hide_board);
+
+        //     const background = document.getElementById('page-background');
+        //     background.classList.remove(globalStyles.background_image_asphalt);
+        //     background.classList.add(globalStyles.background_image_carbon_fiber);
     }
 
-    setTimeout(revealBoard, 0);
-
-    const puzzleNumb = layoutArrays.length;
+    setTimeout(initializeBoard, 0);
 
     return (
         <>
-            {layoutArrays.map((layout, i) => {
+            {puzzles.map((puzzle, i) => {
                 return (
-                    <Board boardId = {i} game={game[i]} layout={layout} puzzleNumb={puzzleNumb} key={`pack-${i + 1}`} />
+                    <Puzzle puzzle={puzzle} boardId={i} userName = {userName} totalPuzzles={totalPuzzles} packId={packId} game={games[i]} key={`pack-${i + 1}`} />
                 )
             })}
         </>

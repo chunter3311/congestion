@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import styles from '../../../../styles/pack.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import Created_Puzzle_ITEM from './Items/Created_Puzzle_ITEM';
 import Created_Pack_ITEM from "../Created_Pack_ITEM";
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShareSquare, faPen, faTrash, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,10 @@ import { faShareSquare, faPen, faTrash, faPlay } from '@fortawesome/free-solid-s
 function Created_Puzzle_LIST(props) {
     const dispatch = useDispatch();
     const packIdNumb = parseInt(props.match.params.packId.split("").slice(5).join(""));
+    // console.log('packIdNumb', packIdNumb);
     const pack = useSelector(state => Object.values(state.entities.packs).filter((pack) => pack.id === packIdNumb));
+    const packId = pack[0].id;
+    // console.log('packId', packId);
     const puzzles = useSelector(state => Object.values(state.entities.puzzles).filter((puzzle) => puzzle.packId === packIdNumb));
 
     // const packs = useSelector(state => Object.values(state.entities.packs));
@@ -42,11 +45,13 @@ function Created_Puzzle_LIST(props) {
 
             <div className={styles.puzzle_pack_buttons_container}>
                 <div>
-                    {/* <NavLink className={styles.puzzle_pack_tab} to="/packs/pro" activeClassName={styles.active_tab}>pro</NavLink>
-                    <NavLink className={styles.puzzle_pack_tab} to="/packs/adopted" activeClassName={styles.active_tab}>adopted</NavLink> */}
                     <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>back to packs</NavLink>
                 </div>
-                <NavLink className={styles.puzzle_pack_tab} to="/builder" activeClassName={styles.active_tab}>add a puzzle</NavLink>
+
+                {/* <NavLink className={styles.nav_link_large} to={`/play/${user.username}/pack-${packId}/puzzle-${puzzleId}`} activeClassName={styles.selected}>quick play</NavLink> */}
+                {/* <NavLink className={styles.puzzle_pack_tab} to={`/builder/pack-${pack.id}`} activeClassName={styles.active_tab}>add a puzzle</NavLink> */}
+                {/* <Link className={styles.puzzle_pack_tab} to={{ pathname: `/builder/pack-${pack.id}`, aboutProps: { location } }}>add a puzzle</Link> */}
+                <NavLink to={{pathname: `/builder/pack-${packId}`, state: { packId: packId }}}>Go to Home</NavLink>
             </div>
             <div className={`${styles.pack_header} `}>
                 {pack.map((pack, i) => {

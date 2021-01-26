@@ -93,9 +93,6 @@ const Adopted_Pack_ITEM = ({ pack, puzzles, setEditPackId }) => {
                         <div className={`${styles.pack_icon}`}><NavLink to={`/packs/created/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div>
                         <div className={`${styles.pack_icon_last}`}><FontAwesomeIcon icon="trash" /></div>
 
-                        {/* <NavLink to={`/decks/deck-${deck.id}`}>{deck.title} <FontAwesomeIcon icon={faPenAlt} /></NavLink> */}
-                        {/* <NavLink to={`/decks/deck-${deck.id}`}><FontAwesomeIcon icon="pen" /></NavLink> */}
-
                     </div>
                 </div>
             </div>

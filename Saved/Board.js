@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import styles from '../../styles/board.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
-import Block from './Block';
+import Car from './Car';
 
 
 
-function Board({ boardId, game, layout, puzzleNumb }) {
+function Puzzle({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBestSolution }) {
+    const user = useSelector(state => state.entities.users[state.session.user_id]);
+    
+    const [moveCount, setMoveCount] = useState(null);
+
 
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
@@ -18,25 +23,25 @@ function Board({ boardId, game, layout, puzzleNumb }) {
     const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
 
     const setBoard = () => {
-        game.blocks.forEach(block => {
-            const imageElement = document.getElementById(`${boardId}-image-${block.id}`);
-            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${block.id}`);
-            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${block.id}`);
+        game.blocks.forEach(car => {
+            const imageElement = document.getElementById(`${boardId}-image-${car.id}`);
+            const negativeMoveElement = document.getElementById(`${boardId}-negativeMove-${car.id}`);
+            const positiveMoveElement = document.getElementById(`${boardId}-positiveMove-${car.id}`);
 
-            if (block.orientation === 'v') {
+            if (car.orientation === 'v') {
                 negativeMoveElement.style.backgroundImage = `url(${upArrow})`;
                 positiveMoveElement.style.backgroundImage = `url(${downArrow})`;
                 negativeMoveElement.style.backgroundPosition = 'top';
                 positiveMoveElement.style.backgroundPosition = 'bottom';
-                if (block.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
+                if (car.length === 2) imageElement.style.backgroundImage = `url(${vertSBlk})`;
                 else imageElement.style.backgroundImage = `url(${vertLBlk})`;
             } else {
                 negativeMoveElement.style.backgroundImage = `url(${leftArrow})`;
                 positiveMoveElement.style.backgroundImage = `url(${rightArrow})`;
                 negativeMoveElement.style.backgroundPosition = 'left';
                 positiveMoveElement.style.backgroundPosition = 'right';
-                if (block.length === 2) {
-                    if (block.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
+                if (car.length === 2) {
+                    if (car.row === 2) imageElement.style.backgroundImage = `url(${priBlk})`;
                     else imageElement.style.backgroundImage = `url(${horSBlk})`;
                 } else imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
@@ -48,7 +53,7 @@ function Board({ boardId, game, layout, puzzleNumb }) {
 
     const nextPuzzle = () => {
         let newBoardId;
-        if (boardId + 1 === puzzleNumb) newBoardId = 0;
+        if (boardId + 1 === boardId) newBoardId = 0;
         else newBoardId = boardId + 1;
         const boardElement = document.getElementById(`board-${boardId}`);
         boardElement.classList.add(styles.hide_board);
@@ -58,13 +63,14 @@ function Board({ boardId, game, layout, puzzleNumb }) {
 
     const previousPuzzle = () => {
         let newBoardId;
-        if (boardId === 0) newBoardId = puzzleNumb - 1;
+        if (boardId === 0) newBoardId = boardId - 1;
         else newBoardId = boardId - 1;
         const boardElement = document.getElementById(`board-${boardId}`);
         boardElement.classList.add(styles.hide_board);
         const nextBoardElement = document.getElementById(`board-${newBoardId}`);
         nextBoardElement.classList.remove(styles.hide_board);
     }
+    
 
 
     return (
@@ -73,27 +79,27 @@ function Board({ boardId, game, layout, puzzleNumb }) {
                 <div className={styles.column_one}>
                     <div className={`${styles.widget}`}>
                         <div className={`${styles.widget}`}>
-                            <div className={styles.small_text}>Cole</div>
-                            <div className={styles.large_text}>pack 1</div>
+                            <div className={styles.small_text}>{user.username}</div>
+                            <div className={styles.large_text}>{`pack ${packId}`}</div>
                         </div>
                         <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>level</div>
                             <div className={styles.level_number}>
                                 <div className={styles.large_text}>{boardId + 1}</div>
                                 <div className={styles.extra_small_text}>of</div>
-                                <div className={styles.extra_small_text}>{puzzleNumb}</div>
+                                <div className={styles.extra_small_text}>{totalPuzzles}</div>
                             </div>
                         </div>
                     </div>
                     <div className={`${styles.widget}`}>
                         <div className={`${styles.widget}`}>
                             <div className={`${styles.yellow} ${styles.small_text}`}>moves</div>
-                            <div className={styles.large_text}>0</div>
+                            <div className={styles.large_text}>{moveCount}</div>
                         </div>
                         <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>your best</div>
                             <div className={styles.your_best_display}>
-                                <div className={styles.large_text}>12</div>
+                            <div className={styles.large_text}>{puzzle.solutionMoves === -1 ? '–' : puzzle.solutionMoves}</div>
                             </div>
                         </div>
                     </div>
@@ -103,9 +109,9 @@ function Board({ boardId, game, layout, puzzleNumb }) {
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
-                        {game.blocks.map((block, i) => {
+                        {game.blocks.map((car, i) => {
                             return (
-                                <Block block={block} boardId={boardId} game={game} key={`block-${i + 1}`} />
+                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} key={`car-${i + 1}`} />
                             )
                         })}
                     </div>
@@ -124,4 +130,4 @@ function Board({ boardId, game, layout, puzzleNumb }) {
         </>
     );
 }
-export default Board;
+export default Puzzle;

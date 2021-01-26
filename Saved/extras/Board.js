@@ -7,11 +7,11 @@ class Game {
     }
 
     addBlock(x, y) {
-        this.blocks.push(new Block(x, y));
+        this.blocks.push(new Car(x, y));
     }
 }
 
-class Block {
+class Car {
     constructor(x, y) {
         this.length = 0;
         this.position = [];
@@ -24,20 +24,20 @@ class Block {
     }
 }
 
-function Board() {
+function Puzzle() {
     const game = new Game();
     const squares = document.querySelectorAll(`.${styles.square}`);
     for (const square of squares) {
         square.addEventListener('click', (e) => {
-            if (!square.classList.contains(`${styles.block}`)) {
+            if (!square.classList.contains(`${styles.car}`)) {
                 const x = parseInt(e.target.id[7]);
                 const y = parseInt(e.target.id[8]);
                 game.addBlock(x, y);
                 console.log(game.blocks);
-                // const block = new Block(x, y);
-                // console.log(block);
+                // const car = new Car(x, y);
+                // console.log(car);
             }
-            square.classList.add(`${styles.block}`);
+            square.classList.add(`${styles.car}`);
         });
     }
 
@@ -75,8 +75,8 @@ function Board() {
             const newX = parseInt(parent.id[7]) + 1;
             const newY = parseInt(parent.id[8]);
             
-            const block = document.getElementById(`square-${newX}${newY}`);
-            // console.log(block);
+            const car = document.getElementById(`square-${newX}${newY}`);
+            // console.log(car);
         });
         rightWrapper.addEventListener('mouseenter', (e) => {
             rightWrapper.classList.remove(`${styles.hide}`);
@@ -108,7 +108,7 @@ function Board() {
     const handleClick = () => {
         for (const square of squares) {
             console.log(square.id);
-            // if (square.classList.contains(`${styles.block}`))
+            // if (square.classList.contains(`${styles.car}`))
         }
     }
 
@@ -169,4 +169,4 @@ function Board() {
         </div>
     );
 }
-export default Board;
+export default Puzzle;
