@@ -9,12 +9,6 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
     const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
 
-    const updateMoveCounter = () => {
-        // e.preventDefault(e);
-        setMoveCount(game.moves);
-        // dispatch(updateMoveCounter());
-    }
-
     const updateBestSolution = async () => {
         if (game.moves < puzzle.solutionMoves || puzzle.solutionMoves === -1) {
             const res = await dispatch(updateUserPuzzle(puzzle.difficulty, puzzle.layout, puzzle.solution, game.moves, puzzle.totalStars, puzzle.totalPlays, puzzle.id));
@@ -42,37 +36,30 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
             setIsSolved(true);
             updateBestSolution();
         }
-
-        updateMoveCounter();
-        console.log(game);
-        console.log(boardId);
-        console.log(car.id);
     };
 
     setTimeout(updateBlock, 0);
 
-    const negativeMoveHandler = (e) => {
-        e.preventDefault();
-
-        if (!game.negativeMove(car)) {
+    const negativeMoveHandler = () => {
+        if (game.negativeMove(car)) {
             updateBlock();
             game.moves++;
+            setMoveCount(game.moves);
         }
 
     }
 
-    const positiveMoveHandler = (e) => {
-        e.preventDefault();
-        if (!game.positiveMove(car)) {
+    const positiveMoveHandler = () => {
+        if (game.positiveMove(car)) {
             updateBlock();
             game.moves++;
+            setMoveCount(game.moves);
         }
     }
 
-    const restartHandler = (e) => {
-        e.preventDefault();
-
-    }
+    // const restartHandler = (e) => {
+    //     e.preventDefault();
+    // }
 
     return (
         <>
@@ -87,7 +74,7 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
             {isSolved ? <>
                 <div className={styles.solved_message_wrapper}>
                     <div className={styles.solved_message}>whoa, you're good!</div>
-                    <button onClick={restartHandler}>restart</button>
+                    {/* <button onClick={restartHandler}>restart</button> */}
                 </div>
             </> : ""}
         </>

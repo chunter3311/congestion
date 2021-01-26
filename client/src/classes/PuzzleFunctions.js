@@ -16,7 +16,7 @@ const getProperValues = (puzzle) => {
     return properValues;
 }
 
-const getLayoutArray = (puzzle) => {
+export const getLayout = (puzzle) => {
     const properValues = getProperValues(puzzle);
     const layoutArray = [[],[],[],[],[],[]];
     let column = 0;
@@ -31,12 +31,12 @@ const getLayoutArray = (puzzle) => {
         }
     }
 
-    console.log(layoutArray)
+    // console.log(layoutArray)
     return layoutArray;
 }
 
-export const getLayouts = (puzzles) => {
-    puzzles.forEach((puzzle) => {
-        return [...getLayoutArray(puzzle)];
-    })
-}
+// export const getLayouts = (puzzles) => {
+//     puzzles.forEach((puzzle) => {
+//         return [...getLayoutArray(puzzle)];
+//     })
+// }

@@ -6,11 +6,8 @@ import Car from './Car';
 
 
 
-// function Puzzle({ puzzle, packId, boardId, game, layout, totalPuzzles, puzzleBestSolution }) {
-function Puzzle({ puzzle, packId, game, boardId, totalPuzzles }) {
-    const user = useSelector(state => state.entities.users[state.session.user_id]);
-    const [moveCount, setMoveCount] = useState(null);
-
+function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
+    const [moveCount, setMoveCount] = useState(0);
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
     const leftArrow = 'https://i.imgur.com/yU2HmxP.png';
@@ -20,26 +17,27 @@ function Puzzle({ puzzle, packId, game, boardId, totalPuzzles }) {
     const horLBlk = "https://i.imgur.com/CG1s8K7.png";
     const vertSBlk = "https://i.imgur.com/3y0Ss2a.png";
     const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
-
     const pct = 16.667;
 
     const resetBoard = () => {
-        // game.reset(layout);
-        // game.cars.forEach(car => {
-        //     const carElement = document.getElementById(`${boardId}-${car.id}`);
-        //     carElement.classList.add(styles.change_position);
-        //     const moveContainer = document.getElementById(`${boardId}-move-container-${car.id}`);
+        game.reset();
+        setMoveCount(game.moves);
+        game.cars.forEach(car => {
+            const carElement = document.getElementById(`${boardId}-${car.id}`);
+            carElement.classList.add(styles.change_position);
+            const moveContainer = document.getElementById(`${boardId}-move-container-${car.id}`);
 
-        //     carElement.style.top = (car.orientation === 'h') ? (car.row * pct) + '%' : (car.start * pct) + '%';
-        //     carElement.style.left = (car.orientation === 'h') ? (car.start * pct) + '%' : (car.column * pct) + '%';
+            carElement.style.top = (car.orientation === 'h') ? (car.row * pct) + '%' : (car.start * pct) + '%';
+            carElement.style.left = (car.orientation === 'h') ? (car.start * pct) + '%' : (car.column * pct) + '%';
 
-        //     if (car.orientation === 'v') {
-        //         carElement.style.height = (car.length * pct) + '%';
-        //     } else {
-        //         moveContainer.style.flexDirection = 'row';
-        //         carElement.style.width = (car.length * pct) + '%';
-        //     }
-        // })
+            if (car.orientation === 'v') {
+                carElement.style.height = (car.length * pct) + '%';
+            } else {
+                moveContainer.style.flexDirection = 'row';
+                carElement.style.width = (car.length * pct) + '%';
+            }
+        })
+        console.log(game);
 
     };
 
@@ -66,32 +64,28 @@ function Puzzle({ puzzle, packId, game, boardId, totalPuzzles }) {
                     else imageElement.style.backgroundImage = `url(${horSBlk})`;
                 } else imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
-
         })
+        console.log(game)
     };
 
     setTimeout(setBoard, 0);
 
-    // const nextPuzzle = () => {
-    //     let newBoardId;
-    //     if (boardId + 1 === boardId) newBoardId = 0;
-    //     else newBoardId = boardId + 1;
-    //     const boardElement = document.getElementById(`board-${boardId}`);
-    //     boardElement.classList.add(styles.hide_board);
-    //     const nextBoardElement = document.getElementById(`board-${newBoardId}`);
-    //     nextBoardElement.classList.remove(styles.hide_board);
-    // }
+    const nextPuzzle = () => {
+        if (boardId === totalPuzzles - 1) setNewPuzzle(0);
+        else setNewPuzzle(boardId + 1);
+    }
 
-    // const previousPuzzle = () => {
-    //     let newBoardId;
-    //     if (boardId === 0) newBoardId = boardId - 1;
-    //     else newBoardId = boardId - 1;
-    //     const boardElement = document.getElementById(`board-${boardId}`);
-    //     boardElement.classList.add(styles.hide_board);
-    //     const nextBoardElement = document.getElementById(`board-${newBoardId}`);
-    //     nextBoardElement.classList.remove(styles.hide_board);
-    // }
+    const previousPuzzle = () => {
+        if (boardId === 0) setNewPuzzle(totalPuzzles - 1);
+        else setNewPuzzle(boardId - 1);
+    }
 
+    const setNewPuzzle = (newBoardId) => {
+        const boardElement = document.getElementById(`board-${boardId}`);
+        boardElement.classList.add(styles.hide_board);
+        const nextBoardElement = document.getElementById(`board-${newBoardId}`);
+        nextBoardElement.classList.remove(styles.hide_board);
+    }
 
 
     return (
@@ -100,7 +94,7 @@ function Puzzle({ puzzle, packId, game, boardId, totalPuzzles }) {
                 <div className={styles.column_one}>
                     <div className={`${styles.widget}`}>
                         <div className={`${styles.widget}`}>
-                            <div className={styles.small_text}>{user.username}</div>
+                            <div className={styles.small_text}>{userName}</div>
                             <div className={styles.large_text}>{`pack ${packId}`}</div>
                         </div>
                         <div className={`${styles.widget}`}>
@@ -125,7 +119,7 @@ function Puzzle({ puzzle, packId, game, boardId, totalPuzzles }) {
                         </div>
                     </div>
                     <div className={`${styles.widget}`}>
-                        {/* <div onClick={previousPuzzle} className={styles.previous_arrow}></div> */}
+                        <div onClick={previousPuzzle} className={styles.previous_arrow}></div>
                     </div>
                 </div>
                 <div className={styles.column_two}>
@@ -144,7 +138,7 @@ function Puzzle({ puzzle, packId, game, boardId, totalPuzzles }) {
                         <div className={styles.solution_button}></div>
                     </div>
                     <div className={`${styles.widget}`}>
-                        {/* <div onClick={nextPuzzle} className={styles.next_arrow}></div> */}
+                        <div onClick={nextPuzzle} className={styles.next_arrow}></div>
                     </div>
                 </div>
             </div>
