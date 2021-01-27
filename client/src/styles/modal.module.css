@@ -1,0 +1,52 @@
+.modal_wrapper {
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(0, 0, 0, 0.664); */
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1;
+    background-color: rgba(54, 29, 29, 0.938);
+    /* height: 100%; */
+    /* width: 100%; */
+    margin: 0 5vh;
+    padding: 5vh;
+    border-radius: 1.5vh;
+}
+
+.modal_wrapper h1 {
+    font-size: 6vh;
+    line-height: 6vh;
+    color: #dadd23;
+}
+
+.modal_wrapper p {
+    font-size: 3.5vh;
+    font-weight: 300;
+    line-height: 3.5vh;
+}
+
+.modal_wrapper p div {
+    margin: 1.7vh 0;
+}
+
+.modal_wrapper .buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal_wrapper button {
+    width: 15vh;
+    height: 10vh;
+    border: solid lightgrey 0.35vh;
+    background-color: transparent;
+    border-radius: 0.7vh;
+    color: white;
+    font-size: 4.2vh;
+    cursor: pointer;
+    margin-top: 2.6vh;
+}
+
+.modal_wrapper button:hover{
+    border-color: #e3e516;
+}

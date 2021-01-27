@@ -45,30 +45,14 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount, setIsSolved, totalPuzzl
 
     const positiveMoveHandler = () => {
         if (game.positiveMove(car)) {
+            game.moves++;
+            setMoveCount(game.moves);
             setIsSolved(game.isSolved);
             if (game.isSolved) {
                 updateBestSolution();
             }
             updateBlock();
-            game.moves++;
-            setMoveCount(game.moves);
         }
-    }
-
-    const restartHandler = (e) => {
-        e.preventDefault();
-    }
-
-    const nextPuzzle = () => {
-        if (boardId === totalPuzzles - 1) setNewPuzzle(0);
-        else setNewPuzzle(boardId + 1);
-    }
-
-    const setNewPuzzle = (newBoardId) => {
-        const boardElement = document.getElementById(`board-${boardId}`);
-        boardElement.classList.add(styles.hide_board);
-        const nextBoardElement = document.getElementById(`board-${newBoardId}`);
-        nextBoardElement.classList.remove(styles.hide_board);
     }
 
     return (

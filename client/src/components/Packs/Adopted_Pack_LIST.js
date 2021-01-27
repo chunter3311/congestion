@@ -11,19 +11,11 @@ function Adopted_Pack_LIST(props) {
     const userId = useSelector(state => state.session.user_id);
     const packs = useSelector(state => Object.values(state.entities.packs));
     const puzzles = useSelector(state => Object.values(state.entities.puzzles));
-    const createPack = useSelector(state => state.ui.createPack);
-    const editPack = useSelector(state => state.ui.editPack);
     const [editPackId, setEditPackId] = useState(null);
 
     const handleNewPackClick = async (event) => {
         event.stopPropagation();
         dispatch(addUserPacks(userId));
-        return;
-    }
-
-    const setActiveTab = (tab) => {
-        const activeTab = document.getElementById(tab);
-        activeTab.classList.add(styles.active_tab);
         return;
     }
 

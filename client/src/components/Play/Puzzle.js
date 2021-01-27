@@ -5,12 +5,14 @@ import { Game, solvePuzzle } from '../../classes/GameFunctions';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { updateUserPuzzle } from '../../store/puzzles';
 import Car from './Car';
+import HelpModal from '../Modals/Help_Modal';
 
 
 
-function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
+function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEditFlashcardId }) {
     const dispatch = useDispatch();
     const [isSolved, setIsSolved] = useState(false);
+    const [showHelp, setShowHelp] = useState(false);
     const [moveCount, setMoveCount] = useState(0);
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
     const rightArrow = 'https://i.imgur.com/PMyWP0J.png';
@@ -41,8 +43,6 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                 carElement.style.width = (car.length * pct) + '%';
             }
         })
-        console.log(game);
-
     };
 
     const setBoard = () => {
@@ -69,7 +69,6 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                 } else imageElement.style.backgroundImage = `url(${horLBlk})`;
             }
         })
-        console.log(game)
     };
 
     setTimeout(setBoard, 0);
@@ -91,27 +90,28 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
         nextBoardElement.classList.remove(styles.hide_board);
     }
 
-    const updateBestSolution = async () => {
-        if (game.moves < puzzle.solutionMoves || puzzle.solutionMoves === -1) {
-            const res = await dispatch(updateUserPuzzle(puzzle.difficulty, puzzle.layout, puzzle.solution, game.moves, puzzle.totalStars, puzzle.totalPlays, puzzle.id));
-            if (res.ok) return;
-        }
-    }
-
     const resetNext = () => {
         nextPuzzle();
         resetBoard();
     }
 
     const toggleHelp = () => {
-        // nextPuzzle();
-        // resetBoard();
+        if (showHelp) setShowHelp(false);
+        else setShowHelp(true);
     }
+
+    const exitHelp = () => {
+        if (showHelp) setShowHelp(false);
+    }
+
+    // const toggleSolvedModal = () => {
+    //     setEditFlashcardId(flashcard.id)
+    //     dispatch(toggleEditFlashcardModal())
+    // }
 
     return (
         <>
-
-            <div id={`board-${boardId}`} className={`${styles.board_wrapper} ${styles.hide_board}`}>
+            <div onClick={exitHelp} id={`board-${boardId}`} className={`${styles.board_wrapper} ${styles.hide_board}`}>
                 <div className={styles.column_one}>
                     <div className={`${styles.widget}`}>
                         <div className={`${styles.widget}`}>
@@ -154,14 +154,16 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                                 </div>
                             </div>
                         </> : ""}
-                        {game.isSolved ? <>
+                        {/* {showHelp ? <>
                             <div className={styles.solved_message_wrapper}>
-                                <div className={styles.solved_message}>whoa, you're good!</div>
+                                <div className={styles.solved_message}>how to play</div>
                                 <div className={styles.solved_message_buttons}>
-                                    <button onClick={resetBoard} className={styles.message_button}>try again</button>
-                                    <button onClick={resetNext} className={styles.message_button}>next puzzle</button>
+                                    <button onClick={toggleHelp} className={styles.message_button}>got it</button>
                                 </div>
                             </div>
+                        </> : ""} */}
+                        {showHelp ? <>
+                            <HelpModal showHelp={showHelp} setShowHelp={setShowHelp} />
                         </> : ""}
                         {game.cars.map((car, i) => {
                             return (
