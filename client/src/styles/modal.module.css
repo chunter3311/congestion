@@ -3,7 +3,7 @@
     flex-direction: column;
     /* background-color: rgba(0, 0, 0, 0.664); */
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     z-index: 1;
     background-color: rgba(54, 29, 29, 0.938);
     /* height: 100%; */
@@ -33,16 +33,20 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
-.modal_wrapper button {
-    width: 15vh;
-    height: 10vh;
+.modal_wrapper .buttons button {
+    width: 100%;
     border: solid lightgrey 0.35vh;
     background-color: transparent;
     border-radius: 0.7vh;
     color: white;
     font-size: 4.2vh;
+    line-height: 4.2vh;
+    height: 6.2vh;
     cursor: pointer;
     margin-top: 2.6vh;
 }

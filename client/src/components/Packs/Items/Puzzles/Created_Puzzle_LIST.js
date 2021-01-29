@@ -3,7 +3,8 @@ import styles from '../../../../styles/pack.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Created_Puzzle_ITEM from './Items/Created_Puzzle_ITEM';
 import Created_Pack_ITEM from "../Created_Pack_ITEM";
-import { BrowserRouter as NavLink } from "react-router-dom";
+// import { BrowserRouter as NavLink } from "react-router-dom";
+import { NavLink } from 'react-router-dom';
 
 function Created_Puzzle_LIST(props) {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function Created_Puzzle_LIST(props) {
                 <div>
                     <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>back to packs</NavLink>
                 </div>
-                <NavLink to={{pathname: `/builder/pack-${packId}`, state: { packId: packId }}}>Go to Home</NavLink>
+                <NavLink className={styles.puzzle_pack_tab} to={{pathname: `/builder/pack-${packId}`, state: { packId: packId }}}>add a puzzle</NavLink>
             </div>
             <div className={`${styles.pack_header} `}>
                 {pack.map((pack, i) => {

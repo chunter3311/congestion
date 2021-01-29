@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../styles/board.module.css';
+import modalStyles from '../../styles/modal.module.css';
 import authStyles from '../../styles/auth.module.css';
 import { Game, solvePuzzle } from '../../classes/GameFunctions';
 import { useDispatch, useSelector, connect } from 'react-redux';
@@ -104,10 +105,60 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
         if (showHelp) setShowHelp(false);
     }
 
-    // const toggleSolvedModal = () => {
-    //     setEditFlashcardId(flashcard.id)
-    //     dispatch(toggleEditFlashcardModal())
-    // }
+    const playSolution = () => {
+        resetBoard();
+        // 5R#6U#7L#9L#8L#10L#5L#3D#4R
+        const moves = puzzle.solution.split('#');
+        moves.forEach((move, i) => {
+            setTimeout(() => {
+                const direction = move.slice(-1);
+                let carId = move[0];
+                if (move.length === 3) {
+                    carId += move[1];
+
+                }
+                console.log(direction);
+                console.log(carId);
+                const car = game.cars[carId - 1];
+                if (direction === 'D' || direction === 'R') positiveMoveHandler(car);
+                else negativeMoveHandler(car);
+            }, (i * 1000));
+        })
+    }
+
+    const updateBlock = (car) => {
+        const blockElement = document.getElementById(`${boardId}-${car.id}`);
+        blockElement.classList.add(styles.change_position);
+        const moveContainer = document.getElementById(`${boardId}-move-container-${car.id}`);
+
+        blockElement.style.top = (car.orientation === 'h') ? (car.row * pct) + '%' : (car.start * pct) + '%';
+        blockElement.style.left = (car.orientation === 'h') ? (car.start * pct) + '%' : (car.column * pct) + '%';
+
+        if (car.orientation === 'v') {
+            blockElement.style.height = (car.length * pct) + '%';
+        } else {
+            moveContainer.style.flexDirection = 'row';
+            blockElement.style.width = (car.length * pct) + '%';
+        }
+    };
+
+    const negativeMoveHandler = (car) => {
+        if (game.negativeMove(car)) {
+            updateBlock(car);
+            game.moves++;
+            setMoveCount(game.moves);
+        }
+
+    }
+
+    const positiveMoveHandler = (car) => {
+        if (game.positiveMove(car)) {
+            game.moves++;
+            setMoveCount(game.moves);
+            // setIsSolved(game.isSolved);
+            updateBlock(car);
+        }
+    }
 
     return (
         <>
@@ -138,6 +189,12 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                                 <div className={styles.large_text}>{puzzle.solutionMoves === -1 ? '–' : puzzle.solutionMoves}</div>
                             </div>
                         </div>
+                        <div className={`${styles.widget}`}>
+                            <div className={styles.small_text}>optimal</div>
+                            <div className={styles.your_best_display}>
+                                <div className={styles.large_text}>{puzzle.solution === 'unsolved' ? '–' : puzzle.solution.split("#").length}</div>
+                            </div>
+                        </div>
                     </div>
                     <div className={`${styles.widget}`}>
                         <div onClick={previousPuzzle} className={styles.previous_arrow}></div>
@@ -146,28 +203,23 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
                         {game.isSolved ? <>
-                            <div className={styles.solved_message_wrapper}>
-                                <div className={styles.solved_message}>whoa, you're good!</div>
-                                <div className={styles.solved_message_buttons}>
-                                    <button onClick={resetBoard} className={styles.message_button}>try again</button>
-                                    <button onClick={resetNext} className={styles.message_button}>next puzzle</button>
+                            <div className={modalStyles.modal_wrapper}>
+                                <h1>fantastic!</h1>
+                                <p>
+                                    level completed in {game.moves} moves
+                                </p>
+                                <div className={modalStyles.buttons}>
+                                    <button onClick={resetBoard}>try again</button>
+                                    <button onClick={resetNext}>next puzzle</button>
                                 </div>
                             </div>
                         </> : ""}
-                        {/* {showHelp ? <>
-                            <div className={styles.solved_message_wrapper}>
-                                <div className={styles.solved_message}>how to play</div>
-                                <div className={styles.solved_message_buttons}>
-                                    <button onClick={toggleHelp} className={styles.message_button}>got it</button>
-                                </div>
-                            </div>
-                        </> : ""} */}
                         {showHelp ? <>
                             <HelpModal showHelp={showHelp} setShowHelp={setShowHelp} />
                         </> : ""}
                         {game.cars.map((car, i) => {
                             return (
-                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} setIsSolved={setIsSolved} totalPuzzles={totalPuzzles} key={`car-${i + 1}`} />
+                                <Car puzzle={puzzle} car={car} boardId={boardId} game={game} setMoveCount={setMoveCount} setIsSolved={setIsSolved} key={`car-${i + 1}`} />
                             )
                         })}
                     </div>
@@ -176,7 +228,7 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div onClick={resetBoard} className={styles.reset_button}></div>
                         <div onClick={toggleHelp} className={styles.help_button}></div>
-                        <div className={styles.solution_button}></div>
+                        <div onClick={playSolution} className={styles.solution_button}></div>
                     </div>
                     <div className={`${styles.widget}`}>
                         <div onClick={nextPuzzle} className={styles.next_arrow}></div>

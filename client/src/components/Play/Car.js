@@ -3,10 +3,9 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { updateUserPuzzle } from '../../store/puzzles';
 import styles from '../../styles/car.module.css';
 
-const Car = ({ puzzle, car, boardId, game, setMoveCount, setIsSolved, totalPuzzles }) => {
+const Car = ({ puzzle, car, boardId, game, setMoveCount, setIsSolved }) => {
 
     const dispatch = useDispatch();
-    // const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
 
     const updateBestSolution = async () => {

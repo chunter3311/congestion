@@ -1,8 +1,8 @@
-export const solvePuzzle = (layout) => {
-    const moves = {};
+// export const solvePuzzle = (layout) => {
+//     const moves = {};
 
-    return moves;
-}
+//     return moves;
+// }
 
 export class Car {
     constructor(row, column, id) {
@@ -86,6 +86,8 @@ export class Game {
             if (!unitsMoved) return false;
             car.start += unitsMoved;
             car.end += unitsMoved;
+            console.log(car.id);
+            console.log('D');
             return true;
         }
         else if (car.orientation === 'h') {
@@ -102,6 +104,8 @@ export class Game {
                 car.end += 2;
                 this.isSolved = true;
             }
+            console.log(car.id);
+            console.log('R');
             return true;
         }
     }
@@ -117,6 +121,8 @@ export class Game {
             if (!unitsMoved) return false;
             car.start -= unitsMoved;
             car.end -= unitsMoved;
+            console.log(car.id);
+            console.log('U');
             return true;
         }
         else if (car.orientation === 'h') {
@@ -128,6 +134,8 @@ export class Game {
             if (!unitsMoved) return false;
             car.start -= unitsMoved;
             car.end -= unitsMoved;
+            console.log(car.id);
+            console.log('L');
             return true;
         }
     }
@@ -143,6 +151,10 @@ export class Game {
         });
         this.isSolved = false;
         this.moves = 0;
+    }
+
+    solve() {
+        
     }
 }
 

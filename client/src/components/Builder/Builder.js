@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../styles/builder.module.css';
+// import styles from '../../styles/board.module.css';
 import { Puzzle } from '../../classes/BuilderFunctions';
 import VehicleComponent from './VehicleComponent';
 import { addUserPuzzle } from '../../store/puzzles';
@@ -25,10 +26,10 @@ function Builder() {
     const puzzle = new Puzzle(initialLayout);
 
     const priBlk = "https://i.imgur.com/n07UANE.png";
-    const horSBlk = "https://i.imgur.com/EuehW2s.png";
-    const horLBlk = "https://i.imgur.com/TLYg7Bv.png";
-    const vertSBlk = "https://i.imgur.com/CJswBXz.png";
-    const vertLBlk = "https://i.imgur.com/bzFg8KO.png";
+    const horSBlk = "https://i.imgur.com/AihDIR0.png";
+    const horLBlk = "https://i.imgur.com/CG1s8K7.png";
+    const vertSBlk = "https://i.imgur.com/3y0Ss2a.png";
+    const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
     const trashCan = "https://i.imgur.com/fwxTlXW.png";
 
     const handleDragStart = e => {
@@ -173,9 +174,87 @@ function Builder() {
     }
 
     return (
+        // <>
+        //     <div className={`${styles.board_wrapper}`}>
+        //         <div className={styles.column_one}>
+        //             <div className={styles.car} draggable="true" id='car-one'></div>
+        //             <div className={styles.car} draggable="true" id='car-two'></div>
+        //             <div className={styles.car} draggable="true" id='car-three'></div>
+        //             {/* <div className={styles.car} draggable="true" id='car-four'></div>
+        //             <div className={styles.car} draggable="true" id='car-five'></div> */}
+        //             <div className={styles.horizontal_cars}>
+        //                 <div className={styles.car} draggable="true" id='car-four'></div>
+        //                 <div className={styles.car} draggable="true" id='car-five'></div>
+        //             </div>
+        //         </div>
+        //         <div className={styles.column_two}>
+        //             <div className={styles.board_container}>
+        //                 {puzzle.vehicles.map((vehicle, i) => {
+        //                     return (
+        //                         <VehicleComponent vehicle={vehicle} puzzle={puzzle} key={`vehicle-${i + 1}`} />
+        //                     )
+        //                 })}
+        //                 <div className={styles.row}>
+        //                     <div id="square-00" className={styles.drop_zone}></div>
+        //                     <div id="square-10" className={styles.drop_zone}></div>
+        //                     <div id="square-20" className={styles.drop_zone}></div>
+        //                     <div id="square-30" className={styles.drop_zone}></div>
+        //                     <div id="square-40" className={styles.drop_zone}></div>
+        //                     <div id="square-50" className={styles.drop_zone}></div>
+        //                 </div>
+        //                 <div className={styles.row}>
+        //                     <div id="square-01" className={styles.drop_zone}></div>
+        //                     <div id="square-11" className={styles.drop_zone}></div>
+        //                     <div id="square-21" className={styles.drop_zone}></div>
+        //                     <div id="square-31" className={styles.drop_zone}></div>
+        //                     <div id="square-41" className={styles.drop_zone}></div>
+        //                     <div id="square-51" className={styles.drop_zone}></div>
+        //                 </div>
+        //                 <div className={styles.row}>
+        //                     <div id="square-02" className={styles.drop_zone}></div>
+        //                     <div id="square-12" className={styles.drop_zone}></div>
+        //                     <div id="square-22" className={styles.drop_zone}></div>
+        //                     <div id="square-32" className={styles.drop_zone}></div>
+        //                     <div id="square-42" className={styles.drop_zone}></div>
+        //                     <div id="square-52" className={styles.drop_zone}></div>
+        //                 </div>
+        //                 <div className={styles.row}>
+        //                     <div id="square-03" className={styles.drop_zone}></div>
+        //                     <div id="square-13" className={styles.drop_zone}></div>
+        //                     <div id="square-23" className={styles.drop_zone}></div>
+        //                     <div id="square-33" className={styles.drop_zone}></div>
+        //                     <div id="square-43" className={styles.drop_zone}></div>
+        //                     <div id="square-53" className={styles.drop_zone}></div>
+        //                 </div>
+        //                 <div className={styles.row}>
+        //                     <div id="square-04" className={styles.drop_zone}></div>
+        //                     <div id="square-14" className={styles.drop_zone}></div>
+        //                     <div id="square-24" className={styles.drop_zone}></div>
+        //                     <div id="square-34" className={styles.drop_zone}></div>
+        //                     <div id="square-44" className={styles.drop_zone}></div>
+        //                     <div id="square-54" className={styles.drop_zone}></div>
+        //                 </div>
+        //                 <div className={styles.row}>
+        //                     <div id="square-05" className={styles.drop_zone}></div>
+        //                     <div id="square-15" className={styles.drop_zone}></div>
+        //                     <div id="square-25" className={styles.drop_zone}></div>
+        //                     <div id="square-35" className={styles.drop_zone}></div>
+        //                     <div id="square-45" className={styles.drop_zone}></div>
+        //                     <div id="square-55" className={styles.drop_zone}></div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //         <div className={styles.column_three}>
+        //             <div className={styles.trash} id='trash'></div>
+        //             <div className={`${styles.widget}`}>
+        //                 <button onClick={createPuzzleHandler}>save puzzle</button>
+        //             </div>
+        //         </div>
+        //     </div>
+        // </>
         <>
             <div className={styles.board_wrapper}>
-                <button onClick={createPuzzleHandler}>Create test puzzle</button>
+                {/* <button onClick={createPuzzleHandler}>Create test puzzle</button> */}
                 <div className={styles.column_one}>
                     <div className={styles.trash} id='trash'></div>
                     <div className={styles.car} draggable="true" id='car-one'></div>
@@ -191,54 +270,54 @@ function Builder() {
                                 <VehicleComponent vehicle={vehicle} puzzle={puzzle} key={`vehicle-${i + 1}`} />
                             )
                         })}
-                        <div className={styles.row}>
-                            <div id="square-00" className={styles.drop_zone}></div>
-                            <div id="square-10" className={styles.drop_zone}></div>
-                            <div id="square-20" className={styles.drop_zone}></div>
-                            <div id="square-30" className={styles.drop_zone}></div>
-                            <div id="square-40" className={styles.drop_zone}></div>
-                            <div id="square-50" className={styles.drop_zone}></div>
-                        </div>
-                        <div className={styles.row}>
-                            <div id="square-01" className={styles.drop_zone}></div>
-                            <div id="square-11" className={styles.drop_zone}></div>
-                            <div id="square-21" className={styles.drop_zone}></div>
-                            <div id="square-31" className={styles.drop_zone}></div>
-                            <div id="square-41" className={styles.drop_zone}></div>
-                            <div id="square-51" className={styles.drop_zone}></div>
-                        </div>
-                        <div className={styles.row}>
-                            <div id="square-02" className={styles.drop_zone}></div>
-                            <div id="square-12" className={styles.drop_zone}></div>
-                            <div id="square-22" className={styles.drop_zone}></div>
-                            <div id="square-32" className={styles.drop_zone}></div>
-                            <div id="square-42" className={styles.drop_zone}></div>
-                            <div id="square-52" className={styles.drop_zone}></div>
-                        </div>
-                        <div className={styles.row}>
-                            <div id="square-03" className={styles.drop_zone}></div>
-                            <div id="square-13" className={styles.drop_zone}></div>
-                            <div id="square-23" className={styles.drop_zone}></div>
-                            <div id="square-33" className={styles.drop_zone}></div>
-                            <div id="square-43" className={styles.drop_zone}></div>
-                            <div id="square-53" className={styles.drop_zone}></div>
-                        </div>
-                        <div className={styles.row}>
-                            <div id="square-04" className={styles.drop_zone}></div>
-                            <div id="square-14" className={styles.drop_zone}></div>
-                            <div id="square-24" className={styles.drop_zone}></div>
-                            <div id="square-34" className={styles.drop_zone}></div>
-                            <div id="square-44" className={styles.drop_zone}></div>
-                            <div id="square-54" className={styles.drop_zone}></div>
-                        </div>
-                        <div className={styles.row}>
-                            <div id="square-05" className={styles.drop_zone}></div>
-                            <div id="square-15" className={styles.drop_zone}></div>
-                            <div id="square-25" className={styles.drop_zone}></div>
-                            <div id="square-35" className={styles.drop_zone}></div>
-                            <div id="square-45" className={styles.drop_zone}></div>
-                            <div id="square-55" className={styles.drop_zone}></div>
-                        </div>
+                    </div>
+                    <div className={styles.row}>
+                        <div id="square-00" className={styles.drop_zone}></div>
+                        <div id="square-10" className={styles.drop_zone}></div>
+                        <div id="square-20" className={styles.drop_zone}></div>
+                        <div id="square-30" className={styles.drop_zone}></div>
+                        <div id="square-40" className={styles.drop_zone}></div>
+                        <div id="square-50" className={styles.drop_zone}></div>
+                    </div>
+                    <div className={styles.row}>
+                        <div id="square-01" className={styles.drop_zone}></div>
+                        <div id="square-11" className={styles.drop_zone}></div>
+                        <div id="square-21" className={styles.drop_zone}></div>
+                        <div id="square-31" className={styles.drop_zone}></div>
+                        <div id="square-41" className={styles.drop_zone}></div>
+                        <div id="square-51" className={styles.drop_zone}></div>
+                    </div>
+                    <div className={styles.row}>
+                        <div id="square-02" className={styles.drop_zone}></div>
+                        <div id="square-12" className={styles.drop_zone}></div>
+                        <div id="square-22" className={styles.drop_zone}></div>
+                        <div id="square-32" className={styles.drop_zone}></div>
+                        <div id="square-42" className={styles.drop_zone}></div>
+                        <div id="square-52" className={styles.drop_zone}></div>
+                    </div>
+                    <div className={styles.row}>
+                        <div id="square-03" className={styles.drop_zone}></div>
+                        <div id="square-13" className={styles.drop_zone}></div>
+                        <div id="square-23" className={styles.drop_zone}></div>
+                        <div id="square-33" className={styles.drop_zone}></div>
+                        <div id="square-43" className={styles.drop_zone}></div>
+                        <div id="square-53" className={styles.drop_zone}></div>
+                    </div>
+                    <div className={styles.row}>
+                        <div id="square-04" className={styles.drop_zone}></div>
+                        <div id="square-14" className={styles.drop_zone}></div>
+                        <div id="square-24" className={styles.drop_zone}></div>
+                        <div id="square-34" className={styles.drop_zone}></div>
+                        <div id="square-44" className={styles.drop_zone}></div>
+                        <div id="square-54" className={styles.drop_zone}></div>
+                    </div>
+                    <div className={styles.row}>
+                        <div id="square-05" className={styles.drop_zone}></div>
+                        <div id="square-15" className={styles.drop_zone}></div>
+                        <div id="square-25" className={styles.drop_zone}></div>
+                        <div id="square-35" className={styles.drop_zone}></div>
+                        <div id="square-45" className={styles.drop_zone}></div>
+                        <div id="square-55" className={styles.drop_zone}></div>
                     </div>
                 </div>
                 <div className={styles.column_three}></div>
