@@ -13,57 +13,13 @@ library.add(faTrash);
 
 
 function Builder() {
-    // const setBackground = () => {
-    //     const background = document.getElementById('page-background');
-    //     background.classList.remove(globalStyles.background_image_asphalt);
-    //     background.classList.add(globalStyles.background_image_carbon_fiber);
-    // }
-
-    // setTimeout(setBackground, 0);
-
-    const initialize = () => {
+    const setBackground = () => {
         const background = document.getElementById('page-background');
         background.classList.remove(globalStyles.background_image_asphalt);
         background.classList.add(globalStyles.background_image_carbon_fiber);
+    }
 
-        const dropZones = document.getElementsByClassName(styles.drop_zone);
-        Array.from(dropZones).forEach(function (dropZone) {
-            dropZone.addEventListener('drop', handleDrop);
-            dropZone.addEventListener('dragenter', handleDragEnter);
-            dropZone.addEventListener('dragleave', handleDragLeave);
-            dropZone.addEventListener('dragover', handleDragOver);
-        });
-
-        const sportsCarModel = document.getElementById('sportsCar-model');
-        const smallHorizontalModel = document.getElementById('smallHorizontal-model');
-        const largeHorizontalModel = document.getElementById('largeHorizontal-model');
-        const smallVerticalModel = document.getElementById('smallVertical-model');
-        const largeVerticalModel = document.getElementById('largeVertical-model');
-
-        sportsCarModel.addEventListener('dragstart', handleDragStart);
-        smallHorizontalModel.addEventListener('dragstart', handleDragStart);
-        largeHorizontalModel.addEventListener('dragstart', handleDragStart);
-        smallVerticalModel.addEventListener('dragstart', handleDragStart);
-        largeVerticalModel.addEventListener('dragstart', handleDragStart);
-
-        // const trashDropZone = document.getElementById('trash');
-        const trashDropZone = document.getElementById('trash');
-        trashDropZone.addEventListener('drop', handleTrashDrop);
-        trashDropZone.addEventListener('dragenter', handleDragEnter);
-        trashDropZone.addEventListener('dragleave', handleDragLeave);
-        trashDropZone.addEventListener('dragover', handleDragOver);
-
-
-
-        sportsCarModel.style.backgroundImage = `url(${priBlk})`;
-        smallHorizontalModel.style.backgroundImage = `url(${horSBlk})`;
-        largeHorizontalModel.style.backgroundImage = `url(${horLBlk})`;
-        smallVerticalModel.style.backgroundImage = `url(${vertSBlk})`;
-        largeVerticalModel.style.backgroundImage = `url(${vertLBlk})`;
-        trashDropZone.style.backgroundImage = `url(${trashCan})`;
-    };
-
-    setTimeout(initialize, 0);
+    setTimeout(setBackground, 0);
 
     const dispatch = useDispatch();
     let location = useLocation();
@@ -87,30 +43,7 @@ function Builder() {
     const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
     const trashCan = "https://i.imgur.com/sZVs9MY.png";
 
-    const updateBoard = () => {
-        puzzle.vehicles.forEach((vehicle, i) => {
-            const pct = 16.667;
-            if (vehicle.length > 0) {
-                const imageElement = document.getElementById(`image-${vehicle.id}`);
-                imageElement.style.backgroundImage = `url(${vehicle.imageUrl})`;
-                const newVehicleElement = document.getElementById(vehicle.id);
-                newVehicleElement.classList.remove(styles.hide);
-                if (vehicle.orientation === 'h') {
-                    newVehicleElement.style.top = (vehicle.row * pct) + '%';
-                    newVehicleElement.style.left = (vehicle.start * pct) + '%';
-                    newVehicleElement.style.width = (vehicle.length * pct) + '%';
-                } else if (vehicle.orientation === 'v') {
-                    newVehicleElement.style.top = (vehicle.start * pct) + '%';
-                    newVehicleElement.style.left = (vehicle.column * pct) + '%';
-                    newVehicleElement.style.height = (vehicle.length * pct) + '%';
-                }
-            }
-        });
-        console.log(puzzle)
-    }
-
     const handleDragStart = e => {
-        console.log('hello')
         e.target.classList.add(styles.is_being_dragged);
         e.dataTransfer.setData('text/plain', e.target.id);
         e.dataTransfer.dropEffect = 'move';
@@ -128,9 +61,6 @@ function Builder() {
     };
 
     const handleDrop = e => {
-        const targetId = e.dataTransfer.getData('text/plain');
-        console.log(targetId);
-
         let id;
         let vehicleElement;
         const idNumb = parseInt(e.dataTransfer.getData('text/plain'));
@@ -140,26 +70,26 @@ function Builder() {
             vehicleElement.classList.remove(styles.is_being_dragged);
         }
         console.log(idNumb)
-        console.log(id)
+        // console.log(id)
         const column = parseInt(e.target.id[7]);
         const row = parseInt(e.target.id[8]);
         if (id === 'car-one') {
             puzzle.addVehicle(row, column, 2, 'h', priBlk);
             updateBoard();
         }
-        else if (id === 'smallHorizontal-model') {
+        else if (id === 'car-two') {
             puzzle.addVehicle(row, column, 2, 'h', horSBlk);
             updateBoard();
         }
-        else if (id === 'largeHorizontal-model') {
+        else if (id === 'car-three') {
             puzzle.addVehicle(row, column, 3, 'h', horLBlk);
             updateBoard();
         }
-        else if (id === 'smallVertical-model') {
+        else if (id === 'car-four') {
             puzzle.addVehicle(row, column, 2, 'v', vertSBlk);
             updateBoard();
         }
-        else if (id === 'largeVertical-model') {
+        else if (id === 'car-five') {
             puzzle.addVehicle(row, column, 3, 'v', vertLBlk);
             updateBoard();
         }
@@ -187,100 +117,65 @@ function Builder() {
         }
     };
 
-    const handleTrashDrop = e => {
-        const targetId = e.dataTransfer.getData('text/plain');
-        console.log('targetId', targetId);
-        const vehicleId = parseInt(targetId);
-        const vehicleIndex = vehicleId - 1;
-        const vehicleElement = document.getElementById(targetId);
-        // vehicleElement.classList.remove(styles.is_being_dragged);
-        // for (let i = 0; i < puzzle.vehicles.length; i++)
-        console.log('vehicleId', vehicleId);
-        console.log('puzzle.vehicles[vehicleIndex].id', puzzle.vehicles[vehicleIndex].id);
-        console.log('vehicleElement', vehicleElement)
-
-        // puzzle.remove(vehicleIndex);
-        vehicleElement.remove();
-
-
-        // puzzle.vehicles.forEach((vehicle, i) => {
-        //     const pct = 16.667;
-        //     if (vehicle.id === vehicleId) {
-        //         puzzle.remove(i);
-        //         vehicleElement.remove();
-        //         if (vehicle.orientation === 'h') {
-        //             vehicleElement.style.top = (vehicle.row * pct) + '%';
-        //             vehicleElement.style.left = (vehicle.start * pct) + '%';
-        //             vehicleElement.style.width = (vehicle.length * pct) + '%';
-        //         } else if (vehicle.orientation === 'v') {
-        //             vehicleElement.style.top = (vehicle.start * pct) + '%';
-        //             vehicleElement.style.left = (vehicle.column * pct) + '%';
-        //             vehicleElement.style.height = (vehicle.length * pct) + '%';
-        //         }
-        //     }
-        // });
+    const updateBoard = () => {
+        puzzle.vehicles.forEach((vehicle, i) => {
+            const pct = 16.667;
+            if (vehicle.length > 0) {
+                const imageElement = document.getElementById(`image-${vehicle.id}`);
+                imageElement.style.backgroundImage = `url(${vehicle.imageUrl})`;
+                const newVehicleElement = document.getElementById(vehicle.id);
+                newVehicleElement.classList.remove(styles.hide);
+                if (vehicle.orientation === 'h') {
+                    newVehicleElement.style.top = (vehicle.row * pct) + '%';
+                    newVehicleElement.style.left = (vehicle.start * pct) + '%';
+                    newVehicleElement.style.width = (vehicle.length * pct) + '%';
+                } else if (vehicle.orientation === 'v') {
+                    newVehicleElement.style.top = (vehicle.start * pct) + '%';
+                    newVehicleElement.style.left = (vehicle.column * pct) + '%';
+                    newVehicleElement.style.height = (vehicle.length * pct) + '%';
+                }
+            }
+        });
+    }
 
 
-        // let id;
-        // let vehicleElement;
-        // const idNumb = parseInt(e.dataTransfer.getData('text/plain'));
-        // if (idNumb !== idNumb) {
-        //     id = e.dataTransfer.getData('text/plain');
-        //     vehicleElement = document.getElementById(id);
-        //     vehicleElement.classList.remove(styles.is_being_dragged);
-        // }
-        // console.log(idNumb)
-        // console.log(id)
-        // const column = parseInt(e.target.id[7]);
-        // const row = parseInt(e.target.id[8]);
-        // if (id === 'sportsCar-model') {
-        //     puzzle.addVehicle(row, column, 2, 'h', priBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'smallHorizontal-model') {
-        //     puzzle.addVehicle(row, column, 2, 'h', horSBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'largeHorizontal-model') {
-        //     puzzle.addVehicle(row, column, 3, 'h', horLBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'smallVertical-model') {
-        //     puzzle.addVehicle(row, column, 2, 'v', vertSBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'largeVertical-model') {
-        //     puzzle.addVehicle(row, column, 3, 'v', vertLBlk);
-        //     updateBoard();
-        // }
-        // else {
-        //     puzzle.vehicles.forEach((vehicle, i) => {
-        //         const pct = 16.667;
-        //         if (vehicle.id === idNumb) {
-        //             if (e.target.id === 'trash') {
-        //                 puzzle.remove(i);
-        //                 vehicleElement.remove();
-        //                 return;
-        //             } else puzzle.move(row, column, vehicle);
+    const initialize = () => {
+        const carOne = document.getElementById('car-one');
+        const carTwo = document.getElementById('car-two');
+        const carThree = document.getElementById('car-three');
+        const carFour = document.getElementById('car-four');
+        const carFive = document.getElementById('car-five');
+        const trash = document.getElementById('trash');
 
-        //             if (vehicle.orientation === 'h') {
-        //                 vehicleElement.style.top = (vehicle.row * pct) + '%';
-        //                 vehicleElement.style.left = (vehicle.start * pct) + '%';
-        //                 vehicleElement.style.width = (vehicle.length * pct) + '%';
-        //             } else if (vehicle.orientation === 'v') {
-        //                 vehicleElement.style.top = (vehicle.start * pct) + '%';
-        //                 vehicleElement.style.left = (vehicle.column * pct) + '%';
-        //                 vehicleElement.style.height = (vehicle.length * pct) + '%';
-        //             }
-        //         }
-        //     });
-        // }
+        carOne.style.backgroundImage = `url(${priBlk})`;
+        carTwo.style.backgroundImage = `url(${horSBlk})`;
+        carThree.style.backgroundImage = `url(${horLBlk})`;
+        carFour.style.backgroundImage = `url(${vertSBlk})`;
+        carFive.style.backgroundImage = `url(${vertLBlk})`;
+        trash.style.backgroundImage = `url(${trashCan})`;
+
+        carOne.addEventListener('dragstart', handleDragStart);
+        carTwo.addEventListener('dragstart', handleDragStart);
+        carThree.addEventListener('dragstart', handleDragStart);
+        carFour.addEventListener('dragstart', handleDragStart);
+        carFive.addEventListener('dragstart', handleDragStart);
+
+        const trashElement = document.getElementById('trash');
+        trashElement.addEventListener('drop', handleDrop);
+        trashElement.addEventListener('dragenter', handleDragEnter);
+        trashElement.addEventListener('dragleave', handleDragLeave);
+        trashElement.addEventListener('dragover', handleDragOver);
+
+        const dropZones = document.getElementsByClassName(styles.drop_zone);
+        Array.from(dropZones).forEach(function (dropZone) {
+            dropZone.addEventListener('drop', handleDrop);
+            dropZone.addEventListener('dragenter', handleDragEnter);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('dragover', handleDragOver);
+        });
     };
 
-
-
-
-
+    setTimeout(initialize, 0);
 
     const createPuzzleHandler = async () => {
         const layout = puzzle.getDatabaseLayout();
@@ -295,13 +190,13 @@ function Builder() {
             <div className={styles.board_wrapper}>
                 <div className={styles.column_one}>
                     <div className={styles.horizontal_cars}>
-                        <div className={styles.car} draggable="true" id='sportsCar-model'></div>
-                        <div className={styles.car} draggable="true" id='smallHorizontal-model'></div>
-                        <div className={styles.car} draggable="true" id='largeHorizontal-model'></div>
+                        <div className={styles.car} draggable="true" id='car-one'></div>
+                        <div className={styles.car} draggable="true" id='car-two'></div>
+                        <div className={styles.car} draggable="true" id='car-three'></div>
                     </div>
                     <div className={styles.vertical_cars}>
-                        <div className={styles.car} draggable="true" id='smallVertical-model'></div>
-                        <div className={styles.car} draggable="true" id='largeVertical-model'></div>
+                        <div className={styles.car} draggable="true" id='car-four'></div>
+                        <div className={styles.car} draggable="true" id='car-five'></div>
                     </div>
                 </div>
                 <div className={styles.column_two}>
