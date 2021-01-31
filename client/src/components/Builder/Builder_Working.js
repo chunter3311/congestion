@@ -1,15 +1,8 @@
 import React, { useState } from 'react';
 import styles from '../../styles/builder.module.css';
-import globalStyles from '../../styles/global.module.css';
 import { Puzzle } from '../../classes/BuilderFunctions';
 import VehicleComponent from './VehicleComponent';
-import { addUserPuzzle } from '../../store/puzzles';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-library.add(faTrash);
+
 
 
 function Builder() {
@@ -167,167 +160,61 @@ function Builder() {
         });
     }
 
-    const handleTrashDrop = e => {
-        const targetId = e.dataTransfer.getData('text/plain');
-        console.log('targetId', targetId);
-        const vehicleId = parseInt(targetId);
-        const vehicleIndex = vehicleId - 1;
-        const vehicleElement = document.getElementById(targetId);
-        // vehicleElement.classList.remove(styles.is_being_dragged);
-        // for (let i = 0; i < puzzle.vehicles.length; i++)
-        console.log('vehicleId', vehicleId);
-        console.log('puzzle.vehicles[vehicleIndex].id', puzzle.vehicles[vehicleIndex].id);
-        console.log('vehicleElement', vehicleElement)
-        
-        // puzzle.remove(vehicleIndex);
-        vehicleElement.remove();
-        
-        
-        // puzzle.vehicles.forEach((vehicle, i) => {
-        //     const pct = 16.667;
-        //     if (vehicle.id === vehicleId) {
-        //         puzzle.remove(i);
-        //         vehicleElement.remove();
-        //         if (vehicle.orientation === 'h') {
-        //             vehicleElement.style.top = (vehicle.row * pct) + '%';
-        //             vehicleElement.style.left = (vehicle.start * pct) + '%';
-        //             vehicleElement.style.width = (vehicle.length * pct) + '%';
-        //         } else if (vehicle.orientation === 'v') {
-        //             vehicleElement.style.top = (vehicle.start * pct) + '%';
-        //             vehicleElement.style.left = (vehicle.column * pct) + '%';
-        //             vehicleElement.style.height = (vehicle.length * pct) + '%';
-        //         }
-        //     }
-        // });
-        
-        
-        // let id;
-        // let vehicleElement;
-        // const idNumb = parseInt(e.dataTransfer.getData('text/plain'));
-        // if (idNumb !== idNumb) {
-        //     id = e.dataTransfer.getData('text/plain');
-        //     vehicleElement = document.getElementById(id);
-        //     vehicleElement.classList.remove(styles.is_being_dragged);
-        // }
-        // console.log(idNumb)
-        // console.log(id)
-        // const column = parseInt(e.target.id[7]);
-        // const row = parseInt(e.target.id[8]);
-        // if (id === 'sportsCar-model') {
-        //     puzzle.addVehicle(row, column, 2, 'h', priBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'smallHorizontal-model') {
-        //     puzzle.addVehicle(row, column, 2, 'h', horSBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'largeHorizontal-model') {
-        //     puzzle.addVehicle(row, column, 3, 'h', horLBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'smallVertical-model') {
-        //     puzzle.addVehicle(row, column, 2, 'v', vertSBlk);
-        //     updateBoard();
-        // }
-        // else if (id === 'largeVertical-model') {
-        //     puzzle.addVehicle(row, column, 3, 'v', vertLBlk);
-        //     updateBoard();
-        // }
-        // else {
-        //     puzzle.vehicles.forEach((vehicle, i) => {
-        //         const pct = 16.667;
-        //         if (vehicle.id === idNumb) {
-        //             if (e.target.id === 'trash') {
-        //                 puzzle.remove(i);
-        //                 vehicleElement.remove();
-        //                 return;
-        //             } else puzzle.move(row, column, vehicle);
-        
-        //             if (vehicle.orientation === 'h') {
-        //                 vehicleElement.style.top = (vehicle.row * pct) + '%';
-        //                 vehicleElement.style.left = (vehicle.start * pct) + '%';
-        //                 vehicleElement.style.width = (vehicle.length * pct) + '%';
-        //             } else if (vehicle.orientation === 'v') {
-        //                 vehicleElement.style.top = (vehicle.start * pct) + '%';
-        //                 vehicleElement.style.left = (vehicle.column * pct) + '%';
-        //                 vehicleElement.style.height = (vehicle.length * pct) + '%';
-        //             }
-        //         }
-        //     });
-        // }
-        };
-
 
     const initialize = () => {
-        const background = document.getElementById('page-background');
-        background.classList.remove(globalStyles.background_image_asphalt);
-        background.classList.add(globalStyles.background_image_carbon_fiber);
-        
+        const carOne = document.getElementById('car-one');
+        const carTwo = document.getElementById('car-two');
+        const carThree = document.getElementById('car-three');
+        const carFour = document.getElementById('car-four');
+        const carFive = document.getElementById('car-five');
+        const trash = document.getElementById('trash');
+
+        carOne.style.backgroundImage = `url(${priBlk})`;
+        carTwo.style.backgroundImage = `url(${horSBlk})`;
+        carThree.style.backgroundImage = `url(${horLBlk})`;
+        carFour.style.backgroundImage = `url(${vertSBlk})`;
+        carFive.style.backgroundImage = `url(${vertLBlk})`;
+        trash.style.backgroundImage = `url(${trashCan})`;
+
+        carOne.addEventListener('dragstart', handleDragStart);
+        carTwo.addEventListener('dragstart', handleDragStart);
+        carThree.addEventListener('dragstart', handleDragStart);
+        carFour.addEventListener('dragstart', handleDragStart);
+        carFive.addEventListener('dragstart', handleDragStart);
+
+        // carOne.addEventListener('drop', handleAddDrop);
+        // carTwo.addEventListener('drop', handleAddDrop);
+        // carThree.addEventListener('drop', handleAddDrop);
+        // carFour.addEventListener('drop', handleAddDrop);
+        // carFive.addEventListener('drop', handleAddDrop);
+
+        const trashElement = document.getElementById('trash');
+        trashElement.addEventListener('drop', handleDrop);
+        trashElement.addEventListener('dragenter', handleDragEnter);
+        trashElement.addEventListener('dragleave', handleDragLeave);
+        trashElement.addEventListener('dragover', handleDragOver);
+
         const dropZones = document.getElementsByClassName(styles.drop_zone);
         Array.from(dropZones).forEach(function (dropZone) {
-        dropZone.addEventListener('drop', handleDrop);
-        dropZone.addEventListener('dragenter', handleDragEnter);
-        dropZone.addEventListener('dragleave', handleDragLeave);
-        dropZone.addEventListener('dragover', handleDragOver);
+            dropZone.addEventListener('drop', handleDrop);
+            dropZone.addEventListener('dragenter', handleDragEnter);
+            dropZone.addEventListener('dragleave', handleDragLeave);
+            dropZone.addEventListener('dragover', handleDragOver);
         });
-        
-        const sportsCarModel = document.getElementById('sportsCar-model');
-        const smallHorizontalModel = document.getElementById('smallHorizontal-model');
-        const largeHorizontalModel = document.getElementById('largeHorizontal-model');
-        const smallVerticalModel = document.getElementById('smallVertical-model');
-        const largeVerticalModel = document.getElementById('largeVertical-model');
-        
-        sportsCarModel.addEventListener('dragstart', handleDragStart);
-        smallHorizontalModel.addEventListener('dragstart', handleDragStart);
-        largeHorizontalModel.addEventListener('dragstart', handleDragStart);
-        smallVerticalModel.addEventListener('dragstart', handleDragStart);
-        largeVerticalModel.addEventListener('dragstart', handleDragStart);
-        
-        // const trashDropZone = document.getElementById('trash');
-        const trashDropZone = document.getElementById('trash');
-        trashDropZone.addEventListener('drop', handleDrop);
-        trashDropZone.addEventListener('dragenter', handleDragEnter);
-        trashDropZone.addEventListener('dragleave', handleDragLeave);
-        trashDropZone.addEventListener('dragover', handleDragOver);
-        
-        
-        
-        sportsCarModel.style.backgroundImage = `url(${priBlk})`;
-        smallHorizontalModel.style.backgroundImage = `url(${horSBlk})`;
-        largeHorizontalModel.style.backgroundImage = `url(${horLBlk})`;
-        smallVerticalModel.style.backgroundImage = `url(${vertSBlk})`;
-        largeVerticalModel.style.backgroundImage = `url(${vertLBlk})`;
-        trashDropZone.style.backgroundImage = `url(${trashCan})`;
-        };
-        
-        setTimeout(initialize, 0);
+    };
 
-
-
-
-
-
-    const createPuzzleHandler = async () => {
-        // const layout = puzzle.getDatabaseLayout();
-        // const res = await dispatch(addUserPuzzle('unavailable', layout, 'unavailable', -1, 0, 0, user.id, packId));
-        // if (res.ok) {
-        //     return;
-        // }
-    }
+    setTimeout(initialize, 0);
 
     return (
         <>
             <div className={styles.board_wrapper}>
                 <div className={styles.column_one}>
-                    <div className={styles.horizontal_cars}>
-                        <div className={styles.car} draggable="true" id='sportsCar-model'></div>
-                        <div className={styles.car} draggable="true" id='smallHorizontal-model'></div>
-                        <div className={styles.car} draggable="true" id='largeHorizontal-model'></div>
-                    </div>
-                    <div className={styles.vertical_cars}>
-                        <div className={styles.car} draggable="true" id='smallVertical-model'></div>
-                        <div className={styles.car} draggable="true" id='largeVertical-model'></div>
-                    </div>
+                    <div className={styles.trash} id='trash'></div>
+                    <div className={styles.car} draggable="true" id='car-one'></div>
+                    <div className={styles.car} draggable="true" id='car-two'></div>
+                    <div className={styles.car} draggable="true" id='car-three'></div>
+                    <div className={styles.car} draggable="true" id='car-four'></div>
+                    <div className={styles.car} draggable="true" id='car-five'></div>
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
@@ -386,10 +273,7 @@ function Builder() {
                         </div>
                     </div>
                 </div>
-                <div className={styles.column_three}>
-                    <div className={`${styles.trash}`} id='trash'></div>
-                    <button onClick={createPuzzleHandler}>save puzzle</button>
-                </div>
+                <div className={styles.column_three}></div>
             </div>
         </>
     );

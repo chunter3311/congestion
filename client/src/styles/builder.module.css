@@ -4,14 +4,6 @@
     justify-content: center;
     align-items: center;
     color: white;
-    /* background-image: url("https://i.imgur.com/RPiVBXT.png");
-    background-position: right;
-    background-size: cover;
-    background-repeat: no-repeat; */
-}
-
-.column_one div {
-    /* height: 8.75vw; */
 }
     
 .column_one, .column_three {
@@ -29,10 +21,6 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
-    /* height: 17.5vw;
-    width: 100%; */
-    /* box-sizing: border-box;
-    position: relative; */
 }
 
 .row_one, .row_two {
@@ -40,19 +28,10 @@
     height: 100%;
 }
 
-
 .vertical_cars {
     display: flex;
-    
     width: 75%;
     height: 100%;
-    /* display: flex;
-    width: 100%;
-    height: 100%;
-    height: 17.5vw;
-    width: 100%;
-    box-sizing: border-box;
-    position: relative; */
 }
     
 .car {
@@ -67,13 +46,12 @@
     cursor: pointer;
 }
 
-    .column_two {
-    /* width: 80%; */
+.column_two {
     width: 45vw;
     height: 45vw;
-    }
-    
-    .board_container {
+}
+
+.board_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,78 +60,65 @@
     background-position: left;
     background-size: contain;
     background-repeat: no-repeat;
-    border-radius: 1.5vh;
     height: 100%;
     width: 100%;
     position: relative;
-    background-color: white;
-    /* display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-image: url("https://i.imgur.com/gGAFBWi.png");
-    background-position: left;
-    background-size: contain;
-    background-repeat: no-repeat; */
+}
 
-    /* background-image: url("https://i.imgur.com/mp1teS2.jpg");
-    background-size: cover; */
-    /* height: 90vh;
-    position: relative;
-    border: solid #aaaaaa 1px;
-    box-sizing: border-box; */
-    }
-    
-    .row {
+.row {
     height: 16.667%;
     width: 100%;
     display: flex;
-    }
+}
 
-    .drop_zone {
+.board_container, .drop_zone {
+    border: solid #a5a5a5 0.1vh;
+}
+
+.drop_zone {
     width: 16.667%;
-    border: solid #aaaaaa 2px;
     box-sizing: border-box;
-    }
-    
-    .drop_zone:hover {
-    background-color: rgba(255, 255, 255, 0.335);
-    }
-    
-    .is_being_dragged {
-    opacity: 0.5;
-    border: 2px dashed white;
-    }
-    
-    .is_active_drop_zone {
-    background-color: blue;
-    }
-    
-    .container {
-    width: 16.667%;
-    height: 16.667%;
-    position: absolute;
-    border: rgba(255, 255, 255, 0) solid 13px;
-    box-sizing: border-box;
-    cursor: pointer;
-    transition: top 0.3s, left 0.3s;
-    transition-timing-function: ease-in-out;
-    }
-    
-    .hide {
-    display: none;
-    }
-    
-    .image {
-    width: 100%;
-    height: 100%;
-    border: rgba(255, 255, 255, 0) solid 13px;
-    box-sizing: border-box;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    }
+}
+
+.drop_zone:hover {
+background-color: rgba(255, 255, 255, 0.335);
+}
+
+.is_being_dragged {
+opacity: 0.5;
+border: 2px dashed white;
+}
+
+.is_active_drop_zone {
+background-color: blue;
+}
+
+.container {
+width: 16.667%;
+height: 16.667%;
+position: absolute;
+border: rgba(255, 255, 255, 0) solid 13px;
+box-sizing: border-box;
+cursor: pointer;
+transition: top 0.3s, left 0.3s;
+transition-timing-function: ease-in-out;
+}
+
+.hide {
+display: none;
+}
+
+.image {
+width: 100%;
+height: 100%;
+border: rgba(255, 255, 255, 0) solid 13px;
+box-sizing: border-box;
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+background-position: center;
+position: relative;
+}
 
 .trash {
     width: 100%;
@@ -164,31 +129,13 @@
     background-position: center;
     background-size: contain;
     background-position: center;
-    /* background-color: rgba(245, 245, 245, 0.26); */
     cursor: pointer;
 }
 
-    .trash {
-        background-image: url("https://i.imgur.com/sZVs9MY.png");
-    }
+.trash_closed {
+    background-image: url(https://i.imgur.com/E1PyJBi.png);
+}
 
-    .trash:hover {
-        animation-duration: .4s;
-        animation-timing-function: ease-in-out;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-    }
-
-    .trash:hover {
-        animation-name: flashtrashbutton;
-    }
-
-    @keyframes flashtrashbutton {
-        from {
-            background-image: url("https://i.imgur.com/sZVs9MY.png");
-        }
-        
-        to {
-            background-image: url("https://i.imgur.com/Ykf9fZJ.png");
-        }
-    }
+.trash_open {
+    background-image: url(https://i.imgur.com/TO3RC7R.png);
+}
