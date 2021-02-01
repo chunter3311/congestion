@@ -90,35 +90,10 @@ border: 2px dashed white;
 }
 
 .is_active_drop_zone {
-background-color: blue;
+/* background-color: blue; */
 }
 
-.container {
-width: 16.667%;
-height: 16.667%;
-position: absolute;
-border: rgba(255, 255, 255, 0) solid 13px;
-box-sizing: border-box;
-cursor: pointer;
-transition: top 0.3s, left 0.3s;
-transition-timing-function: ease-in-out;
-}
 
-.hide {
-display: none;
-}
-
-.image {
-width: 100%;
-height: 100%;
-border: rgba(255, 255, 255, 0) solid 13px;
-box-sizing: border-box;
-background-repeat: no-repeat;
-background-position: center;
-background-size: cover;
-background-position: center;
-position: relative;
-}
 
 .trash {
     width: 100%;
@@ -138,4 +113,30 @@ position: relative;
 
 .trash_open {
     background-image: url(https://i.imgur.com/TO3RC7R.png);
+}
+
+.container {
+    width: 16.667%;
+    height: 16.667%;
+    position: absolute;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: top 0.3s, left 0.3s;
+    transition-timing-function: ease-in-out;
+}
+
+.hide {
+    display: none;  
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    border: rgba(255, 255, 255, 0) solid 13px;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }

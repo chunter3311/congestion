@@ -25,55 +25,31 @@ export class Car {
 
 export class Game {
     constructor(layout) {
-        this.isSolved = false;
-        this.moves = 0;
         this.ids = new Set();
         this.layout = layout;
-        this.originalLayout = [[],[],[],[],[],[]];
         this.cars = [];
-        this.initialize(this.layout);
+        this.initialize();
     }
 
-    initialize(layout) {
-        for (let row = 0; row < 6; row++) {
-            for (let column = 0; column < 6; column++) {
-                this.originalLayout[row].push(layout[row][column]);
-                if (layout[row][column] === 0) continue;
-                let id = layout[row][column];
-                if (this.ids.has(id)) {
-                    this.cars[id - 1].add(row, column);
-                }
-                else {
-                    this.ids.add(id);
-                    this.cars.push(new Car(row, column, id));
-                }
-            }
+    initialize() {
+        for (let c = 1; c <= 18; c++) {
+            const car = new Car(c);
+            this.cars.push(car);
         }
-        this.cars.forEach(car => {
-            if (car.initialCoordinates[0][0] === car.initialCoordinates[1][0]) {
-                car.orientation = 'h';
-                car.row = car.initialCoordinates[0][0];
-            }
-            else {
-                car.orientation = 'v';
-                car.column = car.initialCoordinates[0][1];
-            }
-            this.setCarEndPoints(car);
-        });
         return;
     }
 
-    setCarEndPoints(car) {
-        if (car.orientation === 'h') {
-            car.start = car.initialCoordinates[0][1];
-            car.end = car.initialCoordinates[car.length - 1][1];
-        }
-        else {
-            car.start = car.initialCoordinates[0][0];
-            car.end = car.initialCoordinates[car.length - 1][0];
-        }
-        return;
-    }
+    // setCarEndPoints(car) {
+    //     if (car.orientation === 'h') {
+    //         car.start = car.initialCoordinates[0][1];
+    //         car.end = car.initialCoordinates[car.length - 1][1];
+    //     }
+    //     else {
+    //         car.start = car.initialCoordinates[0][0];
+    //         car.end = car.initialCoordinates[car.length - 1][0];
+    //     }
+    //     return;
+    // }
 
     positiveMove(car) {
         let unitsMoved = 0;
@@ -86,6 +62,8 @@ export class Game {
             if (!unitsMoved) return false;
             car.start += unitsMoved;
             car.end += unitsMoved;
+            console.log(car.id);
+            console.log('D');
             return true;
         }
         else if (car.orientation === 'h') {
@@ -102,6 +80,8 @@ export class Game {
                 car.end += 2;
                 this.isSolved = true;
             }
+            console.log(car.id);
+            console.log('R');
             return true;
         }
     }
@@ -117,6 +97,8 @@ export class Game {
             if (!unitsMoved) return false;
             car.start -= unitsMoved;
             car.end -= unitsMoved;
+            console.log(car.id);
+            console.log('U');
             return true;
         }
         else if (car.orientation === 'h') {
@@ -128,6 +110,8 @@ export class Game {
             if (!unitsMoved) return false;
             car.start -= unitsMoved;
             car.end -= unitsMoved;
+            console.log(car.id);
+            console.log('L');
             return true;
         }
     }

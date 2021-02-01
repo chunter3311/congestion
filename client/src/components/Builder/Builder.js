@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import styles from '../../styles/builder.module.css';
 import globalStyles from '../../styles/global.module.css';
-import { Puzzle } from '../../classes/BuilderFunctions';
+import { Game } from '../../classes/BuilderFunctions';
 import VehicleComponent from './VehicleComponent';
 import { addUserPuzzle } from '../../store/puzzles';
-import { useDispatch, useSelector, connect } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-library.add(faTrash);
-
 
 
 function Builder() {
+    const dispatch = useDispatch();
     const layout = [
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -22,14 +17,13 @@ function Builder() {
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0]
     ];
-    const puzzle = new Puzzle(layout);
+    const game = new Game(layout);
 
     const priBlk = "https://i.imgur.com/n07UANE.png";
     const horSBlk = "https://i.imgur.com/AihDIR0.png";
     const horLBlk = "https://i.imgur.com/CG1s8K7.png";
     const vertSBlk = "https://i.imgur.com/3y0Ss2a.png";
     const vertLBlk = "https://i.imgur.com/dQjG5Gz.png";
-    // const trashCan = "https://i.imgur.com/sZVs9MY.png";
 
     const handleDragStart = e => {
         e.target.classList.add(styles.is_being_dragged);
@@ -37,26 +31,27 @@ function Builder() {
         e.dataTransfer.dropEffect = 'move';
     }
 
+    const handleDragEnd = e => {
+        e.preventDefault();
+        e.target.classList.remove(styles.is_being_dragged);
+    };
+
     const handleDragEnter = e => {
         e.preventDefault();
-        // e.target.classList.add('test');
+    };
+
+    const handleDragLeave = e => {
+        e.preventDefault();
     };
 
     const handleTrashDragEnter = e => {
         e.preventDefault();
-        console.log(e.target);
         e.target.classList.remove(styles.trash_closed);
         e.target.classList.add(styles.trash_open);
     };
 
-    const handleDragLeave = e => {
-        // e.target.classList.remove(styles.is_being_dragged);
-        // e.target.classList.remove('is_active_drop_zone');
-    };
-
     const handleTrashDragLeave = e => {
         e.preventDefault();
-        console.log(e.target);
         e.target.classList.remove(styles.trash_open);
         e.target.classList.add(styles.trash_closed);
     };
@@ -70,31 +65,43 @@ function Builder() {
         const column = parseInt(e.target.id[7]);
         const id = e.dataTransfer.getData('text/plain');
         const idInt = parseInt(id);
-        const vehicleElement = document.getElementById(id);
-        vehicleElement.classList.remove(styles.is_being_dragged);
+        const carElement = document.getElementById(id);
+        carElement.classList.remove(styles.is_being_dragged);
         const pct = 16.667;
+        // let carIndex = null;
         if (idInt === idInt) {
-            const vehicleIndex = idInt - 1;
-            const vehicle = puzzle.vehicles[vehicleIndex];
-            puzzle.move(row, column, vehicle);
-            if (vehicle.orientation === 'h') {
-                vehicleElement.style.top = (vehicle.row * pct) + '%';
-                vehicleElement.style.left = (vehicle.start * pct) + '%';
-                vehicleElement.style.width = (vehicle.length * pct) + '%';
-            } else if (vehicle.orientation === 'v') {
-                vehicleElement.style.top = (vehicle.start * pct) + '%';
-                vehicleElement.style.left = (vehicle.column * pct) + '%';
-                vehicleElement.style.height = (vehicle.length * pct) + '%';
-            }
+            // carIndex = idInt - 1;
+            const car = game.cars[game.getCarIndex(idInt)];
+            if (!game.move(row, column, car)) return;
+            updateBoard(idInt - 1, false);
         }
         else {
-            if (id === 'priBlk') puzzle.addVehicle(row, column, 2, 'h', priBlk);
-            else if (id === 'horSBlk') puzzle.addVehicle(row, column, 2, 'h', horSBlk);
-            else if (id === 'horLBlk') puzzle.addVehicle(row, column, 3, 'h', horLBlk);
-            else if (id === 'vertSBlk') puzzle.addVehicle(row, column, 2, 'v', vertSBlk);
-            else if (id === 'vertLBlk') puzzle.addVehicle(row, column, 3, 'v', vertLBlk);
-            updateBoard();
+            if (id === 'priBlk' && !game.addCar(row, column, 2, 'h', priBlk)) return;
+            else if (id === 'horSBlk' && !game.addCar(row, column, 2, 'h', horSBlk)) return;
+            else if (id === 'horLBlk' && !game.addCar(row, column, 3, 'h', horLBlk)) return;
+            else if (id === 'vertSBlk' && !game.addCar(row, column, 2, 'v', vertSBlk)) return;
+            else if (id === 'vertLBlk' && !game.addCar(row, column, 3, 'v', vertLBlk)) return;
+            // console.log('HELLO')
+            // console.log(game.newCarIndex)
+            // console.log(game.getNewCarIndex())
+            updateBoard(game.newCarIndex, true);
+            // if (id === 'priBlk') {
+            //     if (!game.addCar(row, column, 2, 'h', priBlk)) return;
+            // }
+            // else if (id === 'horSBlk') {
+            //     if (!game.addCar(row, column, 2, 'h', horSBlk)) return;
+            // }
+            // else if (id === 'horLBlk') {
+            //     if (!game.addCar(row, column, 3, 'h', horLBlk)) return;
+            // }
+            // else if (id === 'vertSBlk') {
+            //     if (!game.addCar(row, column, 2, 'v', vertSBlk)) return;
+            // }
+            // else if (id === 'vertLBlk') {
+            //     if (!game.addCar(row, column, 3, 'v', vertLBlk)) return;
+            // }
         }
+        // updateBoard(carIndex, isNewCar);
     };
 
     const handleTrashDrop = e => {
@@ -104,33 +111,39 @@ function Builder() {
 
         if (idInt === idInt) {
             const carIndex = idInt - 1;
-            puzzle.remove(carIndex);
-            carElement.remove();
+            game.remove(game.getCarIndex(idInt));
+            carElement.classList.add(styles.hide);
         }
         else carElement.classList.remove(styles.is_being_dragged);
         e.target.classList.remove(styles.trash_open);
         e.target.classList.add(styles.trash_closed);
     };
 
-    const updateBoard = () => {
-        puzzle.vehicles.forEach((vehicle, i) => {
-            const pct = 16.667;
-            if (vehicle.length > 0) {
-                const imageElement = document.getElementById(`image-${vehicle.id}`);
-                imageElement.style.backgroundImage = `url(${vehicle.imageUrl})`;
-                const newVehicleElement = document.getElementById(vehicle.id);
-                newVehicleElement.classList.remove(styles.hide);
-                if (vehicle.orientation === 'h') {
-                    newVehicleElement.style.top = (vehicle.row * pct) + '%';
-                    newVehicleElement.style.left = (vehicle.start * pct) + '%';
-                    newVehicleElement.style.width = (vehicle.length * pct) + '%';
-                } else if (vehicle.orientation === 'v') {
-                    newVehicleElement.style.top = (vehicle.start * pct) + '%';
-                    newVehicleElement.style.left = (vehicle.column * pct) + '%';
-                    newVehicleElement.style.height = (vehicle.length * pct) + '%';
-                }
-            }
-        });
+    const updateBoard = (carIndex, isNewCar) => {
+        
+        console.log(carIndex);
+        const car = game.cars[carIndex];
+        console.log(car);
+        const newVehicleElement = document.getElementById(car.id);
+        if (isNewCar) {
+            console.log(car.id)
+            const imageElement = document.getElementById(`image-${car.id}`);
+            imageElement.style.backgroundImage = `url(${car.imageUrl})`;
+            newVehicleElement.classList.remove(styles.hide);
+        }
+        const pct = 16.667;
+        if (car.orientation === 'h') {
+            newVehicleElement.style.top = (car.row * pct) + '%';
+            newVehicleElement.style.left = (car.start * pct) + '%';
+            newVehicleElement.style.width = (car.length * pct) + '%';
+            newVehicleElement.style.height = '16.667%';
+        } else if (car.orientation === 'v') {
+            newVehicleElement.style.top = (car.start * pct) + '%';
+            newVehicleElement.style.left = (car.column * pct) + '%';
+            newVehicleElement.style.height = (car.length * pct) + '%';
+            newVehicleElement.style.width = '16.667%';
+        }
+        console.log(game);
     }
 
 
@@ -158,6 +171,11 @@ function Builder() {
         horLBlkEl.addEventListener('dragstart', handleDragStart);
         vertSBlkEl.addEventListener('dragstart', handleDragStart);
         vertLBlkEl.addEventListener('dragstart', handleDragStart);
+        priBlkEl.addEventListener('dragend', handleDragEnd);
+        horSBlkEl.addEventListener('dragend', handleDragEnd);
+        horLBlkEl.addEventListener('dragend', handleDragEnd);
+        vertSBlkEl.addEventListener('dragend', handleDragEnd);
+        vertLBlkEl.addEventListener('dragend', handleDragEnd);
 
         const trashEl = document.getElementById('trash');
         trashEl.addEventListener('drop', handleTrashDrop);
@@ -170,14 +188,13 @@ function Builder() {
         horLBlkEl.style.backgroundImage = `url(${horLBlk})`;
         vertSBlkEl.style.backgroundImage = `url(${vertSBlk})`;
         vertLBlkEl.style.backgroundImage = `url(${vertLBlk})`;
-        // trashEl.style.backgroundImage = `url(${trashCan})`;
     };
 
     setTimeout(initialize, 0);
 
 
     const createPuzzleHandler = async () => {
-        // const layout = puzzle.getDatabaseLayout();
+        // const layout = game.getDatabaseLayout();
         // const res = await dispatch(addUserPuzzle('unavailable', layout, 'unavailable', -1, 0, 0, user.id, packId));
         // if (res.ok) {
         //     return;
@@ -200,11 +217,11 @@ function Builder() {
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
-                        {puzzle.vehicles.map((vehicle, i) => {
+                        {/* {game.cars.map((car, i) => {
                             return (
-                                <VehicleComponent vehicle={vehicle} puzzle={puzzle} key={`vehicle-${i + 1}`} />
+                                <VehicleComponent car={car} game={game} key={`car-${i + 1}`} />
                             )
-                        })}
+                        })} */}
                         <div className={styles.row}>
                             <div id="square-00" className={styles.drop_zone}></div>
                             <div id="square-10" className={styles.drop_zone}></div>
@@ -253,11 +270,16 @@ function Builder() {
                             <div id="square-45" className={styles.drop_zone}></div>
                             <div id="square-55" className={styles.drop_zone}></div>
                         </div>
+                        {game.cars.map((car, i) => {
+                            return (
+                                <VehicleComponent car={car} game={game} key={`car-${i + 1}`} />
+                            )
+                        })}
                     </div>
                 </div>
                 <div className={styles.column_three}>
                     <div className={`${styles.trash} ${styles.trash_closed}`} id='trash'></div>
-                    <button onClick={createPuzzleHandler}>save puzzle</button>
+                    <button onClick={createPuzzleHandler}>save game</button>
                 </div>
             </div>
         </>
