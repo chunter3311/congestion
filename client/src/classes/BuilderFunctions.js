@@ -84,31 +84,17 @@ export class Game {
     }
 
     isValidMove(id, row, column, length, orientation) {
-        if (orientation === 'h' && column > (6 - length)) {
-            // console.log('invalid horizontal bounds')
-            return false;
-        }
-        else if (orientation === 'v' && row > (6 - length)) {
-            // console.log('invalid vertical bounds')
-            return false;
-        }
+        if (orientation === 'h' && column > (6 - length)) return false;
+        else if (orientation === 'v' && row > (6 - length)) return false;
 
-        if (orientation === 'h') { // checking for enough space
+        if (orientation === 'h') {
             for (let c = column; c < column + length; c++) {
-                // console.log('c', c);
-                // console.log('this.layout[row][c]', this.layout[row][c])
-                if (this.layout[row][c] > 0 && this.layout[row][c] !== id) {
-                    // console.log('invalid horizontal space')
-                    return false;
-                }
+                if (this.layout[row][c] > 0 && this.layout[row][c] !== id) return false;
             }
         }
         else if (orientation === 'v') {
             for (let r = row; r < row + length; r++) {
-                if (this.layout[r][column] > 0 && this.layout[r][column] !== id) {
-                    // console.log('invalid vertical space')
-                    return false;
-                }
+                if (this.layout[r][column] > 0 && this.layout[r][column] !== id) return false;
             }
         }
         return true;
@@ -150,7 +136,7 @@ export class Game {
         }
         this.cars.forEach(car => {
             car.orientation = null;
-            car.imageUrl = null;
+            car.imageUrl = null;s
             car.length = 0;
             car.row = null;
             car.column = null;
