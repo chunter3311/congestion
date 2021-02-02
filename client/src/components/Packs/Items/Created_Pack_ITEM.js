@@ -85,7 +85,7 @@ const Created_Pack_ITEM = ({ pack, puzzles }) => {
             <div className={styles.pack_row_container}>
                 <div className={styles.pack_column_container}>
                     <div className={styles.pack_data_label_large}>pack {pack.id}</div>
-                    <div className={styles.pack_data_label_small}>{pack.totalPuzzles} puzzles</div>
+                    <div className={styles.pack_data_label_small}>{packPuzzles.length} puzzles</div>
                 </div>
                 <div className={styles.pack_column_container}>
                     <div className={styles.pack_data_label_large}>{getDifficulty()}</div>

@@ -25,7 +25,7 @@ function LoggedInPageContent({ match }) {
             <Route path={match.url + "packs/adopted/:packId"} exact component={Adopted_Puzzle_LIST} />
             <Route path={match.url + "packs/created"} exact component={Created_Pack_LIST} />
             <Route path={match.url + "packs/created/:packId"} exact component={Created_Puzzle_LIST} />
-            {user ? <Route path={match.url + `play/${user.username}/:packId/:puzzleId`} exact><Play puzzles={proPuzzles} /></Route> : ""}
+            {user ? <Route path={match.url + `play/${user.username}/:packId`} exact><Play puzzles={proPuzzles} /></Route> : ""}
             <Route path={match.url + "builder/:packId"} exact component={Builder} />
             <Route path={match.url} exact component={SplashPage} />
         </>

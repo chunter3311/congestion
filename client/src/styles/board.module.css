@@ -58,7 +58,6 @@
 
 .widget_row {
     display: flex;
-    /* flex-direction: column; */
     line-height: 1;
     align-items: center;
 }

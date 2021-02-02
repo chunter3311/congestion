@@ -117,9 +117,8 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                     carId += move[1];
 
                 }
-                console.log(direction);
-                console.log(carId);
-                const car = game.cars[carId - 1];
+                const carIndex = game.getCarIndex(carId)
+                const car = game.cars[carIndex];
                 if (direction === 'D' || direction === 'R') positiveMoveHandler(car);
                 else negativeMoveHandler(car);
             }, (i * 1000));

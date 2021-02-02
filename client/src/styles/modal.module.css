@@ -1,13 +1,10 @@
 .modal_wrapper {
     display: flex;
     flex-direction: column;
-    /* background-color: rgba(0, 0, 0, 0.664); */
     justify-content: center;
     align-items: center;
     z-index: 1;
     background-color: rgba(54, 29, 29, 0.938);
-    /* height: 100%; */
-    /* width: 100%; */
     margin: 0 5vh;
     padding: 5vh;
     border-radius: 1.5vh;
@@ -25,8 +22,8 @@
     line-height: 3.5vh;
 }
 
-.modal_wrapper p div {
-    margin: 1.7vh 0;
+.modal_wrapper p span {
+    padding: 3vh;
 }
 
 .modal_wrapper .buttons {

@@ -3,7 +3,6 @@ import styles from '../../../../styles/pack.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import Created_Puzzle_ITEM from './Items/Created_Puzzle_ITEM';
 import Created_Pack_ITEM from "../Created_Pack_ITEM";
-// import { BrowserRouter as NavLink } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 
 function Created_Puzzle_LIST(props) {

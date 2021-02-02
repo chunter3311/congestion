@@ -85,16 +85,14 @@
 background-color: rgba(255, 255, 255, 0.335);
 }
 
-.is_being_dragged {
-opacity: 0.5;
-border: 2px dashed white;
-}
+/* .is_being_dragged {
+    opacity: 1;
+    border: 2px dashed white;
+} */
 
-.is_active_drop_zone {
-/* background-color: blue; */
-}
-
-
+/* .is_active_drop_zone {
+    background-color: blue;
+} */
 
 .trash {
     width: 100%;
@@ -140,4 +138,17 @@ border: 2px dashed white;
     background-position: center;
     background-size: cover;
     position: relative;
+}
+
+.widget {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    align-items: center;
+}
+
+.widget_row {
+    display: flex;
+    line-height: 1;
+    align-items: center;
 }

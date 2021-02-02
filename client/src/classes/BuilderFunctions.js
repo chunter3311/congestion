@@ -53,7 +53,7 @@ export class Game {
 
     getNewCarIndex() {
         for (let i = 0; i < this.cars.length; i++) {
-            if (this.cars[i].length === 0){
+            if (this.cars[i].length === 0) {
                 this.newCarIndex = i;
                 return i;
             }
@@ -128,6 +128,8 @@ export class Game {
         }
     }
 
+    // 07 01 01 00 06 06 07 05 05 10 30 71 21 21 03 01 18 2030118294400291313
+
     reset() {
         for (let row = 0; row < 6; row++) {
             for (let column = 0; column < 6; column++) {
@@ -136,7 +138,7 @@ export class Game {
         }
         this.cars.forEach(car => {
             car.orientation = null;
-            car.imageUrl = null;s
+            car.imageUrl = null;
             car.length = 0;
             car.row = null;
             car.column = null;
@@ -151,10 +153,20 @@ export class Game {
         let databaseLayout = '';
         this.layout.forEach((row, i) => {
             row.forEach((value, i) => {
-                databaseLayout += `${value}0`;
+                console.log(i, value, value.toString().length);
+                if (value.toString().length === 1) {
+                    databaseLayout += '0';
+                }
+                databaseLayout += `${value}`;
             })
         })
         return databaseLayout;
     }
-
 }
+
+// [1, 1, 1, 2, 3, 4],
+// [5, 0, 0, 2, 3, 4],
+// [5, 0, 0, 6, 6, 4],
+// [5, 0, 0, 7, 7, 7],
+// [0, 0, 0, 8, 0, 0],
+// [0, 0, 0, 8, 10, 10]

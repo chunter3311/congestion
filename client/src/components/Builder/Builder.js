@@ -1,14 +1,27 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import styles from '../../styles/builder.module.css';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import globalStyles from '../../styles/global.module.css';
 import { Game } from '../../classes/BuilderFunctions';
 import VehicleComponent from './VehicleComponent';
 import { addUserPuzzle } from '../../store/puzzles';
+import Buider_Help_Modal from '../Modals/Builder_Help_Modal';
+import { Redirect, Route, Router, Switch, useHistory, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import styles from '../../styles/builder.module.css';
+import boardStyles from '../../styles/board.module.css';
+import packStyles from '../../styles/pack.module.css';
+import { createBrowserHistory } from 'history';
+import Created_Pack_LIST from '../Packs/Created_Pack_LIST';
+
+export const history = createBrowserHistory();
 
 
 function Builder() {
     const dispatch = useDispatch();
+    const history = useHistory();
+    let location = useLocation();
+    const user = useSelector(state => state.entities.users[state.session.user_id]);
+    const packId = location.state.packId;
     const layout = [
         [0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0],
@@ -67,10 +80,7 @@ function Builder() {
         const idInt = parseInt(id);
         const carElement = document.getElementById(id);
         carElement.classList.remove(styles.is_being_dragged);
-        const pct = 16.667;
-        // let carIndex = null;
         if (idInt === idInt) {
-            // carIndex = idInt - 1;
             const car = game.cars[game.getCarIndex(idInt)];
             if (!game.move(row, column, car)) return;
             updateBoard(idInt - 1, false);
@@ -81,27 +91,8 @@ function Builder() {
             else if (id === 'horLBlk' && !game.addCar(row, column, 3, 'h', horLBlk)) return;
             else if (id === 'vertSBlk' && !game.addCar(row, column, 2, 'v', vertSBlk)) return;
             else if (id === 'vertLBlk' && !game.addCar(row, column, 3, 'v', vertLBlk)) return;
-            // console.log('HELLO')
-            // console.log(game.newCarIndex)
-            // console.log(game.getNewCarIndex())
             updateBoard(game.newCarIndex, true);
-            // if (id === 'priBlk') {
-            //     if (!game.addCar(row, column, 2, 'h', priBlk)) return;
-            // }
-            // else if (id === 'horSBlk') {
-            //     if (!game.addCar(row, column, 2, 'h', horSBlk)) return;
-            // }
-            // else if (id === 'horLBlk') {
-            //     if (!game.addCar(row, column, 3, 'h', horLBlk)) return;
-            // }
-            // else if (id === 'vertSBlk') {
-            //     if (!game.addCar(row, column, 2, 'v', vertSBlk)) return;
-            // }
-            // else if (id === 'vertLBlk') {
-            //     if (!game.addCar(row, column, 3, 'v', vertLBlk)) return;
-            // }
         }
-        // updateBoard(carIndex, isNewCar);
     };
 
     const handleTrashDrop = e => {
@@ -110,7 +101,6 @@ function Builder() {
         const carElement = document.getElementById(id);
 
         if (idInt === idInt) {
-            const carIndex = idInt - 1;
             game.remove(game.getCarIndex(idInt));
             carElement.classList.add(styles.hide);
         }
@@ -120,13 +110,9 @@ function Builder() {
     };
 
     const updateBoard = (carIndex, isNewCar) => {
-        
-        console.log(carIndex);
         const car = game.cars[carIndex];
-        console.log(car);
         const newVehicleElement = document.getElementById(car.id);
         if (isNewCar) {
-            console.log(car.id)
             const imageElement = document.getElementById(`image-${car.id}`);
             imageElement.style.backgroundImage = `url(${car.imageUrl})`;
             newVehicleElement.classList.remove(styles.hide);
@@ -143,7 +129,6 @@ function Builder() {
             newVehicleElement.style.height = (car.length * pct) + '%';
             newVehicleElement.style.width = '16.667%';
         }
-        console.log(game);
     }
 
 
@@ -192,18 +177,47 @@ function Builder() {
 
     setTimeout(initialize, 0);
 
+    const resetBoard = () => {
+        // game.reset();
+        // setMoveCount(game.moves);
+        // game.cars.forEach(car => {
+        //     const carElement = document.getElementById(`${boardId}-${car.id}`);
+        //     carElement.classList.add(styles.change_position);
+        //     const moveContainer = document.getElementById(`${boardId}-move-container-${car.id}`);
+
+        //     carElement.style.top = (car.orientation === 'h') ? (car.row * pct) + '%' : (car.start * pct) + '%';
+        //     carElement.style.left = (car.orientation === 'h') ? (car.start * pct) + '%' : (car.column * pct) + '%';
+
+        //     if (car.orientation === 'v') {
+        //         carElement.style.height = (car.length * pct) + '%';
+        //     } else {
+        //         moveContainer.style.flexDirection = 'row';
+        //         carElement.style.width = (car.length * pct) + '%';
+        //     }
+        // })
+    };
+
+    const [showHelp, setShowHelp] = useState(false);
+    const toggleHelp = () => {
+        if (showHelp) setShowHelp(false);
+        else setShowHelp(true);
+    }
+    const exitHelp = () => {
+        if (showHelp) setShowHelp(false);
+    }
 
     const createPuzzleHandler = async () => {
-        // const layout = game.getDatabaseLayout();
-        // const res = await dispatch(addUserPuzzle('unavailable', layout, 'unavailable', -1, 0, 0, user.id, packId));
-        // if (res.ok) {
-        //     return;
-        // }
+        // history.push('/packs/created');
+        history.push(`/play/${user.username}/pack-${packId}`);
+        const layout = game.getDatabaseLayout();
+        console.log(layout);
+        dispatch(addUserPuzzle('unavailable', layout, 'unavailable', -1, 0, 0, user.id, packId));
     }
+
 
     return (
         <>
-            <div className={styles.board_wrapper}>
+            <div onClick={exitHelp} className={styles.board_wrapper}>
                 <div className={styles.column_one}>
                     <div className={styles.horizontal_cars}>
                         <div className={styles.car} draggable="true" id='priBlk'></div>
@@ -217,11 +231,6 @@ function Builder() {
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
-                        {/* {game.cars.map((car, i) => {
-                            return (
-                                <VehicleComponent car={car} game={game} key={`car-${i + 1}`} />
-                            )
-                        })} */}
                         <div className={styles.row}>
                             <div id="square-00" className={styles.drop_zone}></div>
                             <div id="square-10" className={styles.drop_zone}></div>
@@ -270,6 +279,9 @@ function Builder() {
                             <div id="square-45" className={styles.drop_zone}></div>
                             <div id="square-55" className={styles.drop_zone}></div>
                         </div>
+                        {showHelp ? <>
+                            <Buider_Help_Modal showHelp={showHelp} setShowHelp={setShowHelp} />
+                        </> : ""}
                         {game.cars.map((car, i) => {
                             return (
                                 <VehicleComponent car={car} game={game} key={`car-${i + 1}`} />
@@ -278,8 +290,15 @@ function Builder() {
                     </div>
                 </div>
                 <div className={styles.column_three}>
+                    <div className={`${styles.widget_row} ${styles.button_spacing}`}>
+                        <div onClick={resetBoard} className={boardStyles.reset_button}></div>
+                        <div onClick={toggleHelp} className={boardStyles.help_button}></div>
+                    </div>
                     <div className={`${styles.trash} ${styles.trash_closed}`} id='trash'></div>
-                    <button onClick={createPuzzleHandler}>save game</button>
+                    <div className={`${styles.widget_row} ${styles.button_spacing}`}>
+                        <button onClick={createPuzzleHandler}>save game</button>
+                        <NavLink className={packStyles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>discard</NavLink>
+                    </div>
                 </div>
             </div>
         </>

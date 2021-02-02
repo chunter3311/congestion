@@ -35,13 +35,15 @@ export class Game {
     }
 
     initialize(layout) {
+        console.log('game', this)
         for (let row = 0; row < 6; row++) {
             for (let column = 0; column < 6; column++) {
                 this.originalLayout[row].push(layout[row][column]);
                 if (layout[row][column] === 0) continue;
                 let id = layout[row][column];
+                console.log('id', id)
                 if (this.ids.has(id)) {
-                    this.cars[id - 1].add(row, column);
+                    this.cars[this.getCarIndex(id)].add(row, column);
                 }
                 else {
                     this.ids.add(id);
@@ -61,6 +63,12 @@ export class Game {
             this.setCarEndPoints(car);
         });
         return;
+    }
+
+    getCarIndex(id) {
+        for (let i = 0; i < this.cars.length; i++) {
+            if (this.cars[i].id === id) return i;
+        }
     }
 
     setCarEndPoints(car) {
