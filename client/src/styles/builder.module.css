@@ -5,17 +5,50 @@
     align-items: center;
     color: white;
 }
-
+    
 .column_one, .column_three {
-    width: 10%;
-    height: 80vh;
+    width: 15vw;
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 35vw;
+}
+
+.horizontal_cars {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.row_one, .row_two {
+    width: 100%;
+    height: 100%;
+}
+
+.vertical_cars {
+    display: flex;
+    width: 75%;
+    height: 100%;
+}
+    
+.car {
+    width: 100%;
+    height: 100%;
+    border: rgba(255, 255, 255, 0) solid 0.8vh;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
 }
 
 .column_two {
-    width: 80%;
+    width: 45vw;
+    height: 45vw;
 }
 
 .board_container {
@@ -23,12 +56,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url("https://i.imgur.com/mp1teS2.jpg");
-    background-size: cover;
-    height: 90vh;
+    background-image: url("https://i.imgur.com/gGAFBWi.png");
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
     position: relative;
-    border: solid #aaaaaa 1px;
-    box-sizing: border-box;
+    border-radius: 1.5vh;
 }
 
 .row {
@@ -37,35 +72,48 @@
     display: flex;
 }
 
-.car, .trash {
+.board_container, .drop_zone {
+    border: solid #a5a5a5 0.1vh;
+}
+
+.drop_zone {
+    width: 16.667%;
+    box-sizing: border-box;
+}
+
+.drop_zone:hover {
+background-color: rgba(255, 255, 255, 0.335);
+}
+
+.is_being_dragged {
+opacity: 0.5;
+border: 2px dashed white;
+}
+
+.is_active_drop_zone {
+/* background-color: blue; */
+}
+
+
+
+.trash {
     width: 100%;
-    height: 100%;
-    border: rgba(255, 255, 255, 0) solid 13px;
+    height: 50%;
+    border: rgba(255, 255, 255, 0) solid 0.8vh;
     box-sizing: border-box;
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
     background-position: center;
-    position: relative;
+    cursor: pointer;
 }
 
-.drop_zone {
-    width: 16.667%;
-    border: solid #aaaaaa 2px;
-    box-sizing: border-box;
-} 
-
-.drop_zone:hover {
-    background-color: rgba(255, 255, 255, 0.335);
+.trash_closed {
+    background-image: url(https://i.imgur.com/E1PyJBi.png);
 }
 
-.is_being_dragged {
-    opacity: 0.5;
-    border: 2px dashed white;
-}
-
-.is_active_drop_zone {
-    background-color: blue;
+.trash_open {
+    background-image: url(https://i.imgur.com/TO3RC7R.png);
 }
 
 .container {
@@ -80,7 +128,7 @@
 }
 
 .hide {
-    display: none;
+    display: none;  
 }
 
 .image {
@@ -91,6 +139,5 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    background-position: center;
     position: relative;
 }

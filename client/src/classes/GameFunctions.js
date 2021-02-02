@@ -1,8 +1,8 @@
-export const solvePuzzle = (layout) => {
-    const moves = {};
+// export const solvePuzzle = (layout) => {
+//     const moves = {};
 
-    return moves;
-}
+//     return moves;
+// }
 
 export class Car {
     constructor(row, column, id) {
@@ -97,6 +97,11 @@ export class Game {
             if (!unitsMoved) return false;
             car.start += unitsMoved;
             car.end += unitsMoved;
+            if (car.row === 2 && car.end === 5) {
+                car.start += 2;
+                car.end += 2;
+                this.isSolved = true;
+            }
             return true;
         }
     }
@@ -133,77 +138,17 @@ export class Game {
                 this.layout[row][column] = this.originalLayout[row][column];
             }
         }
-
-        // this.layout = [...this.originalLayout];
         this.cars.forEach(car => {
             this.setCarEndPoints(car);
         });
         this.isSolved = false;
         this.moves = 0;
     }
+
+    solve() {
+        
+    }
 }
-
-    // reset(layout) {
-    //     this.isSolved = false;
-    //     this.moves = 0;
-    //     this.resetLayout(layout);
-    //     this.resetCars();
-    //     this.defineOrientations();
-    // }
-
-    // resetLayout(layout) {
-    //     this.layout.forEach((row, r) => {
-    //         row.forEach((column, c) => {
-    //             row[c] = layout[r][c];
-    //         })
-    //     })
-    // }
-
-    // resetCars() {
-    //     this.cars.forEach(car => {
-    //         car.initialCoordinates.forEach(set => {
-    //             set = [];
-    //         })
-    //     })
-
-    //     for (let r = 0; r < 6; r++) {
-    //         for (let c = 0; c < 6; c++) {
-    //             if (this.layout[r][c] === 0) continue;
-    //             for (let b = 0; b < this.cars.length; b++) {
-    //                 if (this.cars[b].id === this.layout[r][c]) {
-    //                     this.cars[b].initialCoordinates.push(r, c);
-    //                     break;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-
-// arraysEqual(_arr1, _arr2) {
-//     if (
-//         !Array.isArray(_arr1)
-//         || !Array.isArray(_arr2)
-//         || _arr1.length !== _arr2.length
-//     ) {
-//         return false;
-//     }
-
-//     const arr1 = _arr1.concat().sort();
-//     const arr2 = _arr2.concat().sort();
-
-//     for (let i = 0; i < arr1.length; i++) {
-//         if (arr1[i] !== arr2[i]) {
-//             return false;
-//         }
-//     }
-
-//     return true;
-// }
-
-// const moves = {
-//     1: [2, 'D']
-// };
 
 // [0, 0, 0, 0, 0, 0],
 // [0, 0, 0, 0, 0, 0],
@@ -212,38 +157,9 @@ export class Game {
 // [0, 0, 0, 0, 0, 0],
 // [0, 0, 0, 0, 0, 0]
 
-    // [1, 1, 1, 2, 3, 4],
-    // [5, 0, 0, 2, 3, 4],
-    // [5, 0, 0, 6, 6, 4],
-    // [5, 0, 0, 7, 7, 7],
-    // [0, 0, 0, 8, 0, 0],
-    // [0, 0, 0, 8, 9, 9]
-
-    // updateLayout(id, start, end, row, column) {
-    //     if (row) {
-    //         for (let c = 0; c <= 5; c++) {
-    //             if (c === start) {
-    //                 while (c <= end) {
-    //                     this.layout[row][c] = id;
-    //                     c++;
-    //                 }
-    //             }
-    //             if (this.layout[row][c] === id) this.layout[row][c] = 0;
-    //         }
-    //     }
-    //     else {
-    //         for (let r = 0; r <= 5; r++) {
-    //             if (r === start) {
-    //                 while (r <= end) {
-    //                     this.layout[r][column] = id;
-    //                     r++;
-    //                 }
-    //             }
-    //             else {
-    //                 if (this.layout[r][column] === id) this.layout[r][column] = 0;
-    //             }
-    //             console.log(r)
-    //             console.log(column)
-    //         }
-    //     }
-    // }
+// [1, 1, 1, 2, 3, 4],
+// [5, 0, 0, 2, 3, 4],
+// [5, 0, 0, 6, 6, 4],
+// [5, 0, 0, 7, 7, 7],
+// [0, 0, 0, 8, 0, 0],
+// [0, 0, 0, 8, 9, 9]

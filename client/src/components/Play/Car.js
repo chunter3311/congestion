@@ -3,10 +3,9 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { updateUserPuzzle } from '../../store/puzzles';
 import styles from '../../styles/car.module.css';
 
-const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
+const Car = ({ puzzle, car, boardId, game, setMoveCount, setIsSolved }) => {
 
     const dispatch = useDispatch();
-    const [isSolved, setIsSolved] = useState(false);
     const pct = 16.667;
 
     const updateBestSolution = async () => {
@@ -30,12 +29,6 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
             moveContainer.style.flexDirection = 'row';
             blockElement.style.width = (car.length * pct) + '%';
         }
-
-
-        if (game.isSolved) {
-            setIsSolved(true);
-            updateBestSolution();
-        }
     };
 
     setTimeout(updateBlock, 0);
@@ -51,15 +44,15 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
 
     const positiveMoveHandler = () => {
         if (game.positiveMove(car)) {
-            updateBlock();
             game.moves++;
             setMoveCount(game.moves);
+            setIsSolved(game.isSolved);
+            if (game.isSolved) {
+                updateBestSolution();
+            }
+            updateBlock();
         }
     }
-
-    // const restartHandler = (e) => {
-    //     e.preventDefault();
-    // }
 
     return (
         <>
@@ -71,12 +64,13 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount }) => {
                     </div>
                 </div>
             </div>
-            {isSolved ? <>
+            {/* {game.isSolved ? <>
                 <div className={styles.solved_message_wrapper}>
                     <div className={styles.solved_message}>whoa, you're good!</div>
-                    {/* <button onClick={restartHandler}>restart</button> */}
+                    <button onClick={restartHandler}>restart</button>
+                    <button onClick={nextPuzzle}>next</button>
                 </div>
-            </> : ""}
+            </> : ""} */}
         </>
     );
 }
