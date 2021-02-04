@@ -207,11 +207,11 @@ function Builder() {
     }
 
     const createPuzzleHandler = async () => {
-        // history.push('/packs/created');
-        history.push(`/play/${user.username}/pack-${packId}`);
+        history.push('/packs/created');
+        // history.push(`/play/${user.username}/pack-${packId}`);
         const layout = game.getDatabaseLayout();
         console.log(layout);
-        dispatch(addUserPuzzle('unavailable', layout, 'unavailable', -1, 0, 0, user.id, packId));
+        dispatch(addUserPuzzle('unavailable', layout, '-1', -1, 0, 0, user.id, packId));
     }
 
 

@@ -44,7 +44,7 @@ class Puzzle(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     difficulty = db.Column(db.String, nullable=True)
     layout = db.Column(db.String, nullable=False)
-    solution = db.Column(db.String, default="unsolved", nullable=False)
+    solution = db.Column(db.String, default="-1", nullable=False)
     solutionMoves = db.Column(db.Integer, default=-1, nullable=False)
     totalStars = db.Column(db.Integer, default=0, nullable=False)
     totalPlays = db.Column(db.Integer, default=0, nullable=False)

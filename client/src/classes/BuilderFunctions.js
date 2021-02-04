@@ -128,8 +128,6 @@ export class Game {
         }
     }
 
-    // 07 01 01 00 06 06 07 05 05 10 30 71 21 21 03 01 18 2030118294400291313
-
     reset() {
         for (let row = 0; row < 6; row++) {
             for (let column = 0; column < 6; column++) {

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../styles/board.module.css';
 import modalStyles from '../../styles/modal.module.css';
-import authStyles from '../../styles/auth.module.css';
-import { Game, solvePuzzle } from '../../classes/GameFunctions';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { updateUserPuzzle } from '../../store/puzzles';
 import Car from './Car';
@@ -105,25 +103,65 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
         if (showHelp) setShowHelp(false);
     }
 
-    const playSolution = () => {
-        resetBoard();
-        // 5R#6U#7L#9L#8L#10L#5L#3D#4R
-        const moves = puzzle.solution.split('#');
-        moves.forEach((move, i) => {
-            setTimeout(() => {
-                const direction = move.slice(-1);
-                let carId = move[0];
-                if (move.length === 3) {
-                    carId += move[1];
+    // const playSolution = async () => {
+    //     let solution;
+    //     let difficulty;
+    //     let layout;
+    //     if (puzzle.solution === '-1') {
+    //         solution = game.getSolution();
+    //         difficulty = game.getDifficulty();
+    //         layout = puzzle.layout;
+    //         // dispatch(addUserPuzzle(difficulty, layout, solution, -1, 0, 0, puzzle.id));
+    //         // difficulty, layout, solution, solutionMoves, totalStars, totalPlays, puzzleId
+    //     }
+    //     resetBoard();
+    //     const solution = game.getSolution();
+    //     console.log(solution);
+    //     5R#6U#7L#9L#8L#10L#5L#3D#4R
+    //     const moves = puzzle.solution.split('#');
+    //     const moves = solution.split('#');
+    //     moves.forEach((move, i) => {
+    //         setTimeout(() => {
+    //             const direction = move.slice(-1);
+    //             let carId = parseInt(move[0]);
+    //             if (move.length === 3) {
+    //                 carId += move[1];
 
-                }
-                const carIndex = game.getCarIndex(carId)
-                const car = game.cars[carIndex];
-                if (direction === 'D' || direction === 'R') positiveMoveHandler(car);
-                else negativeMoveHandler(car);
-            }, (i * 1000));
-        })
-    }
+    //             }
+    //             const carIndex = game.getCarIndex(carId);
+    //             const car = game.cars[carIndex];
+    //             if (direction === 'D' || direction === 'R') positiveMoveHandler(car);
+    //             else negativeMoveHandler(car);
+    //         }, (i * 1000));
+    //     })
+    // }
+
+    // const playSolution = async () => {
+    //     console.log(game);
+    //     let count2 = 1;
+    //     for (let count = 1; count <= 10; count++) {
+    //         resetBoard();
+
+    //         // for (let moveCount = 0; moveCount <= 50 && !game.isSolved && (game.bestMoves === -1 || game.moves < game.bestMoves)) {
+    //         for (let moveCount = 0; moveCount <= 50 && !game.isSolved; moveCount++) {
+    //             const move = game.getMove();
+    //             const carIndex = move[0];
+    //             const direction = move[1];
+    //             console.log(carIndex)
+    //             console.log(direction)
+    //             console.log(game)
+    //             const car = game.cars[carIndex];
+    //             if (direction === 'D' || direction === 'R') positiveMoveHandler(car);
+    //             else negativeMoveHandler(car);
+    //         }
+    //         // count2++;
+    //         // if (count2 === 10000) {
+    //         //     console.log(count);
+    //         //     count2 = 0;
+    //         // }
+    //     }
+    //     console.log('finished', game.bestMoves);
+    // }
 
     const updateBlock = (car) => {
         const blockElement = document.getElementById(`${boardId}-${car.id}`);
@@ -141,22 +179,80 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
         }
     };
 
-    const negativeMoveHandler = (car) => {
-        if (game.negativeMove(car)) {
-            updateBlock(car);
-            game.moves++;
-            setMoveCount(game.moves);
-        }
+    // const negativeMoveHandler = (car) => {
+    //     if (game.negativeMove(car)) {
+    //         updateBlock(car);
+    //         game.moves++;
+    //         setMoveCount(game.moves);
+    //         game.movesList += `${car.id}`;
+    //         if (car.orientation === 'h') game.movesList += 'L';
+    //         else game.movesList += 'U';
+    //     }
+    // }
 
-    }
+    // const positiveMoveHandler = (car) => {
+    //     if (game.positiveMove(car)) {
+    //         updateBlock(car);
+    //         game.moves++;
+    //         setMoveCount(game.moves);
+    //         game.movesList += `${car.id}`;
+    //         if (car.orientation === 'h') game.movesList += 'R';
+    //         else game.movesList += 'D';
+    //     }
+    // }
 
-    const positiveMoveHandler = (car) => {
-        if (game.positiveMove(car)) {
-            game.moves++;
-            setMoveCount(game.moves);
-            // setIsSolved(game.isSolved);
-            updateBlock(car);
+    // const moveHandler = (move) => {
+    //     const car = move[0];
+    //     const direction = move[1];
+    //     if (direction === 'U' || direction === 'L') {
+    //         game.negativeMove(car);
+    //     }
+    //     else {
+    //         game.positiveMove(car);
+    //     }
+    //     game.movesList += `${car.id}${direction}`;
+    //     game.moves++;
+    //     setMoveCount(game.moves);
+    // }
+
+    const playSolution = () => {
+        let UICount = 1;
+        for (let attempt = 1; attempt <= 1000000; attempt++) {
+            resetBoard();
+            for (let moveCount = 1; moveCount <= 80 && !game.isSolved; moveCount++) {
+                const move = game.getMove();
+                const car = move[0];
+                const direction = move[1];
+                if (direction === 'U' || direction === 'L') {
+                    game.negativeMove(car);
+                }
+                else {
+                    game.positiveMove(car);
+                }
+                game.movesList.push([`${car.id}`, `${direction}`])
+                game.previousCarIndex = game.currentCarIndex;
+                game.moves++;
+                setMoveCount(game.moves);
+                if (attempt === 10000) updateBlock(car);
+                if (game.solutionMovesList.length < game.moves && game.solutionMovesList.length > 0) break;
+            }
+            if (game.isSolved) {
+                setIsSolved(game.isSolved);
+                if (game.solutionMovesList.length === 0 || game.solutionMovesList.length > game.moves) {
+                    game.solutionMovesList = game.movesList.slice(0);
+                }
+                // updateBlock(car);
+                console.log('current', game.movesList.length)
+                console.log('best', game.solutionMovesList.length)
+            }
+            if (UICount === 1000) {
+                UICount = 0;
+                console.log('attempt', attempt);
+            }
+            UICount++;
         }
+        console.log('finished');
+        console.log(game.solutionMovesList);
     }
 
     return (
