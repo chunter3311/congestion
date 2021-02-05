@@ -11,6 +11,7 @@ library.add(faShareSquare, faPlay, faPen, faTrash);
 const Created_Pack_ITEM = ({ pack, puzzles }) => {
 
     const packPuzzles = useSelector(state => Object.values(state.entities.puzzles).filter((puzzle) => puzzle.packId === pack.id));
+    const packId = pack.id;
     // console.log(pack.id)
     // console.log('pack', pack[0]);
     // // console.log('puzzles', puzzles);
@@ -46,9 +47,9 @@ const Created_Pack_ITEM = ({ pack, puzzles }) => {
     }
 
     const setInitialStyles = () => {
-        const shareIcon = document.getElementById(`pack-${pack.id}`);
-        if (pack.isShared === true) shareIcon.classList.add(styles.shared_true);
-        else if (pack.isShared === false) shareIcon.classList.add(styles.shared_false);
+        // const shareIcon = document.getElementById(`pack-${pack.id}`);
+        // if (pack.isShared === true) shareIcon.classList.add(styles.shared_true);
+        // else if (pack.isShared === false) shareIcon.classList.add(styles.shared_false);
     }
 
     setTimeout(setInitialStyles, 0);
@@ -87,20 +88,21 @@ const Created_Pack_ITEM = ({ pack, puzzles }) => {
                     <div className={styles.pack_data_label_large}>pack {pack.id}</div>
                     <div className={styles.pack_data_label_small}>{packPuzzles.length} puzzles</div>
                 </div>
-                <div className={styles.pack_column_container}>
+                {/* <div className={styles.pack_column_container}>
                     <div className={styles.pack_data_label_large}>{getDifficulty()}</div>
                     <div className={styles.pack_data_label_small}>difficulty</div>
                 </div>
                 <div className={styles.pack_column_container}>
                     <div className={styles.pack_data_label_large}>23 stars</div>
                     <div className={styles.pack_data_label_small}>52 plays</div>
-                </div>
+                </div> */}
                 <div className={styles.pack_column_container}>
                     <div className={`${styles.icon_row}`}>
-                        <div className={`${styles.pack_icon}`} onClick={toggleSharedStatus}><FontAwesomeIcon id={`pack-${pack.id}`} icon="share-square" /></div>
-                        <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="play" /></div>
-                        <div className={`${styles.pack_icon}`}><NavLink to={`/packs/created/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div>
-                        <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="trash" /></div>
+                        {/* <div className={`${styles.pack_icon}`} onClick={toggleSharedStatus}><FontAwesomeIcon id={`pack-${pack.id}`} icon="share-square" /></div> */}
+                        {/* <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="play" /></div> */}
+                        {/* <div className={`${styles.pack_icon}`}><NavLink to={`/packs/created/pack-${pack.id}`}><FontAwesomeIcon icon="pen" /></NavLink></div> */}
+                        {/* <div className={`${styles.pack_icon}`}><FontAwesomeIcon icon="trash" /></div> */}
+                        <NavLink className={styles.puzzle_pack_tab} to={{pathname: `/builder/pack-${packId}`, state: { packId: packId }}}>add a puzzle</NavLink>
                     </div>
                 </div>
             </div>

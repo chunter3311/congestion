@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
 import { NavLink, withRouter } from 'react-router-dom';
 import { logout } from '../store/session';
+import { login } from '../store/session';
 import styles from '../styles/nav.module.css';
 
 
 
 const Nav = ({ history }) => {
     const dispatch = useDispatch();
+    const [errors, setErrors] = useState([]);
     const user = useSelector(state => state.entities.users[state.session.user_id]);
     const packId = 1;
     const puzzleId = 1;
@@ -33,6 +35,19 @@ const Nav = ({ history }) => {
         else return `${user.username}`;
     }
 
+    const demoUserClick = async (event) => {
+        event.preventDefault();
+
+        const res = await dispatch(login("demo", "password"))
+
+        if (res.ok) {
+            history.replace('/');
+            return;
+        }
+
+        setErrors(res.data.errors);
+    }
+
     return (
         <div className={`${styles.background}`}>
             <div className={styles.nav_container}>
@@ -52,17 +67,17 @@ const Nav = ({ history }) => {
                 </div>
                 <div className={`${styles.nav_wrapper}`}>
                 
-                {user ? <NavLink className={styles.nav_link_large} to={{pathname: `/play/${user.username}/pack-${packId}`, state: { packId: packId }}}>quick play</NavLink> : ""}
-                    {/* {user ? <NavLink className={styles.nav_link_large} to={`/play/${user.username}/pack-${packId}/puzzle-${puzzleId}`} activeClassName={styles.selected}>quick play</NavLink> : ""} */}
-                    {user ? <NavLink className={styles.nav_link} to="/packs/created" activeClassName={styles.selected}>my puzzles</NavLink> : ""}
-                    {user ? <NavLink className={styles.puzzle_pack_tab} to={{pathname: `/builder/pack-${packId}`, state: { packId: packId }}}>add a puzzle</NavLink> : ""}
-                    
+                {/* {user ? <NavLink className={styles.nav_link_large} to={{pathname: `/play/${user.username}/pack-${packId}`, state: { packId: packId }}}>quick play</NavLink> : ""} */}
+                {user ? <NavLink className={styles.nav_link_large} to={{pathname: `/play/${user.username}`}}>play</NavLink> : ""}
+                    {user ? <NavLink className={styles.nav_link} to="/packs/created" activeClassName={styles.selected}>my puzzles</NavLink> : ""}                    
                 </div>
                 <div className={`${styles.nav_wrapper}`}>
-                    <NavLink className={styles.nav_link} to="/help" activeClassName={styles.selected}>help</NavLink>
-                    <NavLink className={styles.nav_link} to="/about" activeClassName={styles.selected}>about developer</NavLink>
-                    {!user ? <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink> : ""}
-                    {!user ? <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink> : ""}
+                    {!user ? <a onClick={demoUserClick} className={styles.nav_link}>play demo</a> : ""}
+                    {/* <NavLink className={styles.nav_link} to="/about" activeClassName={styles.selected}>about developer</NavLink>
+                    <NavLink className={styles.nav_link} to="/help" activeClassName={styles.selected}>help</NavLink> */}
+                    
+                    {/* {!user ? <NavLink className={styles.nav_link} to="/log-in" activeClassName={styles.selected}>log in</NavLink> : ""}
+                    {!user ? <NavLink className={styles.nav_link} to="/join" activeClassName={styles.selected}>join</NavLink> : ""} */}
                     {user ? <a onClick={handleLogout}><div className={styles.nav_link}>log out</div></a> : ""}
                 </div>
             </div>

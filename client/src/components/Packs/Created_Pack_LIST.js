@@ -34,11 +34,11 @@ function Created_Pack_LIST(props) {
         <div className={styles.packs_container}>
             <div className={styles.puzzle_pack_buttons_container}>
                 <div>
-                    <NavLink className={styles.puzzle_pack_tab} to="/packs/pro" activeClassName={styles.active_tab}>pro</NavLink>
-                    <NavLink className={styles.puzzle_pack_tab} to="/packs/adopted" activeClassName={styles.active_tab}>adopted</NavLink>
-                    <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>created</NavLink>
+                    {/* <NavLink className={styles.puzzle_pack_tab} to="/packs/pro" activeClassName={styles.active_tab}>pro</NavLink>
+                    <NavLink className={styles.puzzle_pack_tab} to="/packs/adopted" activeClassName={styles.active_tab}>adopted</NavLink> */}
+                    <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>my puzzles</NavLink>
                 </div>
-                <NavLink className={styles.puzzle_pack_tab} to={`/packs/created/pack-pack.id`} activeClassName={styles.active_tab}>start a new pack</NavLink>
+                {/* <NavLink className={styles.puzzle_pack_tab} to={`/packs/created/pack-pack.id`} activeClassName={styles.active_tab}>start a new pack</NavLink> */}
             </div>
             <div className={styles.pack_rows_container}>
                 {packs.map((pack, i) => {

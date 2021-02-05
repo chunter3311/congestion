@@ -290,14 +290,14 @@ function Builder() {
                     </div>
                 </div>
                 <div className={styles.column_three}>
-                    <div className={`${styles.widget_row} ${styles.button_spacing}`}>
+                    {/* <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div onClick={resetBoard} className={boardStyles.reset_button}></div>
                         <div onClick={toggleHelp} className={boardStyles.help_button}></div>
-                    </div>
+                    </div> */}
                     <div className={`${styles.trash} ${styles.trash_closed}`} id='trash'></div>
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
-                        <button onClick={createPuzzleHandler}>save game</button>
-                        <NavLink className={packStyles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>discard</NavLink>
+                        <a className={packStyles.puzzle_pack_tab} onClick={createPuzzleHandler}>save puzzle</a>
+                        <NavLink className={packStyles.puzzle_pack_tab} to={`/packs/created`} activeClassName={styles.active_tab}>discard</NavLink>
                     </div>
                 </div>
             </div>

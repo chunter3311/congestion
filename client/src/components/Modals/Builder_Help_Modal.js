@@ -11,11 +11,11 @@ const Buider_Help_Modal = ({ showHelp, setShowHelp }) => {
     return (
         <>
             <div className={styles.modal_wrapper}>
-                <h1>how to build a puzzle</h1>
+                <h1>How to build a puzzle</h1>
                 <p>
-                    <span>add car types to the board by dragging from the left</span>
-                    <span>once on the board, cars can be dragged around</span>
-                    <span>to remove a car from the board, drag it to the trash can</span>
+                    <p>add car types to the board by dragging from the left</p>
+                    <p>once on the board, cars can be dragged around</p>
+                    <p>to remove a car from the board, drag it to the trash can</p>
                 </p>
                 <div className={styles.buttons}>
                     <button onClick={toggleHelp}>got it</button>

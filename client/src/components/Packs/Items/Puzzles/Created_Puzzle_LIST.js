@@ -18,7 +18,7 @@ function Created_Puzzle_LIST(props) {
 
             <div className={styles.puzzle_pack_buttons_container}>
                 <div>
-                    <NavLink className={styles.puzzle_pack_tab} to="/packs/created" activeClassName={styles.active_tab}>back to packs</NavLink>
+                    <NavLink className={styles.puzzle_pack_tab} to="/packs/created" exact activeClassName={styles.active_tab}>back to packs</NavLink>
                 </div>
                 <NavLink className={styles.puzzle_pack_tab} to={{pathname: `/builder/pack-${packId}`, state: { packId: packId }}}>add a puzzle</NavLink>
             </div>

@@ -8,7 +8,7 @@ import HelpModal from '../Modals/Help_Modal';
 
 
 
-function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEditFlashcardId }) {
+function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
     const dispatch = useDispatch();
     const [isSolved, setIsSolved] = useState(false);
     const [showHelp, setShowHelp] = useState(false);
@@ -216,24 +216,32 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
     // }
 
     const playSolution = () => {
+        console.log(game.cars);
         let UICount = 1;
-        for (let attempt = 1; attempt <= 1000000; attempt++) {
+        var start = new Date().getTime();
+        // for (let attempt = 1; attempt <= 5000; attempt++) {
             resetBoard();
-            for (let moveCount = 1; moveCount <= 80 && !game.isSolved; moveCount++) {
+            // console.log('1')
+            for (let moveCount = 1; moveCount <= 500 && !game.isSolved; moveCount++) {
+                console.log('moveCount', moveCount)
                 const move = game.getMove();
                 const car = move[0];
                 const direction = move[1];
+                console.log('car.id', car.id)
+                console.log('direction', direction)
+                console.log('moveCount', moveCount)
                 if (direction === 'U' || direction === 'L') {
                     game.negativeMove(car);
                 }
                 else {
                     game.positiveMove(car);
                 }
+                // console.log('5')
                 game.movesList.push([`${car.id}`, `${direction}`])
                 game.previousCarIndex = game.currentCarIndex;
                 game.moves++;
                 setMoveCount(game.moves);
-                if (attempt === 10000) updateBlock(car);
+                
                 if (game.solutionMovesList.length < game.moves && game.solutionMovesList.length > 0) break;
             }
             if (game.isSolved) {
@@ -242,17 +250,19 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                     game.solutionMovesList = game.movesList.slice(0);
                 }
                 // updateBlock(car);
-                console.log('current', game.movesList.length)
-                console.log('best', game.solutionMovesList.length)
+                // console.log('current', game.movesList.length)
+                // console.log('best', game.solutionMovesList.length)
             }
             if (UICount === 1000) {
                 UICount = 0;
-                console.log('attempt', attempt);
+                // console.log('attempt', attempt);
             }
-            UICount++;
-        }
-        console.log('finished');
-        console.log(game.solutionMovesList);
+            // console.clear();
+            // console.log(`finished attempt ${attempt}`);
+            // console.log(game.solutionMovesList);
+        // }
+        var elapsed = new Date().getTime() - start;
+        console.log(`totally finished in ${elapsed}`);
     }
 
     return (
@@ -260,10 +270,10 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
             <div onClick={exitHelp} id={`board-${boardId}`} className={`${styles.board_wrapper} ${styles.hide_board}`}>
                 <div className={styles.column_one}>
                     <div className={`${styles.widget}`}>
-                        <div className={`${styles.widget}`}>
+                        {/* <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>{userName}</div>
                             <div className={styles.large_text}>{`pack ${packId}`}</div>
-                        </div>
+                        </div> */}
                         <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>level</div>
                             <div className={styles.level_number}>
@@ -284,12 +294,12 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                                 <div className={styles.large_text}>{puzzle.solutionMoves === -1 ? '–' : puzzle.solutionMoves}</div>
                             </div>
                         </div>
-                        <div className={`${styles.widget}`}>
+                        {/* <div className={`${styles.widget}`}>
                             <div className={styles.small_text}>optimal</div>
                             <div className={styles.your_best_display}>
                                 <div className={styles.large_text}>{puzzle.solution === 'unsolved' ? '–' : puzzle.solution.split("#").length}</div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={`${styles.widget}`}>
                         <div onClick={previousPuzzle} className={styles.previous_arrow}></div>
@@ -323,7 +333,7 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game, setEdit
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div onClick={resetBoard} className={styles.reset_button}></div>
                         <div onClick={toggleHelp} className={styles.help_button}></div>
-                        <div onClick={playSolution} className={styles.solution_button}></div>
+                        {/* <div onClick={playSolution} className={styles.solution_button}></div> */}
                     </div>
                     <div className={`${styles.widget}`}>
                         <div onClick={nextPuzzle} className={styles.next_arrow}></div>

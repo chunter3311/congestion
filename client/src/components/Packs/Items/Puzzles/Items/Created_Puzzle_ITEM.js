@@ -54,9 +54,9 @@ const Created_Puzzle_ITEM = ({ puzzle }) => {
             <div className={styles.pack_row_container}>
                 <div className={styles.pack_column_container}>
                     <div className={styles.pack_data_label_large}>puzzle {puzzle.id}</div>
-                    <div className={styles.pack_data_label_small}>{puzzle.difficulty}</div>
+                    {/* <div className={styles.pack_data_label_small}>{puzzle.difficulty}</div> */}
                 </div>
-                <div className={styles.pack_column_container}>
+                {/* <div className={styles.pack_column_container}>
                     <div className={styles.pack_data_label_large}>{getSolution()}</div>
                     <div className={styles.pack_data_label_small}>solution</div>
                 </div>
@@ -69,7 +69,7 @@ const Created_Puzzle_ITEM = ({ puzzle }) => {
                         <div className={`${styles.pack_icon}`}><NavLink to={`/play`}><FontAwesomeIcon icon="play" /></NavLink></div>
                         <div className={`${styles.pack_icon_last}`}><FontAwesomeIcon icon="trash" /></div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );

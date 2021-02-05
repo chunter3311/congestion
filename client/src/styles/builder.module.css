@@ -149,6 +149,13 @@ background-color: rgba(255, 255, 255, 0.335);
 
 .widget_row {
     display: flex;
+    flex-direction: column;
     line-height: 1;
     align-items: center;
+}
+
+.button_spacing a {
+    margin: 1vh 0;
+    padding: 1vh;
+    cursor: pointer;
 }

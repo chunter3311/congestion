@@ -44,6 +44,8 @@
     background-position: center;
     margin-bottom: 2.5vh;
     border-bottom-left-radius: 4vh;
+    border-bottom-right-radius: 4vh;
+    border-top-right-radius: 4vh;
     /* background-image: url(https://i.imgur.com/ibLPvQP.jpg); */
     /* background:linear-gradient(0deg, #1b1b1ba6, #1b1b1ba6), url(https://i.imgur.com/ibLPvQP.jpg); */
 }
@@ -66,7 +68,7 @@
 }
 
 .pack_column_container div {
-    text-shadow: rgb(31, 31, 31) 0.3vh 0.3vh 0.3vh;
+    /* text-shadow: rgb(31, 31, 31) 0.3vh 0.3vh 0.3vh; */
     line-height: 4.1vh;
 }
 

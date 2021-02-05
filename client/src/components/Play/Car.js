@@ -58,19 +58,12 @@ const Car = ({ puzzle, car, boardId, game, setMoveCount, setIsSolved }) => {
         <>
             <div id={`${boardId}-${car.id}`} className={styles.container}>
                 <div id={`${boardId}-image-${car.id}`} className={styles.image}>
-                    <div id={`${boardId}-move-container-${car.id}`} className={styles.moveContainer}>{car.id}
+                    <div id={`${boardId}-move-container-${car.id}`} className={styles.moveContainer}>
                         <div className={styles.arrow} id={`${boardId}-negativeMove-${car.id}`} onClick={negativeMoveHandler}></div>
                         <div className={styles.arrow} id={`${boardId}-positiveMove-${car.id}`} onClick={positiveMoveHandler}></div>
                     </div>
                 </div>
             </div>
-            {/* {game.isSolved ? <>
-                <div className={styles.solved_message_wrapper}>
-                    <div className={styles.solved_message}>whoa, you're good!</div>
-                    <button onClick={restartHandler}>restart</button>
-                    <button onClick={nextPuzzle}>next</button>
-                </div>
-            </> : ""} */}
         </>
     );
 }

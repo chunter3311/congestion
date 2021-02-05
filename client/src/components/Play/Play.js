@@ -6,15 +6,16 @@ import globalStyles from '../../styles/global.module.css';
 import { Game } from '../../classes/GameFunctions';
 import { getLayout } from '../../classes/PuzzleFunctions';
 import { useLocation } from 'react-router-dom';
-import Template from '../../extras/Template';
+
 
 const Play = ({ puzzles }) => {
     const dispatch = useDispatch();
-    let location = useLocation();
+    // let location = useLocation();
+    const packId = null;
+    // const packId = location.state.packId;
     const user = useSelector(state => state.entities.users[state.session.user_id]);
     const userName = user.username;
     const totalPuzzles = puzzles.length;
-    const packId = location.state.packId;
     const games = [];
 
     puzzles.forEach((puzzle) => {
@@ -32,16 +33,12 @@ const Play = ({ puzzles }) => {
 
     setTimeout(initializeBoard, 0);
 
-    const editFlashcard = useSelector(state => state.ui.editFlashcard)
-    const [editFlashcardId, setEditFlashcardId] = useState(null);
-
 
     return (
         <>
-            {editFlashcard ? <Template editFlashcardId={editFlashcardId} /> : ""}
             {puzzles.map((puzzle, i) => {
                 return (
-                    <Puzzle puzzle={puzzle} boardId={i} userName={userName} totalPuzzles={totalPuzzles} packId={packId} game={games[i]} setEditFlashcardId={setEditFlashcardId} key={`pack-${i + 1}`} />
+                    <Puzzle puzzle={puzzle} boardId={i} userName={userName} totalPuzzles={totalPuzzles} packId={packId} game={games[i]} key={`pack-${i + 1}`} />
                 )
             })}
         </>

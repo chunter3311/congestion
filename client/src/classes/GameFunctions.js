@@ -8,6 +8,9 @@ export class Car {
         this.length = 1;
         this.row = null;
         this.column = null;
+        this.moveOptions = []
+        // this.canMovePositive = null;
+        // this.canMoveNegative = null;
     }
 
     add(row, column) {
@@ -59,6 +62,7 @@ export class Game {
             }
             this.setCarEndPoints(car);
         });
+        // this.setMoveOptions()
         return;
     }
 
@@ -81,6 +85,24 @@ export class Game {
         return;
     }
 
+    // setMoveOptions() {
+    //     this.cars.forEach(car => {
+    //         if (car.orientation === 'v') {
+    //             if (car.end < 5 && this.layout[car.end + 1][car.column] === 0) car.moveOptions.push('D');
+    //             if (car.start > 0 && this.layout[car.start - 1][car.column] === 0) car.moveOptions.push('U');
+    //         }
+    //         else {
+    //             if (car.end < 5 && this.layout[car.row][car.end + 1] === 0) car.moveOptions.push('R');
+    //             if (car.start > 0 && this.layout[car.row][car.start - 1] === 0) car.moveOptions.push('L');
+    //         }
+
+    //     })
+    // }
+
+    // updateMoveOptions_VerticalPositive(column, oldStart, oldEnd, newStart, newEnd) {
+
+    // }
+
     positiveMove(car) {
         let unitsMoved = 0;
         if (car.orientation === 'v') {
@@ -90,8 +112,11 @@ export class Game {
                 this.layout[row - car.length][car.column] = 0;
             }
             if (!unitsMoved) return false;
+            const oldStart = car.start;
+            const oldEnd = car.end;
             car.start += unitsMoved;
             car.end += unitsMoved;
+            // this.updateMoveOptions_VerticalPositive(car.column, oldStart, oldEnd, car.start, car.end);
         }
         else if (car.orientation === 'h') {
             for (let column = car.end + 1; column <= 5 && this.layout[car.row][column] === 0; column++) {
@@ -108,6 +133,7 @@ export class Game {
                 this.isSolved = true;
             }
         }
+        // this.updateMoveOptions(car);
 
         return true;
     }
@@ -176,21 +202,25 @@ export class Game {
         let direction = null;
         let car = null;
         let carIndex = null;
+        const carIndexes = new Set();
+        this.cars.forEach((car, i) => {
+            carIndexes.add(i);
+        })
+        console.log('og carIndexes', carIndexes);
+        carIndexes.delete(this.previousCarIndex);
         do {
-            if (this.previousCarIndex === -1) {
-                carIndex = Math.floor(Math.random() * this.cars.length);
-            }
-            else {
-                do {
-                    carIndex = Math.floor(Math.random() * this.cars.length);
-                } while (carIndex === this.previousCarIndex)
-            }
+            carIndex = Math.floor(Math.random() * carIndexes.size);
+            console.log('carIndex', carIndex)
             car = this.cars[carIndex];
             direction = this.getDirection(car);
+            console.log('direction', direction)
+            if (direction === null) carIndexes.delete(carIndex);
         } while (direction === null)
+        console.log('updated carIndexes', carIndexes);
         this.currentCarIndex = carIndex;
         move.push(car);
         move.push(direction);
+        // console.log('move', move)
         return move;
     }
 
