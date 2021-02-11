@@ -16,7 +16,7 @@
     color: #dadd23;
 }
 
-.modal_wrapper p {
+.modal_wrapper p, .modal_wrapper div {
     font-size: 3.5vh;
     font-weight: 300;
     line-height: 3.5vh;

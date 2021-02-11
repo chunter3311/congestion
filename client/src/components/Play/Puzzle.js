@@ -5,12 +5,14 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { updateUserPuzzle } from '../../store/puzzles';
 import Car from './Car';
 import HelpModal from '../Modals/Help_Modal';
+import Solution_Done from '../Modals/Solution_Done';
 
 
 
 function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
     const dispatch = useDispatch();
     const [isSolved, setIsSolved] = useState(false);
+    const [isSolutionDone, setisSolutionDone] = useState(false);
     const [showHelp, setShowHelp] = useState(false);
     const [moveCount, setMoveCount] = useState(0);
     const upArrow = 'https://i.imgur.com/qVcnsPs.png';
@@ -215,56 +217,52 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
     //     setMoveCount(game.moves);
     // }
 
+    // const playSolution = () => {
+    //     // let UICount = 1;
+    //     // var start = new Date().getTime();
+    //     resetBoard();
+    //     for (let attempt = 1; attempt <= 5000; attempt++) {
+    //         for (let moveCount = 1; moveCount <= 500 && !game.isSolved; moveCount++) {
+    //             console.log('moveCount', moveCount)
+    //             const move = game.getMove();
+    //             const car = move[0];
+    //             const direction = move[1];
+    //             // console.log('car.id', car.id)
+    //             // console.log('direction', direction)
+    //             // console.log('moveCount', moveCount)
+    //             if (direction === 'U' || direction === 'L') game.negativeMove(car);
+    //             else game.positiveMove(car);
+    //             game.movesList.push([`${car.id}`, `${direction}`])
+    //             game.previousCarIndex = game.currentCarIndex;
+    //             game.moves++;
+    //             setMoveCount(game.moves);
+    //             if (game.solutionMovesList.length < game.moves && game.solutionMovesList.length > 0) break;
+    //         }
+    //         if (game.isSolved) {
+    //             setIsSolved(game.isSolved);
+    //             if (game.solutionMovesList.length === 0 || game.solutionMovesList.length > game.moves) {
+    //                 game.solutionMovesList = game.movesList.slice(0);
+    //             }
+    //         }
+    //         // if (UICount === 1000) {
+    //         //     UICount = 0;
+    //         //     console.log('attempt', attempt);
+    //         // }
+    //         // console.log(`finished attempt ${attempt}`);
+    //         // console.log(game.solutionMovesList);
+    //     }
+    //     // var elapsed = new Date().getTime() - start;
+    //     // console.log(`totally finished in ${elapsed}`);
+    // }
+
     const playSolution = () => {
-        console.log(game.cars);
-        let UICount = 1;
-        var start = new Date().getTime();
-        // for (let attempt = 1; attempt <= 5000; attempt++) {
-            resetBoard();
-            // console.log('1')
-            for (let moveCount = 1; moveCount <= 500 && !game.isSolved; moveCount++) {
-                console.log('moveCount', moveCount)
-                const move = game.getMove();
-                const car = move[0];
-                const direction = move[1];
-                console.log('car.id', car.id)
-                console.log('direction', direction)
-                console.log('moveCount', moveCount)
-                if (direction === 'U' || direction === 'L') {
-                    game.negativeMove(car);
-                }
-                else {
-                    game.positiveMove(car);
-                }
-                // console.log('5')
-                game.movesList.push([`${car.id}`, `${direction}`])
-                game.previousCarIndex = game.currentCarIndex;
-                game.moves++;
-                setMoveCount(game.moves);
-                
-                if (game.solutionMovesList.length < game.moves && game.solutionMovesList.length > 0) break;
-            }
-            if (game.isSolved) {
-                setIsSolved(game.isSolved);
-                if (game.solutionMovesList.length === 0 || game.solutionMovesList.length > game.moves) {
-                    game.solutionMovesList = game.movesList.slice(0);
-                }
-                // updateBlock(car);
-                // console.log('current', game.movesList.length)
-                // console.log('best', game.solutionMovesList.length)
-            }
-            if (UICount === 1000) {
-                UICount = 0;
-                // console.log('attempt', attempt);
-            }
-            // console.clear();
-            // console.log(`finished attempt ${attempt}`);
-            // console.log(game.solutionMovesList);
-        // }
-        var elapsed = new Date().getTime() - start;
-        console.log(`totally finished in ${elapsed}`);
+        resetBoard();
+        game.getSolution();
+        setisSolutionDone(true);
+        // if (game.solutionMovesList.length !== 0)
     }
 
+    
     return (
         <>
             <div onClick={exitHelp} id={`board-${boardId}`} className={`${styles.board_wrapper} ${styles.hide_board}`}>
@@ -307,7 +305,10 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                 </div>
                 <div className={styles.column_two}>
                     <div className={styles.board_container}>
-                        {game.isSolved ? <>
+                    {isSolutionDone ? <>
+                            <Solution_Done solution={game.solutionMovesList} isSolutionDone={isSolutionDone} setisSolutionDone={setisSolutionDone} />
+                        </> : ""}
+                        {/* {game.isSolved ? <>
                             <div className={modalStyles.modal_wrapper}>
                                 <h1>fantastic!</h1>
                                 <p>
@@ -318,7 +319,7 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                                     <button onClick={resetNext}>next puzzle</button>
                                 </div>
                             </div>
-                        </> : ""}
+                        </> : ""} */}
                         {showHelp ? <>
                             <HelpModal showHelp={showHelp} setShowHelp={setShowHelp} />
                         </> : ""}
@@ -333,7 +334,7 @@ function Puzzle({ puzzle, boardId, userName, totalPuzzles, packId, game }) {
                     <div className={`${styles.widget_row} ${styles.button_spacing}`}>
                         <div onClick={resetBoard} className={styles.reset_button}></div>
                         <div onClick={toggleHelp} className={styles.help_button}></div>
-                        {/* <div onClick={playSolution} className={styles.solution_button}></div> */}
+                        <div onClick={playSolution} className={styles.solution_button}></div>
                     </div>
                     <div className={`${styles.widget}`}>
                         <div onClick={nextPuzzle} className={styles.next_arrow}></div>

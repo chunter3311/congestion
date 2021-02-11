@@ -12,12 +12,12 @@ const HelpModal = ({ showHelp, setShowHelp }) => {
         <>
             <div className={styles.modal_wrapper}>
                 <h1>how to play</h1>
-                <p>
+                <div>
                     <p>all these pesky suvs are cramping your style!</p>
                     <p>navigate your sports car through all this congestion to the exit on the right</p>
                     <p>vertical cars move up and down</p>
                     <p>horizontal cars move left and right</p>
-                </p>
+                </div>
                 <div className={styles.buttons}>
                     <button onClick={toggleHelp}>got it</button>
                 </div>

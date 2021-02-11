@@ -1,4 +1,4 @@
-export class Car {
+class Car {
     constructor(row, column, id) {
         this.id = id;
         this.initialCoordinates = [[row, column]];
@@ -18,14 +18,15 @@ export class Car {
     }
 }
 
-export class Game {
+class Game {
     constructor(layout) {
         this.isSolved = false;
-        this.layout = layout;
         this.ids = new Set();
+        this.layout = layout;
         this.originalLayout = [[], [], [], [], [], []];
         this.cars = [];
         this.validMoves = {};
+        this.moveAnalysis = [];
         this.previousCarIndex = -1;
         this.currentCarIndex = -1;
         this.moves = 0;
@@ -82,24 +83,6 @@ export class Game {
         }
         return;
     }
-
-    // setMoveOptions() {
-    //     this.cars.forEach(car => {
-    //         if (car.orientation === 'v') {
-    //             if (car.end < 5 && this.layout[car.end + 1][car.column] === 0) car.moveOptions.push('D');
-    //             if (car.start > 0 && this.layout[car.start - 1][car.column] === 0) car.moveOptions.push('U');
-    //         }
-    //         else {
-    //             if (car.end < 5 && this.layout[car.row][car.end + 1] === 0) car.moveOptions.push('R');
-    //             if (car.start > 0 && this.layout[car.row][car.start - 1] === 0) car.moveOptions.push('L');
-    //         }
-
-    //     })
-    // }
-
-    // updateMoveOptions_VerticalPositive(column, oldStart, oldEnd, newStart, newEnd) {
-
-    // }
 
     positiveMove(car) {
         let unitsMoved = 0;
@@ -179,119 +162,71 @@ export class Game {
         this.isSolved = false;
     }
 
-    // this.validMoves = {
-    //     '0': {
-    //         '0': ['U'],
-    //         '1': ['L', 'R']
-    //     }
-    // }
-    // for (const move in this.validMoves) {
-    //     if (index == this.validMoves[index] && this.validMoves[index] > luckyInt) luckyInt = this.validMoves[index];
-    // }
-    // let carIndexes = [];
-    // this.cars.forEach(car, i => {
-    //     carIndexes.push(i);
-    // })
-    // let carIndexSet = new Set(carIndexes);
-    // if (this.previousCarIndex >= 0) carIndexSet.delete(this.previousCarIndex);
-
-    // getSolution(setMoveCount) {
-    //     var start = new Date().getTime();
-    //     for (let attempt = 1; attempt <= 500; attempt++) {
-    //         console.log();
-    //         console.log(`Beginning Attempt ${attempt}`);
-    //         console.log('-------------------------------');
-    //         for (let moveCount = 1; moveCount <= 30; moveCount++) {
-    //             // console.log(`Beginning Move ${moveCount} (of  attempt ${attempt})`);
-    //             // console.log(`(best solution so far: ${this.solutionMovesList.length})`)
-    //             // console.log('----------------------');
-    //             const move = this.getMove();
-    //             const car = move[0];
-    //             const direction = move[1];
-    //             console.log(`moving car ${car.id} in ${direction} direction`)
-    //             if (direction === 'U' || direction === 'L') this.negativeMove(car);
-    //             else this.positiveMove(car);
-    //             this.movesList.push([`${car.id}`, `${direction}`])
-    //             this.previousCarIndex = this.currentCarIndex;
-    //             this.moves++;
-    //             setMoveCount(this.moves);
-    //             if (this.solutionMovesList.length < this.moves && this.solutionMovesList.length > 0) {
-    //                 console.log(`current moves (${this.moves}) has exceeded the best solution (${this.solutionMovesList.length} moves)`)
-    //                 break;
-    //             }
-    //             else if (this.isSolved) {
-    //                 this.solutionMovesList = this.movesList.slice(0);
-    //                 console.log(`a better solution was found (${this.solutionMovesList.length} moves)`);
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     var elapsed = new Date().getTime() - start;
-    //     console.log()
-    //     console.log(`ALL DONE (${elapsed / 1000} seconds)`);
-    //     console.log('=============')
-    //     console.log(this.solutionMovesList);
-    // }
-
     getSolution() {
-        // var start = new Date().getTime();
-        // var elapsed = new Date().getTime() - start;
-        for (let attempt = 1; attempt <= 500; attempt++) {
+        let UICount = 1;
+        let firstMoveOnSolved = {};
+        for (let attempt = 1; attempt <= 1000000; attempt++) {
+            if (UICount === 100000) {
+                UICount = 0;
+                console.log(`${attempt / 1000000 * 100}% complete...`);
+            }
+            UICount++;
             this.reset();
-            for (let moveCount = 1; moveCount <= 30; moveCount++) {
+            let firstMove = '';
+            for (let moveCount = 1; moveCount <= 800; moveCount++) {
+                // console.log(`Beginning Move ${moveCount} (of  attempt ${attempt})`);
+                // console.log(`(best solution so far: ${this.solutionMovesList.length})`)
+                // console.log('----------------------');
                 const move = this.getMove();
                 const car = move[0];
                 const direction = move[1];
+                if (moveCount === 1) firstMove = `${car.id}${direction}`;
+                // console.log(`moving car ${car.id} in ${direction} direction`)
                 if (direction === 'U' || direction === 'L') this.negativeMove(car);
                 else this.positiveMove(car);
                 this.movesList.push([`${car.id}`, `${direction}`])
                 this.previousCarIndex = this.currentCarIndex;
                 this.moves++;
+                // this.setMoveOptions();
 
                 if (this.solutionMovesList.length === 0) {
                     if (this.isSolved) {
                         this.solutionMovesList = this.movesList.slice(0);
+                        console.log(`the first solution was found on attempt ${attempt}/3000000 (${this.solutionMovesList.length} moves)`);
+                        // firstMoveOnSolved.push([...firstMove]);
+                        if (firstMoveOnSolved[firstMove]) firstMoveOnSolved[firstMove]++;
+                        else firstMoveOnSolved[firstMove] = 1;
                     }
                 }
                 else {
                     if (this.moves >= this.solutionMovesList.length) break;
                     else if (this.isSolved) {
                         this.solutionMovesList = this.movesList.slice(0);
+                        console.log(`a better solution was found on attempt ${attempt}/3000000 (${this.solutionMovesList.length} moves)`);
+                        if (firstMoveOnSolved[firstMove]) firstMoveOnSolved[firstMove]++;
+                        else firstMoveOnSolved[firstMove] = 1;
                         break;
                     }
                 }
             }
         }
+        console.log()
+        console.log(`ALL DONE`);
+        console.log('=============')
+        if (this.solutionMovesList.length === 0) console.log('no solution was found :-(');
+        else {
+            console.log(`the best found solution was ${this.solutionMovesList.length} moves:`);
+            console.log(this.solutionMovesList);
+            console.log();
+            console.log('firstMoveOnSolved:');
+            console.log(firstMoveOnSolved);
+        }
     }
 
-    // getMove() {
-    //     const move = [];
-    //     let direction = null;
-    //     let car = null;
-    //     let carIndex = null;
-    //     const carIndexes = new Set();
-    //     this.cars.forEach((car, i) => {
-    //         carIndexes.add(i);
-    //     })
-    //     // console.log('og carIndexes', carIndexes);
-    //     carIndexes.delete(this.previousCarIndex);
-    //     do {
-    //         carIndex = Math.floor(Math.random() * carIndexes.size);
-    //         // console.log('carIndex', carIndex)
-    //         car = this.cars[carIndex];
-    //         direction = this.getDirection(car);
-    //         // console.log('direction', direction)
-    //         if (direction === null) carIndexes.delete(carIndex);
-    //     } while (direction === null)
-    //     // console.log('updated carIndexes', carIndexes);
-    //     this.currentCarIndex = carIndex;
-    //     move.push(car);
-    //     move.push(direction);
-    //     // console.log('move', move)
-    //     return move;
-    // }
-
     getMove() {
+        // this.setMoveOptions();
+        // if (this.moveAnalysis.length < this.moves) this.setMoveAnalysis();
+        // if (this.validMoves)
         const move = [];
         let direction = null;
         let car = null;
@@ -301,6 +236,8 @@ export class Game {
             car = this.cars[carIndex];
             direction = this.getDirection(car);
         } while (direction === null || carIndex === this.previousCarIndex)
+        // console.log('updated carIndexes', carIndexes);
+
         this.currentCarIndex = carIndex;
         move.push(car);
         move.push(direction);
@@ -339,18 +276,184 @@ export class Game {
         })
     }
 
+    // setMoveAnalysis() {
+
+    // }
 }
 
-// [0, 0, 0, 0, 0, 0],
-// [0, 0, 0, 0, 0, 0],
-// [0, 0, 0, 0, 0, 0],
-// [0, 0, 0, 0, 0, 0],
-// [0, 0, 0, 0, 0, 0],
-// [0, 0, 0, 0, 0, 0]
+// let moveAnalysis = {
 
-// [1, 1, 1, 2, 3, 4],
-// [5, 0, 0, 2, 3, 4],
-// [5, 0, 0, 6, 6, 4],
-// [5, 0, 0, 7, 7, 7],
-// [0, 0, 0, 8, 0, 0],
-// [0, 0, 0, 8, 9, 9]
+// }
+
+// const layout = [
+    // [0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0],
+    // [0, 0, 0, 0, 0, 0],
+// ]
+
+// const layout = [
+//     [1, 1, 2, 3, 0, 0],
+//     [5, 6, 2, 3, 4, 4],
+//     [5, 6, 2, 7, 7, 8],
+//     [9, 9, 0, 0, 0, 8],
+//     [10, 10, 0, 0, 0, 11],
+//     [12, 12, 0, 13, 13, 11],
+// ]
+
+// const layout = [
+//     [1, 0, 0, 0, 0, 0],
+//     [1, 2, 2, 3, 0, 0],
+//     [4, 4, 5, 3, 6, 7],
+//     [8, 8, 5, 9, 6, 7],
+//     [0, 10, 11, 9, 6, 12],
+//     [0, 10, 11, 13, 13, 12]
+// ]
+
+// const layout = [
+//     [0, 4, 5, 5, 6, 7],
+//     [0, 4, 0, 0, 6, 7],
+//     [0, 1, 1, 2, 0, 0],
+//     [3, 3, 0, 2, 0, 0],
+//     [8, 9, 10, 11, 11, 11],
+//     [8, 9, 10, 12, 12, 12]
+// ]
+
+// const layout = [
+//     [0, 1, 1, 1, 2, 0],
+//     [0, 3, 3, 3, 2, 4],
+//     [0, 5, 5, 6, 2, 4],
+//     [7, 8, 8, 6, 0, 4],
+//     [7, 0, 9, 10, 11, 11],
+//     [0, 0, 9, 10, 12, 12]
+// ]
+
+
+
+// const layout = [
+//     [1, 0, 2, 3, 3, 3],
+//     [1, 0, 2, 4, 0, 0],
+//     [1, 5, 5, 4, 6, 7],
+//     [8, 8, 8, 9, 6, 7],
+//     [0, 0, 0, 9, 6, 7],
+//     [10, 10, 0, 0, 0, 0]
+// ]
+
+// const layout = [
+//     [0, 0, 0, 1, 1, 1],
+//     [0, 0, 0, 2, 0, 0],
+//     [0, 3, 3, 2, 4, 5],
+//     [6, 7, 7, 7, 4, 5],
+//     [6, 0, 8, 9, 4, 5],
+//     [6, 0, 8, 9, 10, 10],
+// ]
+
+
+
+
+
+// the best found solution was 25 moves:
+// [
+//   [ '9', 'D' ], [ '10', 'R' ],
+//   [ '8', 'R' ], [ '1', 'D' ],
+//   [ '7', 'D' ], [ '6', 'D' ],
+//   [ '5', 'L' ], [ '2', 'D' ],
+//   [ '7', 'U' ], [ '3', 'L' ],
+//   [ '7', 'U' ], [ '4', 'U' ],
+//   [ '6', 'U' ], [ '8', 'R' ],
+//   [ '2', 'D' ], [ '5', 'R' ],
+//   [ '1', 'U' ], [ '10', 'L' ],
+//   [ '5', 'L' ], [ '2', 'D' ],
+//   [ '1', 'D' ], [ '8', 'L' ],
+//   [ '6', 'D' ], [ '7', 'D' ],
+//   [ '5', 'R' ]
+// ]
+
+// [
+//     [ '6', 'U' ], [ '9', 'D' ],
+//     [ '8', 'R' ], [ '10', 'R' ],
+//     [ '7', 'U' ], [ '1', 'D' ],
+//     [ '5', 'L' ], [ '2', 'D' ],
+//     [ '6', 'D' ], [ '3', 'L' ],
+//     [ '6', 'U' ], [ '4', 'U' ],
+//     [ '7', 'U' ], [ '8', 'R' ],
+//     [ '2', 'D' ], [ '5', 'R' ],
+//     [ '1', 'U' ], [ '10', 'L' ],
+//     [ '1', 'D' ], [ '5', 'L' ],
+//     [ '2', 'D' ], [ '8', 'L' ],
+//     [ '6', 'D' ], [ '7', 'D' ],
+//     [ '5', 'R' ]
+//   ]
+
+// the first solution was found on attempt 47/3000000 (61 moves)
+// a better solution was found on attempt 897/3000000 (57 moves)
+// a better solution was found on attempt 1709/3000000 (42 moves)
+// a better solution was found on attempt 4389/3000000 (41 moves)
+// a better solution was found on attempt 5235/3000000 (37 moves)
+// a better solution was found on attempt 6544/3000000 (36 moves)
+// a better solution was found on attempt 10735/3000000 (32 moves)
+// a better solution was found on attempt 79710/3000000 (28 moves)
+// a better solution was found on attempt 318313/3000000 (23 moves)
+
+// ALL DONE
+// =============
+// the best found solution was 23 moves:
+// [
+//   [ '9', 'D' ],  [ '8', 'R' ],
+//   [ '10', 'R' ], [ '1', 'D' ],
+//   [ '5', 'L' ],  [ '2', 'D' ],
+//   [ '7', 'U' ],  [ '3', 'L' ],
+//   [ '6', 'U' ],  [ '7', 'U' ],
+//   [ '8', 'R' ],  [ '4', 'U' ],
+//   [ '2', 'D' ],  [ '5', 'R' ],
+//   [ '1', 'U' ],  [ '10', 'L' ],
+//   [ '1', 'D' ],  [ '2', 'D' ],
+//   [ '8', 'L' ],  [ '6', 'D' ],
+//   [ '7', 'D' ],  [ '1', 'U' ],
+//   [ '5', 'R' ]
+// ]
+
+// the first solution was found on attempt 48/3000000 (72 moves)
+// a better solution was found on attempt 218/3000000 (55 moves)
+// a better solution was found on attempt 225/3000000 (50 moves)
+// a better solution was found on attempt 2352/3000000 (44 moves)
+// a better solution was found on attempt 7095/3000000 (37 moves)
+// a better solution was found on attempt 10710/3000000 (30 moves)
+// a better solution was found on attempt 82808/3000000 (28 moves)
+// a better solution was found on attempt 231422/3000000 (26 moves)
+// a better solution was found on attempt 595490/3000000 (24 moves)
+// a better solution was found on attempt 3375180/3000000 (23 moves)
+// a better solution was found on attempt 5873981/3000000 (22 moves)
+
+// ALL DONE
+// =============
+// the best found solution was 22 moves:
+// [
+//   [ '9', 'D' ],  [ '8', 'R' ],
+//   [ '10', 'R' ], [ '1', 'D' ],
+//   [ '5', 'L' ],  [ '2', 'D' ],
+//   [ '6', 'D' ],  [ '3', 'L' ],
+//   [ '4', 'U' ],  [ '7', 'U' ],
+//   [ '6', 'U' ],  [ '8', 'R' ],
+//   [ '2', 'D' ],  [ '5', 'R' ],
+//   [ '1', 'U' ],  [ '10', 'L' ],
+//   [ '2', 'D' ],  [ '8', 'L' ],
+//   [ '5', 'L' ],  [ '7', 'D' ],
+//   [ '6', 'D' ],  [ '5', 'R' ]
+// ]
+
+// [
+//     [ '6', 'D' ],  [ '9', 'D' ],
+//     [ '10', 'R' ], [ '8', 'R' ],
+//     [ '1', 'D' ],  [ '5', 'L' ],
+//     [ '2', 'D' ],  [ '3', 'L' ],
+//     [ '4', 'U' ],  [ '6', 'U' ],
+//     [ '7', 'U' ],  [ '8', 'R' ],
+//     [ '2', 'D' ],  [ '5', 'R' ],
+//     [ '1', 'U' ],  [ '10', 'L' ],
+//     [ '2', 'D' ],  [ '8', 'L' ],
+//     [ '1', 'D' ],  [ '6', 'D' ],
+//     [ '7', 'D' ],  [ '5', 'R' ]
+//   ]
