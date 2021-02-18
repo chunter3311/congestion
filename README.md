@@ -1,5 +1,5 @@
 # Congestion
-*By Ben Perlmutter - [Visit Congestion](https://congestion-puzzle.herokuapp.com/)*
+*By Cole Hunter - [Visit Congestion](https://congestion-puzzle.herokuapp.com/)*
 
 **Table of Contents**
 * [Congestion at a Glance](#congestion-at-a-glance)
