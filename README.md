@@ -11,5 +11,7 @@
 ## Congestion at a Glance
 Congestion is a fullstack app based on the Windows puzzle game Blocked In. Users can create their own puzzles and save them to the database. Puzzle layouts are read from the database and rendered with React components. The state of each puzzle game is managed by classes.
 
+https://gyazo.com/f56584f3af829c8485ef4034ade96de3
+
 ##### Congestion at a glance
 ![Congestion at a glance](https://gyazo.com/f56584f3af829c8485ef4034ade96de3)
