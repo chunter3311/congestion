@@ -26,14 +26,14 @@ Congestion is very frontend heavy application. Below are the frontend technologi
 
 ### Frontend Technologies Used:
 #### React
-At its core, Congestion is a React application. 
+At its core, Congestion is a React application. It utilizes React components for puzzle pieces.
 
 #### Redux
 [Redux](https://redux.js.org/) and the [react-redux](https://react-redux.js.org/) library were used to manage application state and make fetch requests to the server for data. 
 
 All puzzle information is fetched on page load and kept in the Redux store. While this expensive operation lengthens the initial load time, it also allows for a snappy experience after that load.
 
-Redux also allows for a lot of extendibility if new features are to be implemented (additional feature wish-list discussed in [conclusion](#conclusion-and-next-steps)). 
+Redux also allows for a lot of extendibility if new features are to be implemented.
 
 #### Javascript Classes
 Congestion manages the state of a puzzle through use of two classes, Game and Car.
@@ -470,7 +470,7 @@ Congestion uses an Express server with PostgreSQL as the database. Compared to t
 [Express](https://expressjs.com/) was the natural choice for Congestion's server-side framework. The minimalism of Express lent itself to the very light-weight responsibilities of Congestion's server. The server is just a couple of routes and a connection to the database, with a few utilities to facilitate this. 
 
 #### PostgreSQL
-[PostgreSQL](https://www.mongodb.com/) was perfect for this project because ...  
+Details coming soon.
 
 ## Conclusion and Next Steps
-Coming soon.
+Details coming soon.
