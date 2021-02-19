@@ -19,10 +19,7 @@ Congestion is a fullstack app based on the Windows puzzle game Blocked In. Users
 
 ## Application Architecture
 The majority of the application logic occurs within front end's [Redux](https://redux.js.org/) store. Congestion uses plain CSS for styling components. 
-
 The backend serves the frontend, responds to frontend requests, and fetches data from the PostgreSQL database.
-
-![Congestion application architecture](/readme-resources/congestion-demo-3.jpg)
 
 ## Frontend Overview
 Congestion is very frontend heavy application. Below are the frontend technologies that make this application possible. 
@@ -465,14 +462,6 @@ function Builder() {
 }
 ```
 
-##### Puzzle gameplay
-```jsx
-```
-
-##### Puzzle builder
-```jsx
-```
-
 ## Backend Overview
 Congestion uses an Express server with PostgreSQL as the database. Compared to the frontend, the backend of Congestion is fairly simple, with the server sending the front end to the client, receiving requests, and sending data to the frontend. Below are the backend technologies used with some notes regarding their implementation. 
 
@@ -484,6 +473,4 @@ Congestion uses an Express server with PostgreSQL as the database. Compared to t
 [PostgreSQL](https://www.mongodb.com/) was perfect for this project because ...  
 
 ## Conclusion and Next Steps
-Conclusion...
-
-**Next Steps:** Next steps...
+Coming soon.
