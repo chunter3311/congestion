@@ -26,7 +26,7 @@ Congestion is very frontend heavy application. Below are the frontend technologi
 
 ### Frontend Technologies Used:
 #### React
-At its core, Congestion is a React application. It utilizes React components for puzzle pieces.
+At its core, Congestion is a React application. React components were a natural choice for rendering each puzzle piece, as they allowed changes to their position without a need for reloading the page.
 
 #### Redux
 [Redux](https://redux.js.org/) and the [react-redux](https://react-redux.js.org/) library were used to manage application state and make fetch requests to the server for data. 
@@ -35,7 +35,7 @@ All puzzle information is fetched on page load and kept in the Redux store. Whil
 
 Redux also allows for a lot of extendibility if new features are to be implemented.
 
-#### Javascript Classes
+#### JavaScript Classes
 Congestion manages the state of a puzzle through use of two classes, Game and Car.
 
 ```jsx
