@@ -470,7 +470,11 @@ Congestion uses an Express server with PostgreSQL as the database. Compared to t
 [Express](https://expressjs.com/) was the natural choice for Congestion's server-side framework. The minimalism of Express lent itself to the very light-weight responsibilities of Congestion's server. The server is just a couple of routes and a connection to the database, with a few utilities to facilitate this. 
 
 #### PostgreSQL
-Details coming soon.
+My system for database management.
 
 ## Conclusion and Next Steps
-Details coming soon.
+Developing Congestion challenged me to use the foundational skills I've aquired to create something that was both original and complicated. In particular, the gameplay required an inventive coordination of React, classes and CSS.
+
+Moving forward, I have plans to add the following features:
+- User accounts that have their own puzzle packs, which can optionally be shared with others
+- Full CRUD functionality on puzzles
